@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://cf4pd876vyqfc"]
+[gd_scene load_steps=16 format=3 uid="uid://cf4pd876vyqfc"]
 
 [ext_resource type="PackedScene" uid="uid://c35n6g5dqft6e" path="res://scenes/grid.tscn" id="1_oinuk"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_qbhd8"]
 [ext_resource type="PackedScene" uid="uid://b0rv4c1oc7yrc" path="res://scenes/card.tscn" id="2_ehw0x"]
 [ext_resource type="FontFile" uid="uid://c48agdebe6v1w" path="res://fonts/ComicCodeLigaturesNFFixed-Regular.ttf" id="2_xktb0"]
+[ext_resource type="Script" path="res://scenes/menu.gd" id="4_c2n2o"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gv1x0"]
 bg_color = Color(0.203922, 0.219608, 0.25098, 1)
@@ -57,7 +58,7 @@ corner_radius_top_right = 5
 bg_color = Color(1, 0.980392, 0.878431, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0isn0"]
-bg_color = Color(1, 0.980392, 0.878431, 1)
+bg_color = Color(0.956863, 0.913725, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_88470"]
 bg_color = Color(0, 0, 0, 1)
@@ -72,7 +73,6 @@ grid = NodePath("LeftNode/GridNode/Grid")
 
 [node name="LeftNode" type="Control" parent="."]
 anchors_preset = 0
-offset_right = 830.0
 offset_right = 830.0
 offset_bottom = 720.0
 
@@ -124,6 +124,7 @@ theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_gcun3")
 theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_iyq20")
 current_tab = 0
 tab_focus_mode = 0
+script = ExtResource("4_c2n2o")
 
 [node name="SHOP" type="Control" parent="LeftNode/Menu"]
 layout_mode = 2
@@ -161,7 +162,8 @@ grow_vertical = 2
 scale = Vector2(0.5, 0.5)
 metadata/_edit_use_anchors_ = true
 
-[node name="Panel" type="Panel" parent="LeftNode/Menu/SHOP"]
+[node name="HideBorderPanelShop" type="Panel" parent="LeftNode/Menu/SHOP"]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 20.0
 offset_top = -10.0
@@ -174,7 +176,8 @@ visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="Panel" type="Panel" parent="LeftNode/Menu/ALCHEMY"]
+[node name="HideBorderPanelAlchemy" type="Panel" parent="LeftNode/Menu/ALCHEMY"]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 165.0
 offset_top = -10.0
