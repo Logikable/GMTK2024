@@ -9,23 +9,24 @@ bg_color = Color(0.203922, 0.219608, 0.25098, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_88470"]
 bg_color = Color(0, 0, 0, 1)
 
-[node name="GameContainer" type="Control"]
+[node name="GameNode" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1280.0
 offset_bottom = 720.0
 
-[node name="LeftContainer" type="Control" parent="."]
+[node name="LeftNode" type="Control" parent="."]
 anchors_preset = 0
 offset_right = 800.0
 offset_bottom = 720.0
 
-[node name="GridContainer" type="Control" parent="LeftContainer"]
+[node name="GridNode" type="Control" parent="LeftNode"]
+layout_mode = 2
 anchors_preset = 0
 offset_right = 830.0
 offset_bottom = 480.0
 
-[node name="Grid" parent="LeftContainer/GridContainer" instance=ExtResource("1_oinuk")]
+[node name="Grid" parent="LeftNode/GridNode" instance=ExtResource("1_oinuk")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -39,7 +40,7 @@ offset_bottom = 100.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="LeftContainer/GridContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="LeftNode/GridNode"]
 z_index = -1
 layout_mode = 1
 anchors_preset = 15
@@ -49,40 +50,106 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gv1x0")
 
-[node name="Menu" type="TabContainer" parent="LeftContainer"]
-layout_mode = 0
+[node name="Menu" type="TabContainer" parent="LeftNode"]
+layout_mode = 2
 offset_top = 440.0
 offset_right = 830.0
 offset_bottom = 720.0
 current_tab = 0
 
-[node name="Shop" type="Control" parent="LeftContainer/Menu"]
+[node name="Shop" type="Control" parent="LeftNode/Menu"]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="Cards" type="HBoxContainer" parent="LeftContainer/Menu/Shop"]
+[node name="Cards" type="HBoxContainer" parent="LeftNode/Menu/Shop"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 17
 
-[node name="Card" parent="LeftContainer/Menu/Shop/Cards" instance=ExtResource("2_ehw0x")]
+[node name="DummyNode" type="Control" parent="LeftNode/Menu/Shop/Cards"]
 layout_mode = 2
 
-[node name="Alchemy" type="Control" parent="LeftContainer/Menu"]
+[node name="CardNode" type="Control" parent="LeftNode/Menu/Shop/Cards"]
+custom_minimum_size = Vector2(145, 203)
+layout_mode = 2
+
+[node name="Card" parent="LeftNode/Menu/Shop/Cards/CardNode" instance=ExtResource("2_ehw0x")]
+layout_mode = 2
+offset_top = 25.0
+offset_right = 289.0
+offset_bottom = 430.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+
+[node name="CardNode2" type="Control" parent="LeftNode/Menu/Shop/Cards"]
+custom_minimum_size = Vector2(145, 203)
+layout_mode = 2
+
+[node name="Card" parent="LeftNode/Menu/Shop/Cards/CardNode2" instance=ExtResource("2_ehw0x")]
+layout_mode = 2
+offset_top = 25.0
+offset_right = 289.0
+offset_bottom = 430.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+
+[node name="CardNode3" type="Control" parent="LeftNode/Menu/Shop/Cards"]
+custom_minimum_size = Vector2(145, 203)
+layout_mode = 2
+
+[node name="Card" parent="LeftNode/Menu/Shop/Cards/CardNode3" instance=ExtResource("2_ehw0x")]
+layout_mode = 2
+offset_top = 25.0
+offset_right = 289.0
+offset_bottom = 430.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+
+[node name="CardNode4" type="Control" parent="LeftNode/Menu/Shop/Cards"]
+custom_minimum_size = Vector2(145, 203)
+layout_mode = 2
+
+[node name="Card" parent="LeftNode/Menu/Shop/Cards/CardNode4" instance=ExtResource("2_ehw0x")]
+layout_mode = 2
+offset_top = 25.0
+offset_right = 289.0
+offset_bottom = 430.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+
+[node name="CardNode5" type="Control" parent="LeftNode/Menu/Shop/Cards"]
+custom_minimum_size = Vector2(145, 203)
+layout_mode = 2
+
+[node name="Card" parent="LeftNode/Menu/Shop/Cards/CardNode5" instance=ExtResource("2_ehw0x")]
+layout_mode = 2
+offset_top = 25.0
+offset_right = 289.0
+offset_bottom = 430.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+
+[node name="Alchemy" type="Control" parent="LeftNode/Menu"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="RightContainer" type="Control" parent="."]
+[node name="RightNode" type="Control" parent="."]
 anchors_preset = 0
 offset_left = 830.0
 offset_right = 1280.0
 offset_bottom = 720.0
 
-[node name="PanelContainer" type="PanelContainer" parent="RightContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="RightNode"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
