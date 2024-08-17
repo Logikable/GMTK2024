@@ -13,14 +13,14 @@ dest_files=["res://.godot/imported/ComicCodeLigaturesNFFixed-Regular.ttf-f6e3df1
 [params]
 
 Rendering=null
-antialiasing=2
+antialiasing=1
 generate_mipmaps=false
 disable_embedded_bitmaps=false
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48
 allow_system_fallback=false
-force_autohinter=true
+force_autohinter=false
 hinting=2
 subpixel_positioning=0
 oversampling=0.0

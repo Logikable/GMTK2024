@@ -84,15 +84,15 @@ size_flags_vertical = 4
 custom_minimum_size = Vector2(300, 500)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.357934
-anchor_top = 0.103333
-anchor_right = 0.550799
-anchor_bottom = 0.803333
-offset_right = 235.2
-offset_bottom = 315.0
+anchor_top = 0.06
+anchor_right = 0.241082
+anchor_bottom = 0.935
+offset_right = 196.0
+offset_bottom = 262.5
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.4, 0.4)
+scale = Vector2(0.5, 0.5)
+metadata/_edit_use_anchors_ = true
 
 [node name="Alchemy" type="Control" parent="LeftNode/Menu"]
 visible = false
