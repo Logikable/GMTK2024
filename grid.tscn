@@ -1,0 +1,65 @@
+[gd_scene load_steps=2 format=3 uid="uid://c35n6g5dqft6e"]
+
+[ext_resource type="PackedScene" uid="uid://bgpt5isktlgpc" path="res://tile.tscn" id="1_r0jgx"]
+
+[node name="GridNode" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 200.0
+offset_bottom = 200.0
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 3
+
+[node name="Tile" parent="GridContainer" instance=ExtResource("1_r0jgx")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Tile2" parent="GridContainer" instance=ExtResource("1_r0jgx")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Tile3" parent="GridContainer" instance=ExtResource("1_r0jgx")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Tile4" parent="GridContainer" instance=ExtResource("1_r0jgx")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Tile5" parent="GridContainer" instance=ExtResource("1_r0jgx")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Tile6" parent="GridContainer" instance=ExtResource("1_r0jgx")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Tile7" parent="GridContainer" instance=ExtResource("1_r0jgx")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Tile8" parent="GridContainer" instance=ExtResource("1_r0jgx")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Tile9" parent="GridContainer" instance=ExtResource("1_r0jgx")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
