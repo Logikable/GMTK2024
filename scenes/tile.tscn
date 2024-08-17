@@ -2,17 +2,17 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oqvsc"]
 bg_color = Color(1, 0.996078, 0.984314, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+corner_radius_top_left = 75
+corner_radius_top_right = 75
+corner_radius_bottom_right = 75
+corner_radius_bottom_left = 75
 
 [node name="Tile" type="PanelContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -1250.0
-offset_bottom = -690.0
+offset_right = -780.0
+offset_bottom = -220.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_oqvsc")

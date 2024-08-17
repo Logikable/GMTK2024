@@ -15,51 +15,159 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/h_separation = 8
-theme_override_constants/v_separation = 8
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
 columns = 3
 
-[node name="Tile" parent="GridContainer" instance=ExtResource("1_r0jgx")]
+[node name="TileNode" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(66, 66)
 layout_mode = 2
+
+[node name="Tile" parent="GridContainer/TileNode" instance=ExtResource("1_r0jgx")]
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 504.0
+offset_bottom = 504.0
+scale = Vector2(0.116, 0.116)
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Tile2" parent="GridContainer" instance=ExtResource("1_r0jgx")]
+[node name="TileNode2" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(66, 66)
 layout_mode = 2
+
+[node name="Tile" parent="GridContainer/TileNode2" instance=ExtResource("1_r0jgx")]
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 504.0
+offset_bottom = 504.0
+scale = Vector2(0.116, 0.116)
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Tile3" parent="GridContainer" instance=ExtResource("1_r0jgx")]
+[node name="TileNode3" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(66, 66)
 layout_mode = 2
+
+[node name="Tile" parent="GridContainer/TileNode3" instance=ExtResource("1_r0jgx")]
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 504.0
+offset_bottom = 504.0
+scale = Vector2(0.116, 0.116)
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Tile4" parent="GridContainer" instance=ExtResource("1_r0jgx")]
+[node name="TileNode4" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(66, 66)
 layout_mode = 2
+
+[node name="Tile" parent="GridContainer/TileNode4" instance=ExtResource("1_r0jgx")]
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 504.0
+offset_bottom = 504.0
+scale = Vector2(0.116, 0.116)
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Tile5" parent="GridContainer" instance=ExtResource("1_r0jgx")]
+[node name="TileNode5" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(66, 66)
 layout_mode = 2
+
+[node name="Tile" parent="GridContainer/TileNode5" instance=ExtResource("1_r0jgx")]
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 504.0
+offset_bottom = 504.0
+scale = Vector2(0.116, 0.116)
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Tile6" parent="GridContainer" instance=ExtResource("1_r0jgx")]
+[node name="TileNode6" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(66, 66)
 layout_mode = 2
+
+[node name="Tile" parent="GridContainer/TileNode6" instance=ExtResource("1_r0jgx")]
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 504.0
+offset_bottom = 504.0
+scale = Vector2(0.116, 0.116)
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Tile7" parent="GridContainer" instance=ExtResource("1_r0jgx")]
+[node name="TileNode7" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(66, 66)
 layout_mode = 2
+
+[node name="Tile" parent="GridContainer/TileNode7" instance=ExtResource("1_r0jgx")]
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 504.0
+offset_bottom = 504.0
+scale = Vector2(0.116, 0.116)
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Tile8" parent="GridContainer" instance=ExtResource("1_r0jgx")]
+[node name="TileNode8" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(66, 66)
 layout_mode = 2
+
+[node name="Tile" parent="GridContainer/TileNode8" instance=ExtResource("1_r0jgx")]
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 504.0
+offset_bottom = 504.0
+scale = Vector2(0.116, 0.116)
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Tile9" parent="GridContainer" instance=ExtResource("1_r0jgx")]
+[node name="TileNode9" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(66, 66)
 layout_mode = 2
+
+[node name="Tile" parent="GridContainer/TileNode9" instance=ExtResource("1_r0jgx")]
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 504.0
+offset_bottom = 504.0
+scale = Vector2(0.116, 0.116)
 size_flags_horizontal = 3
 size_flags_vertical = 3
