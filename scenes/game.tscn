@@ -107,6 +107,24 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gv1x0")
 
+[node name="OptionButton" type="OptionButton" parent="LeftNode/GridNode"]
+layout_mode = 0
+offset_left = 113.0
+offset_top = 78.0
+offset_right = 145.0
+offset_bottom = 98.0
+allow_reselect = true
+item_count = 5
+popup/item_0/text = "3"
+popup/item_1/text = "5"
+popup/item_1/id = 1
+popup/item_2/text = "7"
+popup/item_2/id = 2
+popup/item_3/text = "9"
+popup/item_3/id = 3
+popup/item_4/text = "11"
+popup/item_4/id = 4
+
 [node name="Menu" type="TabContainer" parent="LeftNode"]
 layout_mode = 2
 offset_top = 386.0
@@ -257,3 +275,5 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_88470")
+
+[connection signal="item_selected" from="LeftNode/GridNode/OptionButton" to="LeftNode/GridNode/Grid" method="_on_option_button_item_selected"]

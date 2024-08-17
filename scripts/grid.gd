@@ -36,10 +36,15 @@ func set_grid_size(new_grid_size : int) -> void:
   var cloned_tile_parent = grid_container.get_child(0).duplicate()
   for tile_parent in grid_container.get_children():
     # Godot's version of deleting a node.
+    grid_container.remove_child(tile_parent)
     tile_parent.queue_free()
   for i in grid_size * grid_size:
     grid_container.add_child(cloned_tile_parent.duplicate())
+  grid_container.remove_child(cloned_tile_parent)
   cloned_tile_parent.queue_free()
+
+  # Update column count.
+  grid_container.columns = grid_size
 
   # The updates below need to be in this order. It goes from innermost to
   # outermost.
@@ -47,19 +52,23 @@ func set_grid_size(new_grid_size : int) -> void:
   # Update the scale of every Tile and TileShape.
   var pixels_per_tile = grid_pixels[grid_size] / grid_size
   for tile_parent in grid_container.get_children():
-    tile_parent.custom_minimum_size = Vector2(pixels_per_tile, pixels_per_tile)
     tile_parent.get_child(0).update_scale(pixels_per_tile)
+    tile_parent.custom_minimum_size = Vector2(pixels_per_tile, pixels_per_tile)
     
-  # Update the GridContainer.
-  grid_container.columns = grid_size
+  # Update sizes first.
   grid_container.size = Vector2(grid_pixels[grid_size], grid_pixels[grid_size])
-  print(grid_container.size)
-  
-  # Update myself.
   self.size = Vector2(grid_pixels[grid_size], grid_pixels[grid_size])
+  
+  # Update position second.
+  grid_container.position = Vector2(0, 0)
   self.center_self()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
   pass
+
+
+# TODO: delete. Just for test purposes.
+func _on_option_button_item_selected(index: int) -> void:
+  self.set_grid_size(2 * index + 3)
