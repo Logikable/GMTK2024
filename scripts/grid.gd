@@ -1,6 +1,7 @@
 extends Control
 
 @export var grid_container : Node
+@export var Tile : PackedScene
 # grid_size is the number of tiles along one edge of the grid.
 var grid_size = 1
 var grid_pixels = {
@@ -31,17 +32,19 @@ func set_grid_size(new_grid_size : int) -> void:
   assert(3 <= new_grid_size and new_grid_size <= 11)
   grid_size = new_grid_size
 
+  # Programmatically create a TileParent.
+  var new_tile_parent = Control.new()
+  var new_tile = Tile.instantiate()
+  new_tile_parent.add_child(new_tile)
+
   # Recompute the number of tile instances.
-  # This node will be duplicated to create the new nodes.
-  var cloned_tile_parent = grid_container.get_child(0).duplicate()
   for tile_parent in grid_container.get_children():
     # Godot's version of deleting a node.
     grid_container.remove_child(tile_parent)
     tile_parent.queue_free()
   for i in grid_size * grid_size:
-    grid_container.add_child(cloned_tile_parent.duplicate())
-  grid_container.remove_child(cloned_tile_parent)
-  cloned_tile_parent.queue_free()
+    grid_container.add_child(new_tile_parent.duplicate())
+  new_tile_parent.queue_free()
 
   # Update column count.
   grid_container.columns = grid_size

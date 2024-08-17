@@ -10,6 +10,7 @@ offset_right = 200.0
 offset_bottom = 200.0
 script = ExtResource("1_b1efl")
 grid_container = NodePath("GridContainer")
+Tile = ExtResource("1_r0jgx")
 
 [node name="GridContainer" type="GridContainer" parent="."]
 layout_mode = 1
