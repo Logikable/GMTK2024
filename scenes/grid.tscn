@@ -1,12 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://c35n6g5dqft6e"]
+[gd_scene load_steps=3 format=3 uid="uid://c35n6g5dqft6e"]
 
+[ext_resource type="Script" path="res://scripts/grid.gd" id="1_b1efl"]
 [ext_resource type="PackedScene" uid="uid://bgpt5isktlgpc" path="res://scenes/tile.tscn" id="1_r0jgx"]
 
-[node name="GridNode" type="Control"]
+[node name="GridNode" type="Control" node_paths=PackedStringArray("grid_container")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 200.0
 offset_bottom = 200.0
+script = ExtResource("1_b1efl")
+grid_container = NodePath("GridContainer")
 
 [node name="GridContainer" type="GridContainer" parent="."]
 layout_mode = 1
@@ -24,142 +27,6 @@ custom_minimum_size = Vector2(66, 66)
 layout_mode = 2
 
 [node name="Tile" parent="GridContainer/TileNode" instance=ExtResource("1_r0jgx")]
-layout_mode = 2
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 504.0
-offset_bottom = 504.0
-scale = Vector2(0.116, 0.116)
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="TileNode2" type="Control" parent="GridContainer"]
-custom_minimum_size = Vector2(66, 66)
-layout_mode = 2
-
-[node name="Tile" parent="GridContainer/TileNode2" instance=ExtResource("1_r0jgx")]
-layout_mode = 2
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 504.0
-offset_bottom = 504.0
-scale = Vector2(0.116, 0.116)
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="TileNode3" type="Control" parent="GridContainer"]
-custom_minimum_size = Vector2(66, 66)
-layout_mode = 2
-
-[node name="Tile" parent="GridContainer/TileNode3" instance=ExtResource("1_r0jgx")]
-layout_mode = 2
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 504.0
-offset_bottom = 504.0
-scale = Vector2(0.116, 0.116)
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="TileNode4" type="Control" parent="GridContainer"]
-custom_minimum_size = Vector2(66, 66)
-layout_mode = 2
-
-[node name="Tile" parent="GridContainer/TileNode4" instance=ExtResource("1_r0jgx")]
-layout_mode = 2
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 504.0
-offset_bottom = 504.0
-scale = Vector2(0.116, 0.116)
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="TileNode5" type="Control" parent="GridContainer"]
-custom_minimum_size = Vector2(66, 66)
-layout_mode = 2
-
-[node name="Tile" parent="GridContainer/TileNode5" instance=ExtResource("1_r0jgx")]
-layout_mode = 2
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 504.0
-offset_bottom = 504.0
-scale = Vector2(0.116, 0.116)
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="TileNode6" type="Control" parent="GridContainer"]
-custom_minimum_size = Vector2(66, 66)
-layout_mode = 2
-
-[node name="Tile" parent="GridContainer/TileNode6" instance=ExtResource("1_r0jgx")]
-layout_mode = 2
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 504.0
-offset_bottom = 504.0
-scale = Vector2(0.116, 0.116)
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="TileNode7" type="Control" parent="GridContainer"]
-custom_minimum_size = Vector2(66, 66)
-layout_mode = 2
-
-[node name="Tile" parent="GridContainer/TileNode7" instance=ExtResource("1_r0jgx")]
-layout_mode = 2
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 504.0
-offset_bottom = 504.0
-scale = Vector2(0.116, 0.116)
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="TileNode8" type="Control" parent="GridContainer"]
-custom_minimum_size = Vector2(66, 66)
-layout_mode = 2
-
-[node name="Tile" parent="GridContainer/TileNode8" instance=ExtResource("1_r0jgx")]
-layout_mode = 2
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 504.0
-offset_bottom = 504.0
-scale = Vector2(0.116, 0.116)
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="TileNode9" type="Control" parent="GridContainer"]
-custom_minimum_size = Vector2(66, 66)
-layout_mode = 2
-
-[node name="Tile" parent="GridContainer/TileNode9" instance=ExtResource("1_r0jgx")]
 layout_mode = 2
 anchors_preset = 0
 anchor_right = 0.0
