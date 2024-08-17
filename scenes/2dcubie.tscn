@@ -3,10 +3,10 @@
 [ext_resource type="Script" path="res://scripts/2dcubie.gd" id="1_t058s"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_atcyl"]
-corner_radius_top_left = 75
-corner_radius_top_right = 75
-corner_radius_bottom_right = 75
-corner_radius_bottom_left = 75
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
 
 [node name="2DCubie" type="Panel"]
 offset_right = 500.0
