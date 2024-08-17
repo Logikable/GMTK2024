@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpklnuogag7tt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_atcyl"]
+bg_color = Color(0.792157, 0.792157, 0.792157, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="2DCubie" type="Panel"]
+offset_right = 30.0
+offset_bottom = 30.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_atcyl")
