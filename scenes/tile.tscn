@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://bgpt5isktlgpc"]
+[gd_scene load_steps=3 format=3 uid="uid://bgpt5isktlgpc"]
+
+[ext_resource type="Script" path="res://scripts/tile.gd" id="1_ah3mr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oqvsc"]
 bg_color = Color(1, 0.996078, 0.984314, 1)
@@ -7,12 +9,24 @@ corner_radius_top_right = 75
 corner_radius_bottom_right = 75
 corner_radius_bottom_left = 75
 
-[node name="Tile" type="PanelContainer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -780.0
-offset_bottom = -220.0
+[node name="Tile" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 500.0
+offset_bottom = 500.0
+script = ExtResource("1_ah3mr")
+
+[node name="TileShape" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -220.0
+offset_right = 220.0
+offset_bottom = 220.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_oqvsc")
