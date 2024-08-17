@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://bjia3j3tr5qq6"]
+
+[ext_resource type="FontFile" uid="uid://c48agdebe6v1w" path="res://fonts/ComicCodeLigaturesNFFixed-Regular.ttf" id="1_bj7ds"]
+
+[resource]
+font = ExtResource("1_bj7ds")
+font_color = Color(1, 0.8, 0.290196, 1)
