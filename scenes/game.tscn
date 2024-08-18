@@ -337,6 +337,7 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_88470")
 
 [node name="Label" type="Label" parent="RightNode"]
+layout_mode = 0
 offset_left = 102.0
 offset_top = 572.0
 offset_right = 348.0
