@@ -1,9 +1,8 @@
-[gd_scene load_steps=31 format=3 uid="uid://dpoq76pjfiw80"]
+[gd_scene load_steps=28 format=3 uid="uid://dpoq76pjfiw80"]
 
 [ext_resource type="PackedScene" uid="uid://c35n6g5dqft6e" path="res://scenes/grid.tscn" id="1_oinuk"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_qbhd8"]
 [ext_resource type="PackedScene" uid="uid://b4hbrx3a00yd5" path="res://scenes/fps_label.tscn" id="2_57hkx"]
-[ext_resource type="PackedScene" uid="uid://b0rv4c1oc7yrc" path="res://scenes/card.tscn" id="2_ehw0x"]
 [ext_resource type="FontFile" uid="uid://c48agdebe6v1w" path="res://fonts/ComicCodeLigaturesNFFixed-Regular.ttf" id="2_xktb0"]
 [ext_resource type="Script" path="res://scripts/menu.gd" id="4_c2n2o"]
 [ext_resource type="Script" path="res://scripts/cps_label.gd" id="5_x3i7v"]
@@ -177,7 +176,7 @@ vertical_alignment = 1
 script = ExtResource("5_x3i7v")
 grid = NodePath("../Grid")
 
-[node name="Grid" parent="LeftNode/GridNode" instance=ExtResource("1_oinuk")]
+[node name="Grid" parent="LeftNode/GridNode" groups=["grid"] instance=ExtResource("1_oinuk")]
 z_index = 1
 clip_contents = false
 layout_mode = 1
@@ -282,7 +281,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_afv12")
 theme_override_styles/normal = SubResource("StyleBoxFlat_x6owc")
 text = "📁"
 
-[node name="Menu" type="TabContainer" parent="LeftNode" node_paths=PackedStringArray("alchemy_cards", "grid")]
+[node name="Menu" type="TabContainer" parent="LeftNode" node_paths=PackedStringArray("alchemy_cards")]
 layout_mode = 2
 offset_top = 435.0
 offset_right = 830.0
@@ -302,11 +301,7 @@ drag_to_rearrange_enabled = true
 tab_focus_mode = 0
 script = ExtResource("4_c2n2o")
 alchemy_cards = NodePath("ALCHEMY/AlchemyCards")
-grid = NodePath("../GridNode/Grid")
 CardParent = ExtResource("10_545re")
-Card = ExtResource("2_ehw0x")
-Tile = ExtResource("8_7ni7m")
-TwoDCubie = ExtResource("8_6ipis")
 
 [node name="SHOP" type="Control" parent="LeftNode/Menu"]
 visible = false
