@@ -1,19 +1,12 @@
-<<<<<<< HEAD
-[gd_scene load_steps=16 format=3 uid="uid://cf4pd876vyqfc"]
-=======
-[gd_scene load_steps=8 format=3 uid="uid://cf4pd876vyqfc"]
->>>>>>> Add draggable scene. Put as child of any node.
+[gd_scene load_steps=18 format=3 uid="uid://dpoq76pjfiw80"]
 
 [ext_resource type="PackedScene" uid="uid://c35n6g5dqft6e" path="res://scenes/grid.tscn" id="1_oinuk"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_qbhd8"]
 [ext_resource type="PackedScene" uid="uid://b0rv4c1oc7yrc" path="res://scenes/card.tscn" id="2_ehw0x"]
-<<<<<<< HEAD
 [ext_resource type="FontFile" uid="uid://c48agdebe6v1w" path="res://fonts/ComicCodeLigaturesNFFixed-Regular.ttf" id="2_xktb0"]
-[ext_resource type="Script" path="res://scenes/menu.gd" id="4_c2n2o"]
-=======
 [ext_resource type="PackedScene" uid="uid://cpklnuogag7tt" path="res://scenes/2dcubie.tscn" id="4_4lcwa"]
+[ext_resource type="Script" path="res://scripts/menu.gd" id="4_c2n2o"]
 [ext_resource type="PackedScene" uid="uid://7uw3b0qskg7f" path="res://scenes/draggable.tscn" id="4_fxc5v"]
->>>>>>> Add draggable scene. Put as child of any node.
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gv1x0"]
 bg_color = Color(0.203922, 0.219608, 0.25098, 1)
@@ -169,7 +162,6 @@ layout_mode = 2
 metadata/_tab_index = 0
 
 [node name="HideBorderPanelShop" type="Panel" parent="LeftNode/Menu/SHOP"]
-unique_name_in_owner = true
 layout_mode = 0
 offset_left = 20.0
 offset_top = -10.0
@@ -182,7 +174,6 @@ layout_mode = 2
 metadata/_tab_index = 1
 
 [node name="HideBorderPanelAlchemy" type="Panel" parent="LeftNode/Menu/ALCHEMY"]
-unique_name_in_owner = true
 layout_mode = 0
 offset_left = 165.0
 offset_top = -10.0
@@ -192,93 +183,49 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_0isn0")
 
 [node name="Cards" type="HBoxContainer" parent="LeftNode/Menu/ALCHEMY"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 39.0
-offset_right = 267.0
-offset_bottom = 339.0
-grow_horizontal = 2
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -131.5
+offset_right = 424.0
+offset_bottom = 131.5
 grow_vertical = 2
 theme_override_constants/separation = 17
 
-[node name="DummyNode" type="Control" parent="LeftNode/Menu/ALCHEMY/Cards"]
+[node name="PaddingNode" type="Control" parent="LeftNode/Menu/ALCHEMY/Cards"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="CardNode2" type="Control" parent="LeftNode/Menu/ALCHEMY/Cards/DummyNode"]
-custom_minimum_size = Vector2(250, 300)
+[node name="CardNode" type="Control" parent="LeftNode/Menu/ALCHEMY/Cards"]
+custom_minimum_size = Vector2(195, 261)
 layout_mode = 2
-anchors_preset = 0
-offset_left = 17.0
-offset_right = 267.0
-offset_bottom = 300.0
 size_flags_horizontal = 2
 size_flags_vertical = 0
 
-[node name="Card" parent="LeftNode/Menu/ALCHEMY/Cards/DummyNode/CardNode2" instance=ExtResource("2_ehw0x")]
+[node name="Card" parent="LeftNode/Menu/ALCHEMY/Cards/CardNode" instance=ExtResource("2_ehw0x")]
 custom_minimum_size = Vector2(300, 500)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.008
-anchor_top = -0.08
-anchor_right = 0.772
-anchor_bottom = 0.79
-offset_right = 195.0
-offset_bottom = 261.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 0
+offset_right = 390.0
+offset_bottom = 522.0
 scale = Vector2(0.5, 0.5)
-metadata/_edit_use_anchors_ = true
 
-[node name="CardNode" type="Control" parent="LeftNode/Menu/ALCHEMY/Cards/DummyNode"]
-custom_minimum_size = Vector2(250, 300)
-layout_mode = 3
-anchors_preset = 0
+[node name="Draggable" parent="LeftNode/Menu/ALCHEMY/Cards/CardNode" instance=ExtResource("4_fxc5v")]
+
+[node name="CardNode2" type="Control" parent="LeftNode/Menu/ALCHEMY/Cards"]
+custom_minimum_size = Vector2(195, 261)
+layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 0
 
-[node name="Card" parent="LeftNode/Menu/ALCHEMY/Cards/DummyNode/CardNode" instance=ExtResource("2_ehw0x")]
+[node name="Card" parent="LeftNode/Menu/ALCHEMY/Cards/CardNode2" instance=ExtResource("2_ehw0x")]
 custom_minimum_size = Vector2(300, 500)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.908
-anchor_top = -0.08
-anchor_right = 1.688
-anchor_bottom = 0.79
-offset_right = 195.0
-offset_bottom = 261.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 0
+offset_right = 390.0
+offset_bottom = 522.0
 scale = Vector2(0.5, 0.5)
-metadata/_edit_use_anchors_ = true
 
-[node name="CardNode" type="Control" parent="LeftNode/Menu/ALCHEMY/Cards/DummyNode/CardNode"]
-custom_minimum_size = Vector2(250, 300)
-layout_mode = 3
-anchors_preset = 0
-offset_left = 195.0
-offset_top = 1.0
-offset_right = 445.0
-offset_bottom = 301.0
-size_flags_horizontal = 2
-size_flags_vertical = 0
-
-[node name="Card" parent="LeftNode/Menu/ALCHEMY/Cards/DummyNode/CardNode/CardNode" instance=ExtResource("2_ehw0x")]
-custom_minimum_size = Vector2(300, 500)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.976
-anchor_top = -0.0833333
-anchor_right = 1.756
-anchor_bottom = 0.786667
-offset_right = 195.0
-offset_bottom = 261.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.5, 0.5)
-metadata/_edit_use_anchors_ = true
+[node name="Draggable" parent="LeftNode/Menu/ALCHEMY/Cards/CardNode2" instance=ExtResource("4_fxc5v")]
 
 [node name="RightNode" type="Control" parent="."]
 anchors_preset = 0
@@ -287,6 +234,7 @@ offset_right = 1280.0
 offset_bottom = 720.0
 
 [node name="PanelContainer" type="PanelContainer" parent="RightNode"]
+z_index = -1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -296,3 +244,4 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_88470")
 
 [connection signal="item_selected" from="LeftNode/GridNode/OptionButton" to="LeftNode/GridNode/Grid" method="_on_option_button_item_selected"]
+[connection signal="tab_changed" from="LeftNode/Menu" to="LeftNode/Menu" method="_on_tab_changed"]
