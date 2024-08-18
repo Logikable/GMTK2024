@@ -5,12 +5,13 @@ extends Node2D
 signal released
 
 var held = false
-# Remember where on the object we clicked.
-# This is relative to the position of the parent object.
-var click_pos : Vector2
+# Remember where the initial click was, using the global coordinate system.
+var initial_click_position : Vector2
 # Remember the initial local position. This will let any listeners of the
 # signal revert the movement if they so wish.
 var initial_pos : Vector2
+# Remember the initial global scale of the parent.
+var initial_scale : Vector2
 
 
 # Called when the node enters the scene tree for the first time.
@@ -22,10 +23,16 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
   if held:
-    # Update the position of the parent.
-    var mouse_pos = get_viewport().get_mouse_position()
-    var parent = self.get_parent()
-    parent.position = (mouse_pos - click_pos) / Util.global_scale(parent)
+    var parent : Node = self.get_parent()
+    var current_scale : Vector2 = Util.global_scale(parent)
+    var mouse_pos : Vector2 = get_viewport().get_mouse_position()
+    # The issue is that the parent is both scaling and moving position.
+    # To solve this, we can compute the position that we clicked, relative to the parent's position,
+    #   on the fly.
+    var click_pos : Vector2 = initial_click_position - initial_pos * current_scale
+    
+    # Update the position.
+    parent.position = (mouse_pos - click_pos) / current_scale
 
 
 func _input(event) -> void:
@@ -36,36 +43,28 @@ func _input(event) -> void:
       # Things are computed using global rather than local position.
       if Util.global_rect(parent).has_point(event.position):
         held = true
-        click_pos = event.position - parent.position * Util.global_scale(parent)
+        # See declaration location at top of file for explanations.
+        initial_click_position = event.position
         initial_pos = parent.position
-
-        # We need to create a tween to animate the nodes we're dragging
-
-        # We do this to make sure the node we're dragging scales from its center
-        parent.pivot_offset = parent.size/2
-        
-        # Create the tween
-        var tween = create_tween()
+        initial_scale = Util.global_scale(parent)
+        # Animate the nodes we're dragging.        
         # TODO: Add more tweening to fade out the card when dragging
         #       Everything but the cube should disappear
         #       Cube should also be scaled to match grid
-
+        var tween : Tween = create_tween()
         # Tween the scale value so stuff shrinks a little when you grab it
-        tween.tween_property(parent, "scale", Vector2(0.95, 0.95), 0.1).set_trans(Tween.TRANS_ELASTIC)
+        tween.tween_property(parent, "scale", Vector2(0.95, 0.95), 1).set_trans(Tween.TRANS_ELASTIC)
+        # Have the node scale from its center.
+        parent.pivot_offset = parent.size / 2
 
-        # Something is wrong here... Not sure what's going on
-        # To repro: Drag a card to the right side of the screen and click+hold it. It does a little jump :(
-        # The jump happens even when the card is on the left side of the screen, it's just much smaller
-        # If you change the scale tween to be more drastic, the effect is bigger
-        
-
-    # We use the release event to scale back stuff after dragging
+    # We use the release event to scale back stuff after dragging.
     else:
-      var tween = create_tween()
-      tween.tween_property(parent, "scale", Vector2(1, 1), 0.1).set_trans(Tween.TRANS_ELASTIC)
-      
-      if held:  # I only care if I was the object being held.
+      # I only care if I was the object being held.
+      if held:
         held = false
+        # Untween.
+        var tween : Tween = create_tween()
+        tween.tween_property(parent, "scale", Vector2(1, 1), 0.1).set_trans(Tween.TRANS_ELASTIC)
         released.emit(parent, initial_pos)
   # I wish we could support touchscreen, but this might get too complex.
   #elif event is InputEventScreenTouch:

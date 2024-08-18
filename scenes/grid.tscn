@@ -6,10 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://7uw3b0qskg7f" path="res://scenes/draggable.tscn" id="4_2ic37"]
 
 [node name="GridNode" type="Control" node_paths=PackedStringArray("grid_container")]
+clip_contents = true
 layout_mode = 3
 anchors_preset = 0
-offset_right = 200.0
-offset_bottom = 200.0
+offset_right = 210.0
+offset_bottom = 210.0
 script = ExtResource("1_b1efl")
 grid_container = NodePath("GridContainer")
 Tile = ExtResource("1_r0jgx")

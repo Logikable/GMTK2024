@@ -91,7 +91,7 @@ offset_bottom = 720.0
 layout_mode = 2
 anchors_preset = 0
 offset_right = 830.0
-offset_bottom = 414.0
+offset_bottom = 475.0
 
 [node name="FPSMargin" type="MarginContainer" parent="LeftNode/GridNode"]
 layout_mode = 0
@@ -166,11 +166,12 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_hkfyx")
 theme_override_styles/tab_selected = SubResource("StyleBoxFlat_57o7h")
 theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_gcun3")
 theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_iyq20")
-current_tab = 0
+current_tab = 1
 tab_focus_mode = 0
 script = ExtResource("4_c2n2o")
 
 [node name="SHOP" type="Control" parent="LeftNode/Menu"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -196,7 +197,6 @@ offset_bottom = 100.5
 scale = Vector2(0.45, 0.45)
 
 [node name="ALCHEMY" type="Control" parent="LeftNode/Menu"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
