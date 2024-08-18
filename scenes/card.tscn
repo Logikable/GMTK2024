@@ -1,18 +1,39 @@
-[gd_scene load_steps=10 format=3 uid="uid://b0rv4c1oc7yrc"]
+[gd_scene load_steps=12 format=3 uid="uid://b0rv4c1oc7yrc"]
 
 [ext_resource type="PackedScene" uid="uid://cpklnuogag7tt" path="res://scenes/2dcubie.tscn" id="1_akfou"]
 [ext_resource type="Script" path="res://scripts/card.gd" id="1_c2cb0"]
 [ext_resource type="FontFile" uid="uid://c48agdebe6v1w" path="res://fonts/ComicCodeLigaturesNFFixed-Regular.ttf" id="1_jxgn6"]
 [ext_resource type="Texture2D" uid="uid://btk4rywc3ymm2" path="res://assets/5Ijg6wc.png" id="3_ms6wg"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_08uny"]
+draw_center = false
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+shadow_color = Color(0, 0, 0, 0.168627)
+shadow_size = 20
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3wctg"]
-bg_color = Color(0.258824, 0.258824, 0.258824, 1)
+bg_color = Color(1, 0.996078, 0.984314, 1)
 corner_radius_top_left = 25
 corner_radius_top_right = 25
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ka872"]
+bg_color = Color(0.796078, 0.576471, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_m6twy"]
+font = ExtResource("1_jxgn6")
+font_size = 34
+font_color = Color(1, 0.996078, 0.984314, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_c7b5f"]
 font_size = 34
-font_color = Color(0.411765, 1, 0.4, 1)
+font_color = Color(0.203922, 0.219608, 0.25098, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0cd0n"]
 bg_color = Color(0.411765, 1, 0.4, 1)
@@ -22,36 +43,25 @@ bg_color = Color(0.203922, 0.219608, 0.25098, 1)
 corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
 
-[sub_resource type="LabelSettings" id="LabelSettings_m6twy"]
-font = ExtResource("1_jxgn6")
-font_size = 34
-
-[node name="Card" type="Control"]
-layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-script = ExtResource("1_c2cb0")
-
-[node name="CardContents" type="VBoxContainer" parent="."]
-layout_mode = 1
+[node name="Card" type="PanelContainer"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -195.0
-offset_top = -261.0
+offset_top = -195.0
 offset_right = 195.0
-offset_bottom = 261.0
+offset_bottom = 195.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_08uny")
+script = ExtResource("1_c2cb0")
+
+[node name="CardContents" type="VBoxContainer" parent="."]
+layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
 
@@ -59,16 +69,43 @@ alignment = 1
 custom_minimum_size = Vector2(390, 107)
 layout_mode = 2
 
-[node name="Panel2" type="Panel" parent="CardContents/Header"]
+[node name="HeaderPanel" type="Panel" parent="CardContents/Header"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_3wctg")
+
+[node name="NumberContainer" type="MarginContainer" parent="CardContents/Header/HeaderPanel"]
+layout_mode = 2
+anchor_left = 0.5
+anchor_top = 0.954
+anchor_right = 0.5
+anchor_bottom = 0.954
+offset_left = 135.0
+offset_top = -126.078
+offset_right = 203.0
+offset_bottom = -38.078
+scale = Vector2(1.25818, 1.25818)
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 20
+
+[node name="NumberBG" type="Panel" parent="CardContents/Header/HeaderPanel/NumberContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ka872")
+
+[node name="Number" type="Label" parent="CardContents/Header/HeaderPanel/NumberContainer/NumberBG"]
+layout_mode = 2
+offset_right = 68.0
+offset_bottom = 68.0
+size_flags_horizontal = 4
+text = "2"
+label_settings = SubResource("LabelSettings_m6twy")
+horizontal_alignment = 1
 
 [node name="Name" type="Label" parent="CardContents/Header"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("1_jxgn6")
 theme_override_font_sizes/font_size = 34
-text = "Common Cubert"
+text = "Multibox"
 label_settings = SubResource("LabelSettings_c7b5f")
 
 [node name="Divider" type="Panel" parent="CardContents"]
@@ -77,47 +114,37 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_0cd0n")
 
 [node name="Body" type="Panel" parent="CardContents"]
-custom_minimum_size = Vector2(0, 410)
+clip_contents = true
+custom_minimum_size = Vector2(0, 278)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_7jpu8")
 
 [node name="2DCubie" parent="CardContents/Body" instance=ExtResource("1_akfou")]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.284615
-anchor_top = 0.585366
-anchor_right = 0.725641
-anchor_bottom = 1.00488
-offset_left = -136.0
-offset_top = -290.0
-offset_right = 122.0
-offset_bottom = -32.0
+anchor_left = 0.258974
+anchor_top = 0.144876
+anchor_right = 0.7
+anchor_bottom = 0.564389
+offset_left = -107.0
+offset_top = -98.0
+offset_right = 34.0
+offset_bottom = 96.278
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(0.4, 0.4)
-metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect" type="TextureRect" parent="CardContents/Body/2DCubie"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -325.0
-offset_top = -325.0
-offset_right = 325.0
-offset_bottom = 325.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -498.5
+offset_top = -506.451
+offset_right = 516.5
+offset_bottom = 508.549
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_ms6wg")
-
-[node name="Footer" type="MarginContainer" parent="CardContents/Body"]
-layout_mode = 2
-offset_top = 332.0
-offset_right = 390.0
-offset_bottom = 410.0
-theme_override_constants/margin_right = 0
-theme_override_constants/margin_bottom = 20
-
-[node name="Label" type="Label" parent="CardContents/Body/Footer"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "1.334e7 cubies"
-label_settings = SubResource("LabelSettings_m6twy")

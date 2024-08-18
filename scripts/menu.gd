@@ -2,7 +2,8 @@ extends TabContainer
 
 const COLOURS = {
   'SHOP': { 'bg': 'FFFAE0', 'border': 'FFEE93' },
-  'ALCHEMY': { 'bg': 'F4E9FF', 'border': 'CB93FF' }
+  'ALCHEMY': { 'bg': 'F4E9FF', 'border': 'CB93FF' },
+  'BLESSINGS': { 'bg': 'E0FDFF', 'border': '92F8FF' }
 }
 const STYLEBOXES = ['panel', 'tab_selected']
 
