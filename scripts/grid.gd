@@ -19,23 +19,28 @@ const GRID_PIXELS = {
 
 # grid_size is the number of tiles along one edge of the grid.
 var grid_size : int = 3
-var grid_cubies : Array[int] = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+var grid_cubies : Array[int] = [0, 0, 2, 0, 1, 0, 3, 0, 1]
 
 
 # TODO: fix this function. This is horrible.
-func set_cubie(position: int, cubie: int) -> void:
+func set_cubie(position: int, rarity: int) -> void:
   assert(0 <= position and position < grid_size ** 2)
   assert(len(grid_cubies) == grid_size ** 2)
   
-  grid_cubies[position] = cubie
-  # Create and insert the new 2DCubie.
+  grid_cubies[position] = rarity
+  # Zero means no cubie :(
+  if rarity == 0:
+    return
+  
+  # Create the new 2DCubie and make it draggable.
   var new_cubie : Node = TwoDCubie.instantiate()
+  new_cubie.size = Vector2(440, 440)    # Gross...
+  new_cubie.z_index = 1   # The cubie needs to be in front of the tile.
+  new_cubie.set_colour(rarity)
   new_cubie.add_child(Draggable.instantiate())
-  new_cubie.size = Vector2(440, 440)
-  # The cubie needs to be in front of the tile.
-  new_cubie.z_index = 1
+  # Add the cubie.
   # GridContainer -> TileParent -> Tile -> TileShape -> [2DCubie -> Draggable]
-  grid_container.get_child(position).get_child(0).get_child(0).add_child(new_cubie)
+  grid_container.get_child(position).get_child(0).get_child(0).add_child(new_cubie)   # Gross...
 
 
 func generate_children(new_grid_size : int) -> void:
@@ -59,6 +64,9 @@ func index_to_coords(idx : int, size : int) -> Vector2:
   return Vector2(idx / size, idx % size)
   
 func coords_to_index(coords : Vector2, size : int) -> int:
+  if (coords.x < 0 or coords.y < 0 or
+      coords.x >= size or coords.y >= size):
+    return -1
   var idx : float = coords.x * size + coords.y
   assert(int(idx) == idx)
   return int(idx)
@@ -71,15 +79,13 @@ func update_cubies(new_grid_size : int) -> void:
   # Assert perfect square number of cubies.
   assert(sqrt(len(grid_cubies)) ** 2 == len(grid_cubies))
 
-  var old_grid_size : int = int(sqrt(new_grid_size))
-  if old_grid_size == new_grid_size:
-    return
+  var old_grid_size : int = int(sqrt(len(grid_cubies)))
 
   # Replace the old array with one filled with 0s.
   var new_cubies : Array[int] = []
   for i : int in new_grid_size ** 2:
     new_cubies.append(0)
-  var old_cubies = grid_cubies
+  var old_cubies : Array[int] = grid_cubies
   grid_cubies = new_cubies
   
   # Populate the new array with set_cubie().
@@ -96,8 +102,8 @@ func update_cubies(new_grid_size : int) -> void:
       
 func update_scale(node: Control, pixels: int) -> void:
   assert(node.size.x == node.size.y)
-  var scene_width = node.size.x
-  var new_scale_scalar = pixels / scene_width
+  var scene_width : float = node.size.x
+  var new_scale_scalar : float = pixels / scene_width
   node.scale = Vector2(new_scale_scalar, new_scale_scalar)
 
 
@@ -150,4 +156,5 @@ func _process(delta: float) -> void:
 
 # TODO: delete. Just for test purposes.
 func _on_option_button_item_selected(index: int) -> void:
+  # 0 -> 3, 1 -> 5, etc.
   self.set_grid_size(2 * index + 3)
