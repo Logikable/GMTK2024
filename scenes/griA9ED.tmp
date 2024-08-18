@@ -1,0 +1,121 @@
+[gd_scene load_steps=5 format=3 uid="uid://c35n6g5dqft6e"]
+
+[ext_resource type="Script" path="res://scripts/grid.gd" id="1_b1efl"]
+[ext_resource type="PackedScene" uid="uid://bgpt5isktlgpc" path="res://scenes/tile.tscn" id="1_r0jgx"]
+[ext_resource type="PackedScene" uid="uid://cpklnuogag7tt" path="res://scenes/2dcubie.tscn" id="3_8qa4p"]
+[ext_resource type="PackedScene" uid="uid://7uw3b0qskg7f" path="res://scenes/draggable.tscn" id="4_2ic37"]
+
+[node name="GridNode" type="Control" node_paths=PackedStringArray("grid_container")]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 0
+offset_right = 210.0
+offset_bottom = 210.0
+script = ExtResource("1_b1efl")
+grid_container = NodePath("GridContainer")
+Tile = ExtResource("1_r0jgx")
+TwoDCubie = ExtResource("3_8qa4p")
+Draggable = ExtResource("4_2ic37")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 3
+
+[node name="TileParent" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+
+[node name="Tile" parent="GridContainer/TileParent" instance=ExtResource("1_r0jgx")]
+layout_mode = 2
+scale = Vector2(0.14, 0.14)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TileParent2" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+
+[node name="Tile" parent="GridContainer/TileParent2" instance=ExtResource("1_r0jgx")]
+layout_mode = 2
+scale = Vector2(0.14, 0.14)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TileParent3" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+
+[node name="Tile" parent="GridContainer/TileParent3" instance=ExtResource("1_r0jgx")]
+layout_mode = 2
+scale = Vector2(0.14, 0.14)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TileParent4" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+
+[node name="Tile" parent="GridContainer/TileParent4" instance=ExtResource("1_r0jgx")]
+layout_mode = 2
+scale = Vector2(0.14, 0.14)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TileParent5" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+
+[node name="Tile" parent="GridContainer/TileParent5" instance=ExtResource("1_r0jgx")]
+layout_mode = 2
+scale = Vector2(0.14, 0.14)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TileParent6" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+
+[node name="Tile" parent="GridContainer/TileParent6" instance=ExtResource("1_r0jgx")]
+layout_mode = 2
+scale = Vector2(0.14, 0.14)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TileParent7" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+
+[node name="Tile" parent="GridContainer/TileParent7" instance=ExtResource("1_r0jgx")]
+layout_mode = 2
+scale = Vector2(0.14, 0.14)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TileParent8" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+
+[node name="Tile" parent="GridContainer/TileParent8" instance=ExtResource("1_r0jgx")]
+layout_mode = 2
+scale = Vector2(0.14, 0.14)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TileParent9" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+
+[node name="Tile" parent="GridContainer/TileParent9" instance=ExtResource("1_r0jgx")]
+layout_mode = 2
+scale = Vector2(0.14, 0.14)
+size_flags_horizontal = 3
+size_flags_vertical = 3

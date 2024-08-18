@@ -23,16 +23,11 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
   if held:
-    var parent : Node = self.get_parent()
-    var current_scale : Vector2 = Util.global_scale(parent)
     var mouse_pos : Vector2 = get_viewport().get_mouse_position()
-    # The issue is that the parent is both scaling and moving position.
-    # To solve this, we can compute the position that we clicked, relative to the parent's position,
-    #   on the fly.
-    var click_pos : Vector2 = initial_click_position - initial_pos * current_scale
     
     # Update the position.
-    parent.position = (mouse_pos - click_pos) / current_scale
+    var drag_position_delta : Vector2 = (mouse_pos - initial_click_position) / initial_scale
+    self.get_parent().position = initial_pos + drag_position_delta
 
 
 func _input(event) -> void:
