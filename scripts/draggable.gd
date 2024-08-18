@@ -46,6 +46,9 @@ func _input(event) -> void:
         
         # Create the tween
         var tween = create_tween()
+        # TODO: Add more tweening to fade out the card when dragging
+        #       Everything but the cube should disappear
+        #       Cube should also be scaled to match grid
 
         # Tween the scale value so stuff shrinks a little when you grab it
         tween.tween_property(parent, "scale", Vector2(0.95, 0.95), 0.1).set_trans(Tween.TRANS_ELASTIC)
@@ -56,10 +59,11 @@ func _input(event) -> void:
         # If you change the scale tween to be more drastic, the effect is bigger
         
 
-    # We use the release event to scale back cards after dragging
+    # We use the release event to scale back stuff after dragging
     else:
       var tween = create_tween()
       tween.tween_property(parent, "scale", Vector2(1, 1), 0.1).set_trans(Tween.TRANS_ELASTIC)
+      
       if held:  # I only care if I was the object being held.
         held = false
         released.emit(parent, initial_pos)
