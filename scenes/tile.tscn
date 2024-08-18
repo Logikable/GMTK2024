@@ -1,13 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://bgpt5isktlgpc"]
+[gd_scene load_steps=5 format=3 uid="uid://bgpt5isktlgpc"]
 
 [ext_resource type="Script" path="res://scripts/tile.gd" id="1_ah3mr"]
+[ext_resource type="PackedScene" uid="uid://cpklnuogag7tt" path="res://scenes/2dcubie.tscn" id="2_3oqpa"]
+[ext_resource type="PackedScene" uid="uid://7uw3b0qskg7f" path="res://scenes/draggable.tscn" id="3_yltu5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oqvsc"]
 bg_color = Color(1, 0.996078, 0.984314, 1)
-corner_radius_top_left = 75
-corner_radius_top_right = 75
-corner_radius_bottom_right = 75
-corner_radius_bottom_left = 75
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
 
 [node name="Tile" type="Control"]
 layout_mode = 3
@@ -16,7 +18,7 @@ offset_right = 500.0
 offset_bottom = 500.0
 script = ExtResource("1_ah3mr")
 
-[node name="TileShape" type="PanelContainer" parent="."]
+[node name="TileShape" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -30,3 +32,10 @@ offset_bottom = 220.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_oqvsc")
+
+[node name="2DCubie" parent="TileShape" instance=ExtResource("2_3oqpa")]
+layout_mode = 0
+offset_right = 440.0
+offset_bottom = 440.0
+
+[node name="Draggable" parent="TileShape/2DCubie" instance=ExtResource("3_yltu5")]

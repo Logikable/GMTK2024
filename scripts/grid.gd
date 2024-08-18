@@ -2,9 +2,10 @@ extends Control
 
 @export var grid_container : Node
 @export var Tile : PackedScene
-# grid_size is the number of tiles along one edge of the grid.
-var grid_size = 1
-var grid_pixels = {
+@export var TwoDCubie : PackedScene
+@export var Draggable : PackedScene
+
+const GRID_PIXELS = {
   3: 210,   # 70 pixel ea
   4: 232,   # 58 pixel ea (unused)
   5: 250,   # 50 pixel ea
@@ -16,20 +17,31 @@ var grid_pixels = {
   11: 341,  # 31 pixel ea
 }
 
-
-func center_self() -> void:
-  var parent_center = self.get_parent_area_size() * self.get_parent().scale / 2
-  var my_size = self.size * self.scale
-  self.position = parent_center - my_size / 2
+# grid_size is the number of tiles along one edge of the grid.
+var grid_size : int = 3
+var grid_cubies : Array[int] = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 
-func set_grid_size(new_grid_size : int) -> void:
-  assert(3 <= new_grid_size and new_grid_size <= 11)
-  grid_size = new_grid_size
+# TODO: fix this function. This is horrible.
+func set_cubie(position: int, cubie: int) -> void:
+  assert(0 <= position and position < grid_size ** 2)
+  assert(len(grid_cubies) == grid_size ** 2)
+  
+  grid_cubies[position] = cubie
+  # Create and insert the new 2DCubie.
+  var new_cubie : Node = TwoDCubie.instantiate()
+  new_cubie.add_child(Draggable.instantiate())
+  new_cubie.size = Vector2(440, 440)
+  # The cubie needs to be in front of the tile.
+  new_cubie.z_index = 1
+  # GridContainer -> TileParent -> Tile -> TileShape -> [2DCubie -> Draggable]
+  grid_container.get_child(position).get_child(0).get_child(0).add_child(new_cubie)
 
+
+func generate_children(new_grid_size : int) -> void:
   # Programmatically create a TileParent.
-  var new_tile_parent = Control.new()
-  var new_tile = Tile.instantiate()
+  var new_tile_parent : Node = Control.new()
+  var new_tile : Node = Tile.instantiate()
   new_tile_parent.add_child(new_tile)
 
   # Recompute the number of tile instances.
@@ -37,29 +49,93 @@ func set_grid_size(new_grid_size : int) -> void:
     # Godot's version of deleting a node.
     grid_container.remove_child(tile_parent)
     tile_parent.queue_free()
-  for i in grid_size * grid_size:
+  for i in new_grid_size ** 2:
     grid_container.add_child(new_tile_parent.duplicate())
   new_tile_parent.queue_free()
 
-  # Update column count.
-  grid_container.columns = grid_size
 
+# The first coord is row #, the second is column #.
+func index_to_coords(idx : int, size : int) -> Vector2:
+  return Vector2(idx / size, idx % size)
+  
+func coords_to_index(coords : Vector2, size : int) -> int:
+  var idx : float = coords.x * size + coords.y
+  assert(int(idx) == idx)
+  return int(idx)
+
+
+func update_cubies(new_grid_size : int) -> void:
+  # We assume the grid only gets bigger in normal play.
+  # If the new grid is smaller, cubies are intentionally lost.
+  assert(len(grid_cubies) > 0)
+  # Assert perfect square number of cubies.
+  assert(sqrt(len(grid_cubies)) ** 2 == len(grid_cubies))
+
+  var old_grid_size : int = int(sqrt(new_grid_size))
+  if old_grid_size == new_grid_size:
+    return
+
+  # Replace the old array with one filled with 0s.
+  var new_cubies : Array[int] = []
+  for i : int in new_grid_size ** 2:
+    new_cubies.append(0)
+  var old_cubies = grid_cubies
+  grid_cubies = new_cubies
+  
+  # Populate the new array with set_cubie().
+  for i : int in new_grid_size ** 2:
+    var new_coords : Vector2 = index_to_coords(i, new_grid_size)
+    var old_coords : Vector2 = Vector2(new_coords.x - (new_grid_size - old_grid_size) / 2,
+                                       new_coords.y - (new_grid_size - old_grid_size) / 2)
+    var old_idx : int = coords_to_index(old_coords, old_grid_size)
+    if 0 <= old_idx and old_idx < old_grid_size ** 2:
+      set_cubie(i, old_cubies[old_idx])
+    else:
+      set_cubie(i, 0)
+      
+      
+func update_scale(node: Control, pixels: int) -> void:
+  assert(node.size.x == node.size.y)
+  var scene_width = node.size.x
+  var new_scale_scalar = pixels / scene_width
+  node.scale = Vector2(new_scale_scalar, new_scale_scalar)
+
+
+func center_self() -> void:
+  var parent_center : Vector2 = self.get_parent_area_size() * self.get_parent().scale / 2
+  var my_size : Vector2 = self.size * self.scale
+  self.position = parent_center - my_size / 2
+
+
+func update_params(new_grid_size : int) -> void:
   # The updates below need to be in this order. It goes from innermost to
   # outermost.
 
-  # Update the scale of every Tile and TileShape.
-  var pixels_per_tile = grid_pixels[grid_size] / grid_size
-  for tile_parent in grid_container.get_children():
-    tile_parent.get_child(0).update_scale(pixels_per_tile)
+  # Update the scale of every Tile, 2DCubie, and TileShape.
+  var pixels_per_tile : int = GRID_PIXELS[new_grid_size] / new_grid_size
+  for tile_parent : Node in grid_container.get_children():
+    for child in tile_parent.get_children():
+      update_scale(child, pixels_per_tile)
     tile_parent.custom_minimum_size = Vector2(pixels_per_tile, pixels_per_tile)
     
   # Update sizes first.
-  grid_container.size = Vector2(grid_pixels[grid_size], grid_pixels[grid_size])
-  self.size = Vector2(grid_pixels[grid_size], grid_pixels[grid_size])
+  grid_container.size = Vector2(GRID_PIXELS[new_grid_size], GRID_PIXELS[new_grid_size])
+  self.size = Vector2(GRID_PIXELS[new_grid_size], GRID_PIXELS[new_grid_size])
   
   # Update position second.
   grid_container.position = Vector2(0, 0)
   self.center_self()
+
+
+func set_grid_size(new_grid_size : int) -> void:
+  print('set_grid_size()')
+  assert(3 <= new_grid_size and new_grid_size <= 11)
+  grid_size = new_grid_size
+  grid_container.columns = grid_size
+
+  generate_children(new_grid_size)
+  update_cubies(new_grid_size)
+  update_params(new_grid_size)
   
 
 # Called when the node enters the scene tree for the first time.

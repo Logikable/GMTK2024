@@ -1,10 +1,10 @@
 extends TabContainer
 
-var COLOURS = {
+const COLOURS = {
   'SHOP': { 'bg': 'FFFAE0', 'border': 'FFEE93' },
   'ALCHEMY': { 'bg': 'F4E9FF', 'border': 'CB93FF' }
 }
-var STYLEBOXES = ['panel', 'tab_selected']
+const STYLEBOXES = ['panel', 'tab_selected']
 
 
 func set_menu_colours(name: String) -> void:

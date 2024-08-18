@@ -11,10 +11,10 @@ anchors_preset = 0
 offset_right = 200.0
 offset_bottom = 200.0
 script = ExtResource("1_b1efl")
-grid_container = NodePath("GridContainer")
 Tile = ExtResource("1_r0jgx")
 TwoDCubie = ExtResource("3_8qa4p")
 Draggable = ExtResource("4_2ic37")
+grid_container = NodePath("GridContainer")
 
 [node name="GridContainer" type="GridContainer" parent="."]
 layout_mode = 1
@@ -78,6 +78,16 @@ layout_mode = 2
 scale = Vector2(0.14, 0.14)
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="2DCubie" parent="GridContainer/TileParent5" instance=ExtResource("3_8qa4p")]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 444.0
+offset_bottom = 444.0
+scale = Vector2(0.14, 0.14)
+
+[node name="Draggable" parent="GridContainer/TileParent5/2DCubie" instance=ExtResource("4_2ic37")]
 
 [node name="TileParent6" type="Control" parent="GridContainer"]
 custom_minimum_size = Vector2(70, 70)
