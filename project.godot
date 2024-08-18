@@ -18,6 +18,7 @@ config/icon="res://assets/icon.svg"
 [autoload]
 
 Util="*res://scripts/util.gd"
+SaveFile="*res://scripts/save_file.gd"
 
 [debug]
 

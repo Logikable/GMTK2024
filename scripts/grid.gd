@@ -21,7 +21,7 @@ const GRID_PIXELS = {
 
 # grid_size is the number of tiles along one edge of the grid.
 var grid_size : int = 3
-var grid_cubies : Array[int] = [0, 0, 2, 0, 1, 0, 3, 0, 1]
+var grid_cubies : Array[int] = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 
 # TODO: fix this function. This is horrible.
@@ -142,6 +142,12 @@ func set_grid_size(new_grid_size : int) -> void:
   update_params(new_grid_size)
   # Let the world know.
   grid_size_updated.emit(new_grid_size)
+  
+
+func set_grid_cubies(cubies : Array) -> void:
+  assert(len(cubies) == grid_size ** 2)
+  for i in grid_size ** 2:
+    set_cubie(i, cubies[i])
   
 
 # Called when the node enters the scene tree for the first time.
