@@ -1,10 +1,19 @@
+<<<<<<< HEAD
 [gd_scene load_steps=16 format=3 uid="uid://cf4pd876vyqfc"]
+=======
+[gd_scene load_steps=8 format=3 uid="uid://cf4pd876vyqfc"]
+>>>>>>> Add draggable scene. Put as child of any node.
 
 [ext_resource type="PackedScene" uid="uid://c35n6g5dqft6e" path="res://scenes/grid.tscn" id="1_oinuk"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_qbhd8"]
 [ext_resource type="PackedScene" uid="uid://b0rv4c1oc7yrc" path="res://scenes/card.tscn" id="2_ehw0x"]
+<<<<<<< HEAD
 [ext_resource type="FontFile" uid="uid://c48agdebe6v1w" path="res://fonts/ComicCodeLigaturesNFFixed-Regular.ttf" id="2_xktb0"]
 [ext_resource type="Script" path="res://scenes/menu.gd" id="4_c2n2o"]
+=======
+[ext_resource type="PackedScene" uid="uid://cpklnuogag7tt" path="res://scenes/2dcubie.tscn" id="4_4lcwa"]
+[ext_resource type="PackedScene" uid="uid://7uw3b0qskg7f" path="res://scenes/draggable.tscn" id="4_fxc5v"]
+>>>>>>> Add draggable scene. Put as child of any node.
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gv1x0"]
 bg_color = Color(0.203922, 0.219608, 0.25098, 1)
@@ -124,6 +133,16 @@ popup/item_3/text = "9"
 popup/item_3/id = 3
 popup/item_4/text = "11"
 popup/item_4/id = 4
+
+[node name="2DCubie" parent="LeftNode/GridNode" instance=ExtResource("4_4lcwa")]
+layout_mode = 2
+offset_left = 653.0
+offset_top = 136.0
+offset_right = 1153.0
+offset_bottom = 636.0
+scale = Vector2(0.2, 0.2)
+
+[node name="Draggable" parent="LeftNode/GridNode/2DCubie" instance=ExtResource("4_fxc5v")]
 
 [node name="Menu" type="TabContainer" parent="LeftNode"]
 layout_mode = 2

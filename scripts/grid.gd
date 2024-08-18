@@ -17,14 +17,9 @@ var grid_pixels = {
 }
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-  self.set_grid_size(11)
-
-
 func center_self() -> void:
-  var parent_center = self.get_parent_area_size() / 2
-  var my_size = self.size
+  var parent_center = self.get_parent_area_size() * self.get_parent().scale / 2
+  var my_size = self.size * self.scale
   self.position = parent_center - my_size / 2
 
 
@@ -65,6 +60,11 @@ func set_grid_size(new_grid_size : int) -> void:
   # Update position second.
   grid_container.position = Vector2(0, 0)
   self.center_self()
+  
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+  pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
