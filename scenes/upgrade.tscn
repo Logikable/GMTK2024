@@ -2,7 +2,7 @@
 
 [ext_resource type="FontFile" uid="uid://c48agdebe6v1w" path="res://fonts/ComicCodeLigaturesNFFixed-Regular.ttf" id="1_1xpq5"]
 [ext_resource type="Theme" uid="uid://754m2gs5mwax" path="res://assets/default.tres" id="1_hcg5f"]
-[ext_resource type="Script" path="res://scenes/upgrade.gd" id="1_y7n3h"]
+[ext_resource type="Script" path="res://scripts/upgrade.gd" id="1_y7n3h"]
 [ext_resource type="Script" path="res://scenes/upgrade_button.gd" id="3_dmdtv"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bq3s4"]

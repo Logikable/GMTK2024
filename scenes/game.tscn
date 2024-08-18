@@ -9,8 +9,6 @@
 [ext_resource type="Script" path="res://scripts/cps_label.gd" id="5_x3i7v"]
 [ext_resource type="PackedScene" uid="uid://cjxbp3q6w7n1k" path="res://scenes/upgrade.tscn" id="6_dbh5q"]
 [ext_resource type="Theme" uid="uid://754m2gs5mwax" path="res://assets/default.tres" id="6_k0u1n"]
-[ext_resource type="PackedScene" uid="uid://cpklnuogag7tt" path="res://scenes/2dcubie.tscn" id="8_6ipis"]
-[ext_resource type="PackedScene" uid="uid://bgpt5isktlgpc" path="res://scenes/tile.tscn" id="8_7ni7m"]
 [ext_resource type="PackedScene" uid="uid://frg1q7xtchp1" path="res://scenes/card_parent.tscn" id="10_545re"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gv1x0"]
@@ -348,6 +346,7 @@ offset_top = -104.5
 offset_right = -188.0
 offset_bottom = 100.5
 scale = Vector2(0.45, 0.45)
+script = null
 
 [node name="ALCHEMY" type="Control" parent="LeftNode/Menu"]
 layout_mode = 2
@@ -424,26 +423,6 @@ text = "5,000,000 cubies"
 label_settings = SubResource("LabelSettings_no5f4")
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="UpgradeContainer" parent="." instance=ExtResource("6_dbh5q")]
-layout_mode = 1
-offset_left = 118.0
-offset_top = -31.0
-offset_right = 324.0
-offset_bottom = 174.0
-scale = Vector2(0.25, 0.25)
-upgrade_name = "Bingus"
-upgrade_icon = "🐈"
-
-[node name="UpgradeContainer2" parent="." instance=ExtResource("6_dbh5q")]
-layout_mode = 1
-offset_left = 51.0
-offset_top = -31.0
-offset_right = 257.0
-offset_bottom = 174.0
-scale = Vector2(0.25, 0.25)
-upgrade_name = "Bingus"
-upgrade_icon = "🐈"
 
 [connection signal="item_selected" from="LeftNode/GridNode/[TEMP]PickGridSize" to="LeftNode/GridNode/Grid" method="_on_option_button_item_selected"]
 [connection signal="pressed" from="LeftNode/GridNode/[TEMP]CreateCardButton" to="LeftNode/Menu" method="_on_card_add_button_press"]
