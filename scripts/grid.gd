@@ -5,6 +5,8 @@ extends Control
 @export var TwoDCubie : PackedScene
 @export var Draggable : PackedScene
 
+signal grid_size_updated
+
 const GRID_PIXELS = {
   3: 210,   # 70 pixel ea
   4: 232,   # 58 pixel ea (unused)
@@ -105,7 +107,7 @@ func update_scale(node: Control, pixels: int) -> void:
 
 
 func center_self() -> void:
-  var parent_center : Vector2 = self.get_parent_area_size() * self.get_parent().scale / 2
+  var parent_center : Vector2 = Util.parent_center(self)
   var my_size : Vector2 = self.size * self.scale
   self.position = parent_center - my_size / 2
 
@@ -138,6 +140,8 @@ func set_grid_size(new_grid_size : int) -> void:
   generate_children(new_grid_size)
   update_cubies(new_grid_size)
   update_params(new_grid_size)
+  # Let the world know.
+  grid_size_updated.emit(new_grid_size)
   
 
 # Called when the node enters the scene tree for the first time.

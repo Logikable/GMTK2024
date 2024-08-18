@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dpoq76pjfiw80"]
+[gd_scene load_steps=24 format=3 uid="uid://dpoq76pjfiw80"]
 
 [ext_resource type="PackedScene" uid="uid://c35n6g5dqft6e" path="res://scenes/grid.tscn" id="1_oinuk"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_qbhd8"]
@@ -7,15 +7,16 @@
 [ext_resource type="FontFile" uid="uid://c48agdebe6v1w" path="res://fonts/ComicCodeLigaturesNFFixed-Regular.ttf" id="2_xktb0"]
 [ext_resource type="Script" path="res://scripts/menu.gd" id="4_c2n2o"]
 [ext_resource type="PackedScene" uid="uid://7uw3b0qskg7f" path="res://scenes/draggable.tscn" id="4_fxc5v"]
+[ext_resource type="Script" path="res://scripts/cps_label.gd" id="5_x3i7v"]
 [ext_resource type="PackedScene" uid="uid://cjxbp3q6w7n1k" path="res://scenes/upgrade.tscn" id="6_dbh5q"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gv1x0"]
+bg_color = Color(0.203922, 0.219608, 0.25098, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_55k84"]
 line_spacing = 0.0
 font = ExtResource("2_xktb0")
 font_color = Color(0, 0.498039, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gv1x0"]
-bg_color = Color(0.203922, 0.219608, 0.25098, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_sktip"]
 font = ExtResource("2_xktb0")
@@ -103,6 +104,18 @@ anchors_preset = 0
 offset_right = 830.0
 offset_bottom = 475.0
 
+[node name="Background" type="PanelContainer" parent="LeftNode/GridNode"]
+z_index = -1
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.10947
+offset_bottom = -6.10352e-05
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gv1x0")
+metadata/_edit_use_anchors_ = true
+
 [node name="FPSMargin" type="MarginContainer" parent="LeftNode/GridNode"]
 layout_mode = 0
 offset_right = 55.0
@@ -113,6 +126,19 @@ theme_override_constants/margin_left = 5
 layout_mode = 2
 text = "FPS: "
 label_settings = SubResource("LabelSettings_55k84")
+
+[node name="CubiesPerSecond" type="Label" parent="LeftNode/GridNode" node_paths=PackedStringArray("grid")]
+layout_mode = 0
+offset_left = 293.0
+offset_top = 50.0
+offset_right = 539.0
+offset_bottom = 88.0
+text = "50,000 cubies/s"
+label_settings = SubResource("LabelSettings_sktip")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("5_x3i7v")
+grid = NodePath("../Grid")
 
 [node name="Grid" parent="LeftNode/GridNode" instance=ExtResource("1_oinuk")]
 z_index = 1
@@ -131,19 +157,7 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="PanelContainer" type="PanelContainer" parent="LeftNode/GridNode"]
-z_index = -1
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.14734
-offset_bottom = -3.05176e-05
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_gv1x0")
-metadata/_edit_use_anchors_ = true
-
-[node name="OptionButton" type="OptionButton" parent="LeftNode/GridNode"]
+[node name="DELETETHISSOMEDAY" type="OptionButton" parent="LeftNode/GridNode"]
 z_index = 1
 layout_mode = 0
 offset_left = 113.0
@@ -161,17 +175,6 @@ popup/item_3/text = "9"
 popup/item_3/id = 3
 popup/item_4/text = "11"
 popup/item_4/id = 4
-
-[node name="CubiesPerSecond" type="Label" parent="LeftNode/GridNode"]
-layout_mode = 0
-offset_left = 293.0
-offset_top = 49.0
-offset_right = 539.0
-offset_bottom = 87.0
-text = "50,000 cubies/s"
-label_settings = SubResource("LabelSettings_sktip")
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="Menu" type="TabContainer" parent="LeftNode"]
 layout_mode = 2
@@ -349,5 +352,5 @@ label_settings = SubResource("LabelSettings_no5f4")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="item_selected" from="LeftNode/GridNode/OptionButton" to="LeftNode/GridNode/Grid" method="_on_option_button_item_selected"]
+[connection signal="item_selected" from="LeftNode/GridNode/DELETETHISSOMEDAY" to="LeftNode/GridNode/Grid" method="_on_option_button_item_selected"]
 [connection signal="tab_changed" from="LeftNode/Menu" to="LeftNode/Menu" method="_on_tab_changed"]

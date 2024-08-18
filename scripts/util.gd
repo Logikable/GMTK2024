@@ -15,6 +15,11 @@ func global_rect(node: Node) -> Rect2:
   var global_scale = global_scale(node)
   var global_rect = Rect2(node.global_position, node.size * global_scale)
   return global_rect
+  
+  
+func parent_center(node: Node) -> Vector2:
+  assert(node.has_method('get_parent') and node.has_method('get_parent_area_size'))
+  return node.get_parent_area_size() * node.get_parent().scale / 2
 
 
 func delete_node(node: Node) -> void:
