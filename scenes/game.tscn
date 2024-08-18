@@ -21,7 +21,7 @@ font_color = Color(0, 0.498039, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_sktip"]
 font = ExtResource("2_xktb0")
-font_size = 18
+font_size = 30
 
 [sub_resource type="SystemFont" id="SystemFont_ke74w"]
 subpixel_positioning = 0
@@ -164,10 +164,10 @@ label_settings = SubResource("LabelSettings_55k84")
 
 [node name="CubiesPerSecond" type="Label" parent="LeftNode/GridNode" node_paths=PackedStringArray("grid")]
 layout_mode = 0
-offset_left = 293.0
+offset_left = 284.0
 offset_top = 50.0
-offset_right = 539.0
-offset_bottom = 88.0
+offset_right = 563.0
+offset_bottom = 101.0
 text = "50,000 cubies/s"
 label_settings = SubResource("LabelSettings_sktip")
 horizontal_alignment = 1
@@ -211,7 +211,7 @@ popup/item_3/id = 3
 popup/item_4/text = "11"
 popup/item_4/id = 4
 
-[node name="Button" type="Button" parent="LeftNode/GridNode"]
+[node name="CreateCardButton" type="Button" parent="LeftNode/GridNode"]
 layout_mode = 0
 offset_left = 114.0
 offset_top = 117.0
@@ -408,8 +408,28 @@ label_settings = SubResource("LabelSettings_no5f4")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="UpgradeContainer" parent="." instance=ExtResource("6_dbh5q")]
+layout_mode = 1
+offset_left = 118.0
+offset_top = -31.0
+offset_right = 324.0
+offset_bottom = 174.0
+scale = Vector2(0.25, 0.25)
+upgrade_name = "Bingus"
+upgrade_icon = "🐈"
+
+[node name="UpgradeContainer2" parent="." instance=ExtResource("6_dbh5q")]
+layout_mode = 1
+offset_left = 51.0
+offset_top = -31.0
+offset_right = 257.0
+offset_bottom = 174.0
+scale = Vector2(0.25, 0.25)
+upgrade_name = "Bingus"
+upgrade_icon = "🐈"
+
 [connection signal="item_selected" from="LeftNode/GridNode/OptionButton" to="LeftNode/GridNode/Grid" method="_on_option_button_item_selected"]
-[connection signal="button_down" from="LeftNode/GridNode/Button" to="LeftNode/Menu" method="_on_button_button_down"]
+[connection signal="button_down" from="LeftNode/GridNode/CreateCardButton" to="LeftNode/Menu" method="_on_button_button_down"]
 [connection signal="pressed" from="LeftNode/GridNode/ButtonsContainer/[TEMP]SaveButton/ButtonParent/Button" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="LeftNode/GridNode/ButtonsContainer/[TEMP]LoadButton/ButtonParent/Button" to="." method="_on_load_button_pressed"]
 [connection signal="tab_changed" from="LeftNode/Menu" to="LeftNode/Menu" method="_on_tab_changed"]

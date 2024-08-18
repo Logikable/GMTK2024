@@ -30,6 +30,12 @@ func set_cubie(position: int, rarity: int) -> void:
   assert(len(grid_cubies) == grid_size ** 2)
   
   grid_cubies[position] = rarity
+  # Remove all child cubies first.
+  # GridContainer -> TileParent -> Tile -> TileShape -> [2DCubie -> Draggable]
+  var tile_shape : Node = grid_container.get_child(position).get_child(0).get_child(0)
+  for child in tile_shape.get_children():
+    Util.delete_node(child)
+
   # Zero means no cubie :(
   if rarity == 0:
     return
@@ -46,12 +52,8 @@ func set_cubie(position: int, rarity: int) -> void:
   # Register the Draggable signal.
   draggable.released.connect(_on_drag_release)
 
-  # Add the cubie. Remove all child cubies first.
-  # GridContainer -> TileParent -> Tile -> TileShape -> [2DCubie -> Draggable]
-  var tile_shape : Node = grid_container.get_child(position).get_child(0).get_child(0)
-  for child in tile_shape.get_children():
-    Util.delete_node(child)
-  grid_container.get_child(position).get_child(0).get_child(0).add_child(new_cubie)   # Gross...
+  # Add the cubie.
+  tile_shape.add_child(new_cubie)   # Gross...
 
 
 func generate_children(new_grid_size : int) -> void:
