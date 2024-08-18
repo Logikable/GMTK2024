@@ -1,0 +1,109 @@
+[gd_scene load_steps=9 format=3 uid="uid://cjxbp3q6w7n1k"]
+
+[ext_resource type="FontFile" uid="uid://c48agdebe6v1w" path="res://fonts/ComicCodeLigaturesNFFixed-Regular.ttf" id="1_1xpq5"]
+
+[sub_resource type="SystemFont" id="SystemFont_yaejb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6es0d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3hakr"]
+bg_color = Color(1, 0.933333, 0.576471, 1)
+border_color = Color(1, 0.933333, 0.576471, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tepky"]
+bg_color = Color(1, 0.905882, 0.380392, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(1, 0.907, 0.38, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bwje4"]
+bg_color = Color(1, 0.996078, 0.984314, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(1, 0.933333, 0.576471, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3d2xy"]
+bg_color = Color(1, 0.9295, 0.53, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_gom24"]
+font = ExtResource("1_1xpq5")
+font_size = 34
+font_color = Color(0.203922, 0.219608, 0.25098, 1)
+
+[node name="UpgradeContainer" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -103.0
+offset_top = -102.5
+offset_right = 103.0
+offset_bottom = 102.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+offset_right = 206.0
+offset_bottom = 205.0
+theme_override_constants/margin_bottom = 0
+
+[node name="Button" type="Button" parent="CenterContainer"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_yaejb")
+theme_override_font_sizes/font_size = 120
+theme_override_styles/focus = SubResource("StyleBoxEmpty_6es0d")
+theme_override_styles/hover = SubResource("StyleBoxFlat_3hakr")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tepky")
+theme_override_styles/normal = SubResource("StyleBoxFlat_bwje4")
+text = "🐐"
+
+[node name="NumberContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.954
+anchor_right = 0.5
+anchor_bottom = 0.954
+offset_left = 50.0
+offset_top = -228.07
+offset_right = 118.0
+offset_bottom = -140.07
+scale = Vector2(1.25818, 1.25818)
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 20
+
+[node name="NumberBG" type="Panel" parent="NumberContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3d2xy")
+
+[node name="Number" type="Label" parent="NumberContainer/NumberBG"]
+layout_mode = 2
+offset_right = 68.0
+offset_bottom = 68.0
+size_flags_horizontal = 4
+text = "2"
+label_settings = SubResource("LabelSettings_gom24")
+horizontal_alignment = 1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dpoq76pjfiw80"]
+[gd_scene load_steps=21 format=3 uid="uid://dpoq76pjfiw80"]
 
 [ext_resource type="PackedScene" uid="uid://c35n6g5dqft6e" path="res://scenes/grid.tscn" id="1_oinuk"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_qbhd8"]
@@ -7,6 +7,7 @@
 [ext_resource type="FontFile" uid="uid://c48agdebe6v1w" path="res://fonts/ComicCodeLigaturesNFFixed-Regular.ttf" id="2_xktb0"]
 [ext_resource type="Script" path="res://scripts/menu.gd" id="4_c2n2o"]
 [ext_resource type="PackedScene" uid="uid://7uw3b0qskg7f" path="res://scenes/draggable.tscn" id="4_fxc5v"]
+[ext_resource type="PackedScene" uid="uid://cjxbp3q6w7n1k" path="res://scenes/upgrade.tscn" id="6_dbh5q"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_55k84"]
 line_spacing = 0.0
@@ -183,9 +184,16 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_76n2m")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="LeftNode/Menu/SHOP"]
 layout_mode = 0
-anchor_right = 0.998795
-anchor_bottom = 1.00345
-metadata/_edit_use_anchors_ = true
+offset_right = 262.0
+offset_bottom = 251.0
+
+[node name="UpgradeContainer" parent="LeftNode/Menu/SHOP" instance=ExtResource("6_dbh5q")]
+layout_mode = 1
+offset_left = -394.0
+offset_top = -104.5
+offset_right = -188.0
+offset_bottom = 100.5
+scale = Vector2(0.45, 0.45)
 
 [node name="ALCHEMY" type="Control" parent="LeftNode/Menu"]
 visible = false
@@ -286,6 +294,7 @@ layout_mode = 2
 metadata/_tab_index = 2
 
 [node name="HideBorderPanelShop" type="Panel" parent="LeftNode/Menu/BLESSINGS"]
+layout_mode = 0
 offset_left = 343.0
 offset_top = -8.0
 offset_right = 532.0
