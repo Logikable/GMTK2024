@@ -1,11 +1,17 @@
-[gd_scene load_steps=17 format=3 uid="uid://dpoq76pjfiw80"]
+[gd_scene load_steps=19 format=3 uid="uid://dpoq76pjfiw80"]
 
 [ext_resource type="PackedScene" uid="uid://c35n6g5dqft6e" path="res://scenes/grid.tscn" id="1_oinuk"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_qbhd8"]
+[ext_resource type="PackedScene" uid="uid://b4hbrx3a00yd5" path="res://scenes/fps_label.tscn" id="2_57hkx"]
 [ext_resource type="PackedScene" uid="uid://b0rv4c1oc7yrc" path="res://scenes/card.tscn" id="2_ehw0x"]
 [ext_resource type="FontFile" uid="uid://c48agdebe6v1w" path="res://fonts/ComicCodeLigaturesNFFixed-Regular.ttf" id="2_xktb0"]
 [ext_resource type="Script" path="res://scripts/menu.gd" id="4_c2n2o"]
 [ext_resource type="PackedScene" uid="uid://7uw3b0qskg7f" path="res://scenes/draggable.tscn" id="4_fxc5v"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_55k84"]
+line_spacing = 0.0
+font = ExtResource("2_xktb0")
+font_color = Color(0, 0.498039, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gv1x0"]
 bg_color = Color(0.203922, 0.219608, 0.25098, 1)
@@ -82,6 +88,17 @@ layout_mode = 2
 anchors_preset = 0
 offset_right = 830.0
 offset_bottom = 414.0
+
+[node name="FPSMargin" type="MarginContainer" parent="LeftNode/GridNode"]
+layout_mode = 0
+offset_right = 55.0
+offset_bottom = 27.0
+theme_override_constants/margin_left = 5
+
+[node name="FPSLabel" parent="LeftNode/GridNode/FPSMargin" instance=ExtResource("2_57hkx")]
+layout_mode = 2
+text = "FPS: "
+label_settings = SubResource("LabelSettings_55k84")
 
 [node name="Grid" parent="LeftNode/GridNode" instance=ExtResource("1_oinuk")]
 z_index = 1
