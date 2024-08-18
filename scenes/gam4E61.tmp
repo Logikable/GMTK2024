@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dpoq76pjfiw80"]
+[gd_scene load_steps=21 format=3 uid="uid://dpoq76pjfiw80"]
 
 [ext_resource type="PackedScene" uid="uid://c35n6g5dqft6e" path="res://scenes/grid.tscn" id="1_oinuk"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_qbhd8"]
@@ -16,10 +16,6 @@ font_color = Color(0, 0.498039, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gv1x0"]
 bg_color = Color(0.203922, 0.219608, 0.25098, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_sktip"]
-font = ExtResource("2_xktb0")
-font_size = 18
 
 [sub_resource type="Theme" id="Theme_d5wy5"]
 default_font = ExtResource("2_xktb0")
@@ -78,10 +74,6 @@ bg_color = Color(0.878431, 0.992157, 1, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_88470"]
 bg_color = Color(0, 0, 0, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_no5f4"]
-font = ExtResource("2_xktb0")
-font_size = 24
-
 [node name="GameNode" type="Control" node_paths=PackedStringArray("grid")]
 layout_mode = 3
 anchors_preset = 0
@@ -114,7 +106,6 @@ label_settings = SubResource("LabelSettings_55k84")
 
 [node name="Grid" parent="LeftNode/GridNode" instance=ExtResource("1_oinuk")]
 z_index = 1
-clip_contents = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -159,17 +150,6 @@ popup/item_3/text = "9"
 popup/item_3/id = 3
 popup/item_4/text = "11"
 popup/item_4/id = 4
-
-[node name="Label" type="Label" parent="LeftNode/GridNode"]
-layout_mode = 0
-offset_left = 293.0
-offset_top = 49.0
-offset_right = 539.0
-offset_bottom = 87.0
-text = "50,000 cubies/s"
-label_settings = SubResource("LabelSettings_sktip")
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="Menu" type="TabContainer" parent="LeftNode"]
 layout_mode = 2
@@ -335,16 +315,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_88470")
-
-[node name="Label" type="Label" parent="RightNode"]
-offset_left = 102.0
-offset_top = 572.0
-offset_right = 348.0
-offset_bottom = 613.0
-text = "5,000,000 cubies"
-label_settings = SubResource("LabelSettings_no5f4")
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [connection signal="item_selected" from="LeftNode/GridNode/OptionButton" to="LeftNode/GridNode/Grid" method="_on_option_button_item_selected"]
 [connection signal="tab_changed" from="LeftNode/Menu" to="LeftNode/Menu" method="_on_tab_changed"]

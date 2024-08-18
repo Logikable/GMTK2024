@@ -27,7 +27,7 @@ func _process(delta: float) -> void:
     var current_scale : Vector2 = Util.global_scale(parent)
     var mouse_pos : Vector2 = get_viewport().get_mouse_position()
     # The issue is that the parent is both scaling and moving position.
-    # To solve this, we can compute the position that we clicked, relative to the parent's position,
+    # To solve this, we can recompute the position that we clicked, relative to the parent's position,
     #   on the fly.
     var click_pos : Vector2 = initial_click_position - initial_pos * current_scale
     
@@ -53,7 +53,7 @@ func _input(event) -> void:
         #       Cube should also be scaled to match grid
         var tween : Tween = create_tween()
         # Tween the scale value so stuff shrinks a little when you grab it
-        tween.tween_property(parent, "scale", Vector2(0.95, 0.95), 1).set_trans(Tween.TRANS_ELASTIC)
+        tween.tween_property(parent, "scale", Vector2(0.95, 0.95), 0.1).set_trans(Tween.TRANS_ELASTIC)
         # Have the node scale from its center.
         parent.pivot_offset = parent.size / 2
 

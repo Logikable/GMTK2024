@@ -37,13 +37,18 @@ func set_cubie(position: int, rarity: int) -> void:
   new_cubie.size = Vector2(440, 440)    # Gross...
   new_cubie.z_index = 1   # The cubie needs to be in front of the tile.
   new_cubie.set_colour(rarity)
+
   # Make it draggable.
   var draggable : Node = Draggable.instantiate()
   new_cubie.add_child(draggable)
   # Register the Draggable signal.
   draggable.released.connect(_on_drag_release)
-  # Add the cubie.
+
+  # Add the cubie. Remove all child cubies first.
   # GridContainer -> TileParent -> Tile -> TileShape -> [2DCubie -> Draggable]
+  var tile_shape : Node = grid_container.get_child(position).get_child(0).get_child(0)
+  for child in tile_shape.get_children():
+    Util.delete_node(child)
   grid_container.get_child(position).get_child(0).get_child(0).add_child(new_cubie)   # Gross...
 
 
@@ -64,19 +69,6 @@ func generate_children(new_grid_size : int) -> void:
   Util.delete_node(new_tile_parent)
 
 
-# The first coord is row #, the second is column #.
-func index_to_coords(idx : int, size : int) -> Vector2:
-  return Vector2(idx / size, idx % size)
-  
-func coords_to_index(coords : Vector2, size : int) -> int:
-  if (coords.x < 0 or coords.y < 0 or
-      coords.x >= size or coords.y >= size):
-    return -1
-  var idx : float = coords.x * size + coords.y
-  assert(int(idx) == idx)
-  return int(idx)
-
-
 func update_cubies(new_grid_size : int) -> void:
   # We assume the grid only gets bigger in normal play.
   # If the new grid is smaller, cubies are intentionally lost.
@@ -95,10 +87,10 @@ func update_cubies(new_grid_size : int) -> void:
   
   # Populate the new array with set_cubie().
   for i : int in new_grid_size ** 2:
-    var new_coords : Vector2 = index_to_coords(i, new_grid_size)
+    var new_coords : Vector2 = Util.index_to_coords(i, new_grid_size)
     var old_coords : Vector2 = Vector2(new_coords.x - (new_grid_size - old_grid_size) / 2,
                                        new_coords.y - (new_grid_size - old_grid_size) / 2)
-    var old_idx : int = coords_to_index(old_coords, old_grid_size)
+    var old_idx : int = Util.coords_to_index(old_coords, old_grid_size)
     if 0 <= old_idx and old_idx < old_grid_size ** 2:
       set_cubie(i, old_cubies[old_idx])
     else:
@@ -176,17 +168,22 @@ func _on_drag_release(node: Node, initial_pos: Vector2) -> void:
   var global_scale = Util.global_scale(node)
   var global_rect = Util.global_rect(node)
   var global_centre = global_rect.position + global_rect.size / 2
+
   # Look through all the tiles and see if I've landed in one.
   for tile_parent in grid_container.get_children():
     var new_tile = tile_parent.get_child(0)
     # We only care if it's a new Tile...
     if current_idx == new_tile.tile_idx:
       continue
-    # If I land in a new Tile, move me over to the new Tile.
-    if Util.global_rect(new_tile).has_point(global_centre):
-      set_cubie(new_tile.tile_idx, grid_cubies[current_idx])
-      set_cubie(current_idx, 0)
-      Util.delete_node(node)
-      return
+    # We only care if we land in a new Tile.
+    if not Util.global_rect(new_tile).has_point(global_centre):
+      continue
+    # If there's already a Tile here, swap the two Tiles.
+    var prev_cubie_on_new_tile : int = grid_cubies[new_tile.tile_idx]
+    set_cubie(new_tile.tile_idx, grid_cubies[current_idx])
+    set_cubie(current_idx, prev_cubie_on_new_tile)
+    Util.delete_node(node)
+    return
+
   # If we didn't land in a Tile, then put us back in our Tile.
   node.position = initial_pos
