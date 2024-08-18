@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://cjxbp3q6w7n1k"]
+[gd_scene load_steps=10 format=3 uid="uid://cjxbp3q6w7n1k"]
 
 [ext_resource type="FontFile" uid="uid://c48agdebe6v1w" path="res://fonts/ComicCodeLigaturesNFFixed-Regular.ttf" id="1_1xpq5"]
+[ext_resource type="Script" path="res://scenes/upgrade.gd" id="1_y7n3h"]
 
 [sub_resource type="SystemFont" id="SystemFont_yaejb"]
 subpixel_positioning = 0
@@ -64,6 +65,7 @@ offset_right = 103.0
 offset_bottom = 102.5
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_y7n3h")
 
 [node name="CenterContainer" type="MarginContainer" parent="."]
 layout_mode = 2

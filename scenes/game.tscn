@@ -157,18 +157,6 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="PanelContainer" type="PanelContainer" parent="LeftNode/GridNode"]
-z_index = -1
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.14734
-offset_bottom = -3.05176e-05
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_gv1x0")
-metadata/_edit_use_anchors_ = true
-
 [node name="OptionButton" type="OptionButton" parent="LeftNode/GridNode"]
 z_index = 1
 layout_mode = 0
@@ -187,17 +175,6 @@ popup/item_3/text = "9"
 popup/item_3/id = 3
 popup/item_4/text = "11"
 popup/item_4/id = 4
-
-[node name="Label" type="Label" parent="LeftNode/GridNode"]
-layout_mode = 0
-offset_left = 293.0
-offset_top = 49.0
-offset_right = 539.0
-offset_bottom = 87.0
-text = "50,000 cubies/s"
-label_settings = SubResource("LabelSettings_sktip")
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="Button" type="Button" parent="LeftNode/GridNode"]
 layout_mode = 0
@@ -331,6 +308,26 @@ text = "5,000,000 cubies"
 label_settings = SubResource("LabelSettings_no5f4")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="UpgradeContainer" parent="." instance=ExtResource("6_dbh5q")]
+layout_mode = 1
+offset_left = 124.0
+offset_top = 52.0
+offset_right = 330.0
+offset_bottom = 257.0
+scale = Vector2(0.25, 0.25)
+upgrade_name = "Bingus"
+upgrade_icon = "🐈"
+
+[node name="UpgradeContainer2" parent="." instance=ExtResource("6_dbh5q")]
+layout_mode = 1
+offset_left = 57.0
+offset_top = 52.0
+offset_right = 263.0
+offset_bottom = 257.0
+scale = Vector2(0.25, 0.25)
+upgrade_name = "Bingus"
+upgrade_icon = "🐈"
 
 [connection signal="item_selected" from="LeftNode/GridNode/OptionButton" to="LeftNode/GridNode/Grid" method="_on_option_button_item_selected"]
 [connection signal="button_down" from="LeftNode/GridNode/Button" to="LeftNode/Menu" method="_on_button_button_down"]
