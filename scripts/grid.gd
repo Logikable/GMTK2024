@@ -32,12 +32,16 @@ func set_cubie(position: int, rarity: int) -> void:
   if rarity == 0:
     return
   
-  # Create the new 2DCubie and make it draggable.
+  # Create the new 2DCubie.
   var new_cubie : Node = TwoDCubie.instantiate()
   new_cubie.size = Vector2(440, 440)    # Gross...
   new_cubie.z_index = 1   # The cubie needs to be in front of the tile.
   new_cubie.set_colour(rarity)
-  new_cubie.add_child(Draggable.instantiate())
+  # Make it draggable.
+  var draggable : Node = Draggable.instantiate()
+  new_cubie.add_child(draggable)
+  # Register the Draggable signal.
+  draggable.released.connect(_on_drag_release)
   # Add the cubie.
   # GridContainer -> TileParent -> Tile -> TileShape -> [2DCubie -> Draggable]
   grid_container.get_child(position).get_child(0).get_child(0).add_child(new_cubie)   # Gross...
@@ -51,12 +55,13 @@ func generate_children(new_grid_size : int) -> void:
 
   # Recompute the number of tile instances.
   for tile_parent in grid_container.get_children():
-    # Godot's version of deleting a node.
-    grid_container.remove_child(tile_parent)
-    tile_parent.queue_free()
+    Util.delete_node(tile_parent)
   for i in new_grid_size ** 2:
-    grid_container.add_child(new_tile_parent.duplicate())
-  new_tile_parent.queue_free()
+    var tile_parent : Node = new_tile_parent.duplicate()
+    # TileParent -> Tile
+    tile_parent.get_child(0).tile_idx = i
+    grid_container.add_child(tile_parent)
+  Util.delete_node(new_tile_parent)
 
 
 # The first coord is row #, the second is column #.
@@ -134,7 +139,6 @@ func update_params(new_grid_size : int) -> void:
 
 
 func set_grid_size(new_grid_size : int) -> void:
-  print('set_grid_size()')
   assert(3 <= new_grid_size and new_grid_size <= 11)
   grid_size = new_grid_size
   grid_container.columns = grid_size
@@ -158,3 +162,31 @@ func _process(delta: float) -> void:
 func _on_option_button_item_selected(index: int) -> void:
   # 0 -> 3, 1 -> 5, etc.
   self.set_grid_size(2 * index + 3)
+
+
+func _on_drag_release(node: Node, initial_pos: Vector2) -> void:
+  # We only care about signals for the cubies in the grid.
+  if not grid_container.is_ancestor_of(node):
+    return
+
+  # 2DCubie -> TileShape -> Tile
+  var current_tile = node.get_parent().get_parent()
+  var current_idx = current_tile.tile_idx
+  # All computations are done with global positions.
+  var global_scale = Util.global_scale(node)
+  var global_rect = Util.global_rect(node)
+  var global_centre = global_rect.position + global_rect.size / 2
+  # Look through all the tiles and see if I've landed in one.
+  for tile_parent in grid_container.get_children():
+    var new_tile = tile_parent.get_child(0)
+    # We only care if it's a new Tile...
+    if current_idx == new_tile.tile_idx:
+      continue
+    # If I land in a new Tile, move me over to the new Tile.
+    if Util.global_rect(new_tile).has_point(global_centre):
+      set_cubie(new_tile.tile_idx, grid_cubies[current_idx])
+      set_cubie(current_idx, 0)
+      Util.delete_node(node)
+      return
+  # If we didn't land in a Tile, then put us back in our Tile.
+  node.position = initial_pos

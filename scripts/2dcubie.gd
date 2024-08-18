@@ -10,7 +10,6 @@ var COLOURS = {
 
 
 func set_colour(rarity: int) -> void:
-  print('set_colour(%d)', rarity)
   var stylebox = self.get_theme_stylebox('panel').duplicate()
   stylebox.bg_color = COLOURS[rarity]
   self.add_theme_stylebox_override('panel', stylebox)
