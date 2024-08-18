@@ -25,9 +25,7 @@ func delete_node(node: Node) -> void:
     node.get_parent().remove_child(node)
   node.queue_free()
 
-
 ################################### Grid operations ##########################################
-
 
 # The first coord is row #, the second is column #.
 func index_to_coords(idx : int, size : int) -> Vector2:
@@ -43,12 +41,23 @@ func coords_to_index(coords : Vector2, size : int) -> int:
   return int(idx)
 
 
-# Sides must be adjacent, not corners.
-func adjacent(c1 : Vector2, c2 : Vector2) -> bool:
-  if c1 == c2:
-    return false
-  if c1.x == c2.x and abs(c1.y - c2.y) == 1:
-    return true
-  if c1.y == c2.y and abs(c1.x - c2.x) == 1:
-    return true
-  return false
+const TOUCHING : Array[Vector2] = [Vector2(-1, 0), Vector2(1, 0), Vector2(0, -1), Vector2(0, 1)]
+func touching() -> Array[Vector2]:
+  return TOUCHING
+
+
+func around_me(width : int) -> Array[Vector2]:
+  assert(width % 2 == 1)
+  var start_idx = -(width / 2)
+  var ret : Array[Vector2] = []
+  for i in width:
+    for j in width:
+      ret.append(Vector2(start_idx + i, start_idx + j))
+  assert(len(ret) == width ** 2)
+  return ret
+  
+
+################################### Math operations ##########################################
+
+func sum(array : Array[float]) -> float:
+  return array.reduce(func(x, y): return x + y, 0.0)
