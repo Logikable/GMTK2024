@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dpoq76pjfiw80"]
+[gd_scene load_steps=31 format=3 uid="uid://dpoq76pjfiw80"]
 
 [ext_resource type="PackedScene" uid="uid://c35n6g5dqft6e" path="res://scenes/grid.tscn" id="1_oinuk"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_qbhd8"]
@@ -6,10 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://b0rv4c1oc7yrc" path="res://scenes/card.tscn" id="2_ehw0x"]
 [ext_resource type="FontFile" uid="uid://c48agdebe6v1w" path="res://fonts/ComicCodeLigaturesNFFixed-Regular.ttf" id="2_xktb0"]
 [ext_resource type="Script" path="res://scripts/menu.gd" id="4_c2n2o"]
-[ext_resource type="PackedScene" uid="uid://7uw3b0qskg7f" path="res://scenes/draggable.tscn" id="4_fxc5v"]
 [ext_resource type="Script" path="res://scripts/cps_label.gd" id="5_x3i7v"]
 [ext_resource type="PackedScene" uid="uid://cjxbp3q6w7n1k" path="res://scenes/upgrade.tscn" id="6_dbh5q"]
 [ext_resource type="Theme" uid="uid://754m2gs5mwax" path="res://assets/default.tres" id="6_k0u1n"]
+[ext_resource type="PackedScene" uid="uid://cpklnuogag7tt" path="res://scenes/2dcubie.tscn" id="8_6ipis"]
+[ext_resource type="PackedScene" uid="uid://bgpt5isktlgpc" path="res://scenes/tile.tscn" id="8_7ni7m"]
+[ext_resource type="PackedScene" uid="uid://frg1q7xtchp1" path="res://scenes/card_parent.tscn" id="10_545re"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gv1x0"]
 bg_color = Color(0.203922, 0.219608, 0.25098, 1)
@@ -192,7 +194,7 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="OptionButton" type="OptionButton" parent="LeftNode/GridNode"]
+[node name="[TEMP]PickGridSize" type="OptionButton" parent="LeftNode/GridNode"]
 z_index = 1
 layout_mode = 0
 offset_left = 113.0
@@ -211,7 +213,7 @@ popup/item_3/id = 3
 popup/item_4/text = "11"
 popup/item_4/id = 4
 
-[node name="CreateCardButton" type="Button" parent="LeftNode/GridNode"]
+[node name="[TEMP]CreateCardButton" type="Button" parent="LeftNode/GridNode"]
 layout_mode = 0
 offset_left = 114.0
 offset_top = 117.0
@@ -219,7 +221,7 @@ offset_right = 229.0
 offset_bottom = 148.0
 text = "Create Card"
 
-[node name="ButtonsContainer" type="HBoxContainer" parent="LeftNode/GridNode"]
+[node name="[TEMP]ButtonsContainer" type="HBoxContainer" parent="LeftNode/GridNode"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -232,18 +234,18 @@ grow_horizontal = 0
 grow_vertical = 0
 theme_override_constants/separation = 0
 
-[node name="[TEMP]SaveButton" type="MarginContainer" parent="LeftNode/GridNode/ButtonsContainer"]
+[node name="[TEMP]SaveButton" type="MarginContainer" parent="LeftNode/GridNode/[TEMP]ButtonsContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ButtonParent" type="Control" parent="LeftNode/GridNode/ButtonsContainer/[TEMP]SaveButton"]
+[node name="ButtonParent" type="Control" parent="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]SaveButton"]
 custom_minimum_size = Vector2(59, 59)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="LeftNode/GridNode/ButtonsContainer/[TEMP]SaveButton/ButtonParent"]
+[node name="Button" type="Button" parent="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]SaveButton/ButtonParent"]
 layout_mode = 2
 offset_right = 195.0
 offset_bottom = 195.0
@@ -256,18 +258,18 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_afv12")
 theme_override_styles/normal = SubResource("StyleBoxFlat_x6owc")
 text = "💾"
 
-[node name="[TEMP]LoadButton" type="MarginContainer" parent="LeftNode/GridNode/ButtonsContainer"]
+[node name="[TEMP]LoadButton" type="MarginContainer" parent="LeftNode/GridNode/[TEMP]ButtonsContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ButtonParent" type="Control" parent="LeftNode/GridNode/ButtonsContainer/[TEMP]LoadButton"]
+[node name="ButtonParent" type="Control" parent="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]LoadButton"]
 custom_minimum_size = Vector2(59, 59)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="LeftNode/GridNode/ButtonsContainer/[TEMP]LoadButton/ButtonParent"]
+[node name="Button" type="Button" parent="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]LoadButton/ButtonParent"]
 layout_mode = 2
 offset_right = 195.0
 offset_bottom = 195.0
@@ -280,7 +282,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_afv12")
 theme_override_styles/normal = SubResource("StyleBoxFlat_x6owc")
 text = "📁"
 
-[node name="Menu" type="TabContainer" parent="LeftNode"]
+[node name="Menu" type="TabContainer" parent="LeftNode" node_paths=PackedStringArray("alchemy_cards", "grid")]
 layout_mode = 2
 offset_top = 435.0
 offset_right = 830.0
@@ -299,8 +301,12 @@ current_tab = 1
 drag_to_rearrange_enabled = true
 tab_focus_mode = 0
 script = ExtResource("4_c2n2o")
+alchemy_cards = NodePath("ALCHEMY/AlchemyCards")
+grid = NodePath("../GridNode/Grid")
+CardParent = ExtResource("10_545re")
 Card = ExtResource("2_ehw0x")
-Draggable = ExtResource("4_fxc5v")
+Tile = ExtResource("8_7ni7m")
+TwoDCubie = ExtResource("8_6ipis")
 
 [node name="SHOP" type="Control" parent="LeftNode/Menu"]
 visible = false
@@ -340,7 +346,7 @@ offset_right = 333.0
 offset_bottom = 2.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_0isn0")
 
-[node name="Cards" type="HBoxContainer" parent="LeftNode/Menu/ALCHEMY"]
+[node name="AlchemyCards" type="HBoxContainer" parent="LeftNode/Menu/ALCHEMY"]
 z_index = 1
 layout_mode = 1
 anchors_preset = 8
@@ -356,18 +362,11 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 17
 
-[node name="Control" type="Control" parent="LeftNode/Menu/ALCHEMY/Cards"]
-custom_minimum_size = Vector2(176, 176)
+[node name="CardParent" parent="LeftNode/Menu/ALCHEMY/AlchemyCards" instance=ExtResource("10_545re")]
 layout_mode = 2
 tooltip_text = "test"
 mouse_filter = 1
 mouse_default_cursor_shape = 6
-
-[node name="Card" parent="LeftNode/Menu/ALCHEMY/Cards/Control" instance=ExtResource("2_ehw0x")]
-layout_mode = 1
-scale = Vector2(0.45, 0.45)
-
-[node name="Draggable" parent="LeftNode/Menu/ALCHEMY/Cards/Control" instance=ExtResource("4_fxc5v")]
 
 [node name="BLESSINGS" type="Control" parent="LeftNode/Menu"]
 visible = false
@@ -428,8 +427,8 @@ scale = Vector2(0.25, 0.25)
 upgrade_name = "Bingus"
 upgrade_icon = "🐈"
 
-[connection signal="item_selected" from="LeftNode/GridNode/OptionButton" to="LeftNode/GridNode/Grid" method="_on_option_button_item_selected"]
-[connection signal="button_down" from="LeftNode/GridNode/CreateCardButton" to="LeftNode/Menu" method="_on_button_button_down"]
-[connection signal="pressed" from="LeftNode/GridNode/ButtonsContainer/[TEMP]SaveButton/ButtonParent/Button" to="." method="_on_save_button_pressed"]
-[connection signal="pressed" from="LeftNode/GridNode/ButtonsContainer/[TEMP]LoadButton/ButtonParent/Button" to="." method="_on_load_button_pressed"]
+[connection signal="item_selected" from="LeftNode/GridNode/[TEMP]PickGridSize" to="LeftNode/GridNode/Grid" method="_on_option_button_item_selected"]
+[connection signal="pressed" from="LeftNode/GridNode/[TEMP]CreateCardButton" to="LeftNode/Menu" method="_on_card_add_button_press"]
+[connection signal="pressed" from="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]SaveButton/ButtonParent/Button" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]LoadButton/ButtonParent/Button" to="." method="_on_load_button_pressed"]
 [connection signal="tab_changed" from="LeftNode/Menu" to="LeftNode/Menu" method="_on_tab_changed"]

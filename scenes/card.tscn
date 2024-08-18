@@ -43,7 +43,7 @@ bg_color = Color(0.203922, 0.219608, 0.25098, 1)
 corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
 
-[node name="Card" type="PanelContainer"]
+[node name="Card" type="PanelContainer" node_paths=PackedStringArray("name_label", "number_label", "texture_rect", "divider")]
 offset_right = 390.0
 offset_bottom = 390.0
 size_flags_horizontal = 4
@@ -51,7 +51,10 @@ size_flags_vertical = 4
 mouse_default_cursor_shape = 6
 theme_override_styles/panel = SubResource("StyleBoxFlat_08uny")
 script = ExtResource("1_c2cb0")
-divider_color = Color(0.657556, 0.951213, 0.933985, 1)
+name_label = NodePath("CardContents/Header/Name")
+number_label = NodePath("CardContents/Header/HeaderPanel/NumberContainer/NumberBG/Number")
+texture_rect = NodePath("CardContents/Body/2DCubie/TextureRect")
+divider = NodePath("CardContents/Divider")
 
 [node name="CardContents" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -141,6 +144,3 @@ offset_bottom = 508.549
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_ms6wg")
-
-[node name="CardControl" type="Control" parent="."]
-layout_mode = 2

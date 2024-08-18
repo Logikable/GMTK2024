@@ -1,17 +1,12 @@
 extends Panel
 
-var COLOURS = {
-  0: Color(0, 0, 0, 0),     # Means an empty tile.
-  1: Color.html('69FF66'),  # Green.
-  2: Color.html('66DAFF'),  # Blue.
-  3: Color.html('D766FF'),  # Purple.
-  4: Color.html('FFB966'),  # Yellow.
-}
+var rarity: int
 
 
-func set_colour(rarity: int) -> void:
+func set_colour(new_rarity: int) -> void:
+  rarity = new_rarity
   var stylebox = self.get_theme_stylebox('panel').duplicate()
-  stylebox.bg_color = COLOURS[rarity]
+  stylebox.bg_color = Util.COLOURS[new_rarity]
   self.add_theme_stylebox_override('panel', stylebox)
 
 

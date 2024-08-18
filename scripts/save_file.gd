@@ -1,12 +1,12 @@
 extends Node
 
 
-const save_path : String = 'user://cubie.save'
+const save_path: String = 'user://cubie.save'
 
 
-func save(data : Dictionary) -> void:
+func save(data: Dictionary) -> void:
   var save_file = FileAccess.open(save_path, FileAccess.WRITE)
-  var json_string : String = JSON.stringify(data)
+  var json_string: String = JSON.stringify(data)
   save_file.store_line(json_string)
 
 
@@ -17,7 +17,7 @@ func can_load() -> bool:
 func load() -> Dictionary:
   assert(can_load())
   var save_file = FileAccess.open(save_path, FileAccess.READ)
-  var json_string : String = save_file.get_line()
+  var json_string: String = save_file.get_line()
 
   var json = JSON.new()
   var parse_result = json.parse(json_string)

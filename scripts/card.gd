@@ -1,31 +1,40 @@
 extends Control
 
-@export var card_name: String = "Card Name"
-@export var card_number: int = 1
-@export var texture_path: String
-@export var divider_color: Color
+@export var name_label: Label
+@export var number_label: Label
+@export var texture_rect: TextureRect
+@export var divider: Panel
 
-@onready var name_label: Label = $CardContents/Header/Name
-@onready var number_label: Label = $CardContents/Header/HeaderPanel/NumberContainer/NumberBG/Number
-@onready var texture_rect: TextureRect = $'CardContents/Body/2DCubie/TextureRect'
-@onready var divider: Panel = $CardContents/Divider
+const NAME: Dictionary = {
+  0: 'Unknown',
+  1: 'Uncommon Cube',
+  2: 'Rare Cube',
+  3: 'Epic Cube',
+  4: 'Legendary Cube',
+}
+const TEXTURE: Dictionary = {
+  0: 'Unknown',
+  1: "res://assets/5Ijg6wc.png",
+  2: "res://assets/AGiIs44.png",
+  3: "res://assets/A4hYt9F.png",
+  4: "res://assets/2jAEXOC.png",
+}
+
+var rarity: int = 0
+  
+  
+func set_rarity(new_rarity: int) -> void:
+  rarity = new_rarity
+  
+  texture_rect.texture = load(TEXTURE[new_rarity])
+  name_label.set_text(NAME[new_rarity])
+  number_label.set_text(str(2))
+  divider.get_theme_stylebox("panel").bg_color = Util.COLOURS[new_rarity]
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-  set_values("hehe", 2, "res://assets/5Ijg6wc.png", Color.html("#69FF66"))
-  self.scale = Vector2(0.45, 0.45)
-
-func set_values(_name: String, _number: int, _path: String, _tint: Color) -> void:
-  card_name = _name
-  card_number = _number
-  texture_path = _path
-  divider_color = _tint
-  
-  texture_rect.texture = load(_path)
-  name_label.set_text(_name)
-  number_label.set_text(str(_number))
-  divider.get_theme_stylebox("panel").bg_color = _tint
-  
+  pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

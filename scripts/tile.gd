@@ -1,6 +1,6 @@
 extends Control
 
-var tile_idx : int
+var tile_idx: int
 
 
 # Called when the node enters the scene tree for the first time.

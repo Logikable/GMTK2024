@@ -1,17 +1,17 @@
 extends Control
 
-@export var grid : Node
-@export var cps_label : Label
-@export var cubies_label : Label
+@export var grid: Node
+@export var cps_label: Label
+@export var cubies_label: Label
 
-const BASE_CPS : Dictionary = { 0: 0.0, 1: 1.0, 2: 0.0, 3: 0.0, 4: 0.0 }
-const BASE_MULT : Dictionary = { 0: 0.0, 1: 1.0, 2: 2.0, 3: 1.1, 4: 0.0 }
-const SUPERCHARGE_COOLDOWN : float = 5 * 60.0
-const SUPERCHARGE_DURATION : float = 10.0
+const BASE_CPS: Dictionary = { 0: 0.0, 1: 1.0, 2: 0.0, 3: 0.0, 4: 0.0 }
+const BASE_MULT: Dictionary = { 0: 0.0, 1: 1.0, 2: 2.0, 3: 1.1, 4: 0.0 }
+const SUPERCHARGE_COOLDOWN: float = 5 * 60.0
+const SUPERCHARGE_DURATION: float = 10.0
 
-var cubies : float
-var supercharge_cooldown_remaining : float
-var supercharge_duration_remaining : float
+var cubies: float
+var supercharge_cooldown_remaining: float
+var supercharge_duration_remaining: float
 
 func _make_custom_tooltip(for_text):
   var tooltip = preload("res://scenes/tooltip.tscn").instantiate()
@@ -22,20 +22,20 @@ func cubies_per_second() -> float:
   var width = grid.grid_size
   var cubies = len(grid.grid_cubies)
   
-  var cps_per_tile : Array[float] = []
+  var cps_per_tile: Array[float] = []
   # The handling of supercharge is everywhere. It's not pretty.
   var supercharge_multiplier = 2.0 if (supercharge_duration_remaining > 0.0) else 1.0
   # First, populate with base cps values.
   for idx in cubies:
-    var rarity : int = grid.grid_cubies[idx]
-    var cps : int = BASE_CPS[rarity] * supercharge_multiplier
+    var rarity: int = grid.grid_cubies[idx]
+    var cps: int = BASE_CPS[rarity] * supercharge_multiplier
     cps_per_tile.append(cps)
   assert(len(cps_per_tile) == cubies)
   # Handle 2x cubies (rarity 2) and 10% cubies (rarity 3)
   for idx in cubies:
-    var rarity : int = grid.grid_cubies[idx]
+    var rarity: int = grid.grid_cubies[idx]
     var coords = Util.index_to_coords(idx, width)
-    var affected_region : Array[Vector2]
+    var affected_region: Array[Vector2]
     match rarity:
       2:
         affected_region = Util.touching()
@@ -43,7 +43,7 @@ func cubies_per_second() -> float:
         affected_region = Util.around_me(3)
       _:
         continue
-    for delta : Vector2 in affected_region:
+    for delta: Vector2 in affected_region:
       var adj_idx = Util.coords_to_index(coords + delta, width)
       if 0 <= adj_idx and adj_idx < cubies:
         cps_per_tile[adj_idx] *= BASE_MULT[rarity] * supercharge_multiplier
@@ -60,7 +60,7 @@ func save_data() -> Dictionary:
   }
 
 
-func load_data(data : Dictionary) -> void:
+func load_data(data: Dictionary) -> void:
   cubies = data.cubies
   grid.set_grid_size(data.grid_size)
   grid.set_grid_cubies(data.grid_cubies)

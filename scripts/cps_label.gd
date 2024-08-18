@@ -1,6 +1,6 @@
 extends Label
 
-@export var grid : Node
+@export var grid: Node
 
 # Grid size -> Font size.
 const FONT_SIZES = {
@@ -27,10 +27,10 @@ func _process(delta: float) -> void:
 
 
 # Change the position and size of the text.
-func _on_grid_size_update(new_grid_size : int) -> void:
-  var parent_center : Vector2 = Util.parent_center(self)
+func _on_grid_size_update(new_grid_size: int) -> void:
+  var parent_center: Vector2 = Util.parent_center(self)
   # How much space we have above the grid.
-  var y_space : int = parent_center.y - grid.size.y / 2
+  var y_space: int = parent_center.y - grid.size.y / 2
   # Make myself a bit bigger first.
   self.label_settings.font_size = FONT_SIZES[new_grid_size]
   # Update my position. This is relative to my size, so it must be done second.

@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://frg1q7xtchp1"]
+
+[ext_resource type="Script" path="res://scripts/card_parent.gd" id="1_0cj5y"]
+[ext_resource type="PackedScene" uid="uid://b0rv4c1oc7yrc" path="res://scenes/card.tscn" id="1_30lly"]
+[ext_resource type="PackedScene" uid="uid://7uw3b0qskg7f" path="res://scenes/draggable.tscn" id="2_51moo"]
+
+[node name="CardParent" type="Control"]
+custom_minimum_size = Vector2(176, 176)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_0cj5y")
+
+[node name="Card" parent="." instance=ExtResource("1_30lly")]
+layout_mode = 1
+scale = Vector2(0.45, 0.45)
+
+[node name="Draggable" parent="." instance=ExtResource("2_51moo")]
