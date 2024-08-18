@@ -3,6 +3,7 @@
 [ext_resource type="FontFile" uid="uid://c48agdebe6v1w" path="res://fonts/ComicCodeLigaturesNFFixed-Regular.ttf" id="1_1xpq5"]
 
 [sub_resource type="SystemFont" id="SystemFont_yaejb"]
+subpixel_positioning = 0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6es0d"]
 
