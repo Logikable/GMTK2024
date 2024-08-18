@@ -11,5 +11,8 @@ corner_radius_bottom_left = 50
 [node name="2DCubie" type="Panel"]
 offset_right = 500.0
 offset_bottom = 500.0
+pivot_offset = Vector2(225, 225)
+size_flags_horizontal = 0
+size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_atcyl")
 script = ExtResource("1_t058s")

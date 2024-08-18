@@ -178,6 +178,12 @@ offset_right = 155.0
 offset_bottom = 3.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_d7m7w")
 
+[node name="HBoxContainer" type="HBoxContainer" parent="LeftNode/Menu/SHOP"]
+layout_mode = 0
+anchor_right = 0.998795
+anchor_bottom = 1.00345
+metadata/_edit_use_anchors_ = true
+
 [node name="ALCHEMY" type="Control" parent="LeftNode/Menu"]
 layout_mode = 2
 metadata/_tab_index = 1
@@ -196,44 +202,28 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_top = -131.5
-offset_right = 424.0
-offset_bottom = 131.5
+offset_left = 1.0
+offset_top = -134.0
+offset_right = 408.0
+offset_bottom = 129.0
 grow_vertical = 2
 theme_override_constants/separation = 17
-
-[node name="PaddingNode" type="Control" parent="LeftNode/Menu/ALCHEMY/Cards"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
 
 [node name="CardNode" type="Control" parent="LeftNode/Menu/ALCHEMY/Cards"]
 custom_minimum_size = Vector2(195, 261)
 layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 0
-
-[node name="Card" parent="LeftNode/Menu/ALCHEMY/Cards/CardNode" instance=ExtResource("2_ehw0x")]
-custom_minimum_size = Vector2(300, 500)
-layout_mode = 0
-offset_right = 390.0
-offset_bottom = 522.0
-scale = Vector2(0.5, 0.5)
 
 [node name="Draggable" parent="LeftNode/Menu/ALCHEMY/Cards/CardNode" instance=ExtResource("4_fxc5v")]
+
+[node name="Card" parent="LeftNode/Menu/ALCHEMY/Cards/CardNode" instance=ExtResource("2_ehw0x")]
+layout_mode = 1
+scale = Vector2(0.5, 0.5)
 
 [node name="CardNode2" type="Control" parent="LeftNode/Menu/ALCHEMY/Cards"]
 custom_minimum_size = Vector2(195, 261)
 layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 0
-
-[node name="Card" parent="LeftNode/Menu/ALCHEMY/Cards/CardNode2" instance=ExtResource("2_ehw0x")]
-custom_minimum_size = Vector2(300, 500)
-layout_mode = 0
-offset_right = 390.0
-offset_bottom = 522.0
-scale = Vector2(0.5, 0.5)
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="Draggable" parent="LeftNode/Menu/ALCHEMY/Cards/CardNode2" instance=ExtResource("4_fxc5v")]
 
