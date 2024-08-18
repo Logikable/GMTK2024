@@ -9,6 +9,7 @@ extends Control
 @onready var number_container: MarginContainer = $UpgradeContainer/NumberContainer
 @onready var button: Button = $UpgradeContainer/CenterContainer/UpgradeButton
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
   set_values(upgrade_name, upgrade_count, upgrade_icon)

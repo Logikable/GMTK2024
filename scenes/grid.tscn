@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://c35n6g5dqft6e"]
+[gd_scene load_steps=6 format=3 uid="uid://c35n6g5dqft6e"]
 
 [ext_resource type="Script" path="res://scripts/grid.gd" id="1_b1efl"]
 [ext_resource type="PackedScene" uid="uid://bgpt5isktlgpc" path="res://scenes/tile.tscn" id="1_r0jgx"]
 [ext_resource type="PackedScene" uid="uid://cpklnuogag7tt" path="res://scenes/2dcubie.tscn" id="3_8qa4p"]
+[ext_resource type="PackedScene" uid="uid://n0kc6y86cdt4" path="res://scenes/initial_2dcubie.tscn" id="3_ywx8h"]
 [ext_resource type="PackedScene" uid="uid://7uw3b0qskg7f" path="res://scenes/draggable.tscn" id="4_2ic37"]
 
 [node name="GridNode" type="Control" node_paths=PackedStringArray("grid_container")]
@@ -13,9 +14,10 @@ offset_right = 210.0
 offset_bottom = 210.0
 script = ExtResource("1_b1efl")
 grid_container = NodePath("GridContainer")
+Draggable = ExtResource("4_2ic37")
+Initial2DCubie = ExtResource("3_ywx8h")
 Tile = ExtResource("1_r0jgx")
 TwoDCubie = ExtResource("3_8qa4p")
-Draggable = ExtResource("4_2ic37")
 
 [node name="GridContainer" type="GridContainer" parent="."]
 layout_mode = 1

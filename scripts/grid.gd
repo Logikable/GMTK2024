@@ -1,15 +1,27 @@
 extends Control
 
 @export var grid_container: Node
+@export var Draggable: PackedScene
+@export var Initial2DCubie: PackedScene
 @export var Tile: PackedScene
 @export var TwoDCubie: PackedScene
-@export var Draggable: PackedScene
 
 signal grid_size_updated
 
+# Assume zone.gd has:
+const SHAPE = {
+  0: [],
+  1: [[1], [2], [1], [1]],
+  2: [[1, 0], [1, 1], [1, 1]],
+  3: [[0, 1, 0], [1, 1, 1], [0, 1, 0]]
+}
+# Where 0 means empty, 1 means entry, 2 means centre.
+
+var game: Node
 # grid_size is the number of tiles along one edge of the grid.
 var grid_size: int = 3
-var grid_cubies: Array[int] = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+var grid_cubies: Array[int] = [0, 0, 0, 0, -1, 0, 0, 0, 0]
+var initial_cubie_idx: int = 4
 
 
 # TODO: fix this function. This is horrible.
@@ -33,11 +45,26 @@ func set_cubie(position: int, rarity: int) -> void:
   new_cubie.z_index = 1   # The cubie needs to be in front of tiles.
   new_cubie.set_colour(rarity)
 
-  # Make it draggable.
-  var draggable: Node = Draggable.instantiate()
-  new_cubie.add_child(draggable)
-  # Register the Draggable signal.
-  draggable.released.connect(_on_drag_release)
+  # Make it draggable if it's not the starting cubie.
+  if rarity >= 0:
+    var draggable: Node = Draggable.instantiate()
+    new_cubie.add_child(draggable)
+    # Register the Draggable signal.
+    draggable.released.connect(_on_drag_release)
+
+  # Make it clickable and add an image if it's the starting cubie.
+  elif rarity == -1:
+    var initial2DCubie: Button = Initial2DCubie.instantiate()
+    initial2DCubie.size = new_cubie.size
+    initial2DCubie.pressed.connect(_on_initial_cubie_press)
+    new_cubie.add_child(initial2DCubie)
+    # Add the image to the button.
+    var texture: TextureRect = TextureRect.new()
+    texture.texture = load(Util.TEXTURE[rarity])
+    texture.size = new_cubie.size
+    initial2DCubie.add_child(texture)
+    # Remember the position of the centre.
+    initial_cubie_idx = position
 
   # Add the cubie.
   tile_shape.add_child(new_cubie)
@@ -135,7 +162,7 @@ func set_grid_cubies(cubies: Array) -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-  pass
+  game = get_tree().get_first_node_in_group('game')
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -179,3 +206,7 @@ func _on_drag_release(node: Node, initial_pos: Vector2) -> void:
 
   # If we didn't land in a Tile, then put us back in our Tile.
   node.position = initial_pos
+  
+  
+func _on_initial_cubie_press() -> void:
+  game.initial_cubie_click()

@@ -3,11 +3,27 @@ extends Node
 ################################### Global Constants ##########################################
 
 var COLOURS: Dictionary = {
+  -1: Color(0, 0, 0, 0),    # Clicky cubie; has a custom asset. See below.
   0: Color(0, 0, 0, 0),     # Means an empty tile.
   1: Color.html('69FF66'),  # Green.
   2: Color.html('66DAFF'),  # Blue.
   3: Color.html('D766FF'),  # Purple.
   4: Color.html('FFB966'),  # Yellow.
+}
+const NAME: Dictionary = {
+  0: 'Unknown',
+  1: 'Uncommon Cube',
+  2: 'Rare Cube',
+  3: 'Epic Cube',
+  4: 'Legendary Cube',
+}
+const TEXTURE: Dictionary = {
+  -1: 'res://assets/O5ILzWu.png',
+  0: 'Unknown',
+  1: "res://assets/5Ijg6wc.png",
+  2: "res://assets/AGiIs44.png",
+  3: "res://assets/A4hYt9F.png",
+  4: "res://assets/2jAEXOC.png",
 }
 
 const GRID_PIXELS = {
@@ -105,6 +121,17 @@ func around_me(width: int) -> Array[Vector2]:
   assert(len(ret) == width ** 2)
   return ret
   
+
+func affected_region(rarity: int) -> Array[Vector2]:
+  var affected_region: Array[Vector2]
+  match rarity:
+    2:
+      affected_region = Util.touching()
+    3:
+      affected_region = Util.around_me(3)
+    _:
+      affected_region = []
+  return affected_region
 
 ################################### Math operations ##########################################
 

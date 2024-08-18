@@ -124,7 +124,7 @@ bg_color = Color(0, 0, 0, 1)
 font = ExtResource("2_xktb0")
 font_size = 24
 
-[node name="GameNode" type="Control" node_paths=PackedStringArray("grid", "cps_label", "cubies_label")]
+[node name="GameNode" type="Control" node_paths=PackedStringArray("grid", "cps_label", "cubies_label") groups=["game"]]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1280.0
@@ -383,14 +383,8 @@ layout_mode = 2
 
 [node name="CardParent" parent="LeftNode/Menu/ALCHEMY/AlchemyCards/CardGrandparent" instance=ExtResource("10_545re")]
 layout_mode = 2
-<<<<<<< HEAD
-tooltip_text = "test"
-mouse_filter = 1
-mouse_default_cursor_shape = 6
-=======
 offset_right = 176.0
 offset_bottom = 176.0
->>>>>>> Add cursor position debug label. Figure out placing cards on the grid. Add CardGrandparent.
 
 [node name="BLESSINGS" type="Control" parent="LeftNode/Menu"]
 visible = false

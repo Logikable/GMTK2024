@@ -4,8 +4,9 @@ extends Control
 @export var cps_label: Label
 @export var cubies_label: Label
 
-const BASE_CPS: Dictionary = { 0: 0.0, 1: 1.0, 2: 0.0, 3: 0.0, 4: 0.0 }
-const BASE_MULT: Dictionary = { 0: 0.0, 1: 1.0, 2: 2.0, 3: 1.1, 4: 0.0 }
+const BASE_INITIAL_CUBIE_CLICK = 1.0
+const BASE_CPS: Dictionary = { -1: 0.0, 0: 0.0, 1: 1.0, 2: 0.0, 3: 0.0, 4: 0.0 }
+const BASE_MULT: Dictionary = { -1: 0.0, 0: 0.0, 1: 1.0, 2: 2.0, 3: 1.1, 4: 0.0 }
 const SUPERCHARGE_COOLDOWN: float = 5 * 60.0
 const SUPERCHARGE_DURATION: float = 10.0
 
@@ -16,37 +17,52 @@ var supercharge_duration_remaining: float
 func _make_custom_tooltip(for_text):
   var tooltip = preload("res://scenes/tooltip.tscn").instantiate()
   tooltip.get_node("MarginContainer/VBoxContainer/BodyText").text = for_text
-  return tooltip  
+  return tooltip
+
+
+# The handling of supercharge is everywhere. It's not pretty.
+func maybe_supercharge(v: float) -> float:
+  var supercharge_multiplier = 2.0 if (supercharge_duration_remaining > 0.0) else 1.0
+  return v * supercharge_multiplier
+
+
+func initial_cubie_click() -> void:
+  var width = grid.grid_size
+  var area = len(grid.grid_cubies)
+
+  var cubies_generated = BASE_INITIAL_CUBIE_CLICK
+  for idx in area:
+    var rarity: int = grid.grid_cubies[idx]
+    var affected_region: Array[Vector2] = Util.affected_region(rarity)
+    var coords = Util.index_to_coords(idx, width)
+    for delta: Vector2 in affected_region:
+      var affected_idx = Util.coords_to_index(coords + delta, width)
+      if affected_idx == grid.initial_cubie_idx:
+        cubies_generated *= maybe_supercharge(BASE_MULT[rarity])
+  cubies += floori(cubies_generated)
+
 
 func cubies_per_second() -> float:
   var width = grid.grid_size
-  var cubies = len(grid.grid_cubies)
+  var area = len(grid.grid_cubies)
   
   var cps_per_tile: Array[float] = []
-  # The handling of supercharge is everywhere. It's not pretty.
-  var supercharge_multiplier = 2.0 if (supercharge_duration_remaining > 0.0) else 1.0
   # First, populate with base cps values.
-  for idx in cubies:
+  for idx in area:
     var rarity: int = grid.grid_cubies[idx]
-    var cps: int = BASE_CPS[rarity] * supercharge_multiplier
+    var cps: int = maybe_supercharge(BASE_CPS[rarity])
     cps_per_tile.append(cps)
-  assert(len(cps_per_tile) == cubies)
-  # Handle 2x cubies (rarity 2) and 10% cubies (rarity 3)
-  for idx in cubies:
+  assert(len(cps_per_tile) == area)
+
+  # Find and handle multiplicative cubies (rarity 2 and 3).
+  for idx in area:
     var rarity: int = grid.grid_cubies[idx]
+    var affected_region: Array[Vector2] = Util.affected_region(rarity)
     var coords = Util.index_to_coords(idx, width)
-    var affected_region: Array[Vector2]
-    match rarity:
-      2:
-        affected_region = Util.touching()
-      3:
-        affected_region = Util.around_me(3)
-      _:
-        continue
     for delta: Vector2 in affected_region:
-      var adj_idx = Util.coords_to_index(coords + delta, width)
-      if 0 <= adj_idx and adj_idx < cubies:
-        cps_per_tile[adj_idx] *= BASE_MULT[rarity] * supercharge_multiplier
+      var affected_idx = Util.coords_to_index(coords + delta, width)
+      if 0 <= affected_idx and affected_idx < area:
+        cps_per_tile[affected_idx] *= maybe_supercharge(BASE_MULT[rarity])
   return Util.sum(cps_per_tile)
 
 
@@ -73,8 +89,8 @@ func _ready() -> void:
   cubies = 0
   grid.set_grid_size(3)
   # Test data only. Use the commented out code for the actual game.
-  grid.set_grid_cubies([0, 0, 2, 0, 1, 4, 3, 0, 1])
-  #grid.set_grid_cubies([0, 0, 0, 0, -1, 0, 0, 0, 0])
+  #grid.set_grid_cubies([0, 1, 2, 0, -1, 4, 3, 0, 1])
+  grid.set_grid_cubies([0, 2, 0, 2, -1, 3, 0, 0, 0])
   supercharge_cooldown_remaining = 0.0
   supercharge_duration_remaining = 0.0
 
@@ -85,8 +101,8 @@ func _process(delta: float) -> void:
   var cps = cubies_per_second()
   cubies += cps * delta
   # Display CPS with 1 decimal.
-  cps_label.text = str(floor(cps * 10.0) / 10.0) + ' cubies/s'
-  cubies_label.text = str(floor(cubies)) + ' cubies'
+  cps_label.text = str(floori(cps * 10.0) / 10.0) + ' cubies/s'
+  cubies_label.text = str(floori(cubies)) + ' cubies'
   
   # Handle rarity=4 cubies doing supercharge.
   supercharge_cooldown_remaining = max(0.0, supercharge_cooldown_remaining - delta)
