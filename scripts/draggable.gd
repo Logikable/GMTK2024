@@ -53,7 +53,7 @@ func _input(event) -> void:
         #       Cube should also be scaled to match grid
         var tween : Tween = create_tween()
         # Tween the scale value so stuff shrinks a little when you grab it
-        tween.tween_property(parent, "scale", Vector2(0.95, 0.95), 1).set_trans(Tween.TRANS_ELASTIC)
+        tween.tween_property(parent, "scale", Vector2(0.95, 0.95), 0.1).set_trans(Tween.TRANS_ELASTIC)
         # Have the node scale from its center.
         parent.pivot_offset = parent.size / 2
 

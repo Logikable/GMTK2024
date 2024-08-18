@@ -1,5 +1,8 @@
 extends TabContainer
 
+@export var Card : PackedScene
+@export var Draggable : PackedScene
+
 const COLOURS = {
   'SHOP': { 'bg': 'FFFAE0', 'border': 'FFEE93' },
   'ALCHEMY': { 'bg': 'F4E9FF', 'border': 'CB93FF' },
@@ -7,6 +10,7 @@ const COLOURS = {
 }
 const STYLEBOXES = ['panel', 'tab_selected']
 
+@onready var spawn_point = $ALCHEMY/Cards
 
 func set_menu_colours(name: String) -> void:
   var colours = COLOURS[name]
@@ -31,3 +35,15 @@ func _process(delta: float) -> void:
 func _on_tab_changed(tab: int) -> void:
   var tab_name = self.get_tab_title(tab)
   set_menu_colours(tab_name)
+
+
+func _on_button_button_down() -> void:
+  var draggable : Node = Draggable.instantiate()
+  var card_control : Control = Control.new()
+  var card : Node = Card.instantiate()
+  card_control.custom_minimum_size = Vector2(176, 176)
+  spawn_point.add_child(card_control)
+  card_control.add_child(card)
+  card_control.add_child(draggable)
+  
+  #pass # Replace with function body.

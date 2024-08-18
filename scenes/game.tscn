@@ -114,6 +114,7 @@ label_settings = SubResource("LabelSettings_55k84")
 
 [node name="Grid" parent="LeftNode/GridNode" instance=ExtResource("1_oinuk")]
 z_index = 1
+clip_contents = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -126,7 +127,6 @@ offset_right = 105.0
 offset_bottom = 105.0
 grow_horizontal = 2
 grow_vertical = 2
-metadata/_edit_use_anchors_ = true
 
 [node name="PanelContainer" type="PanelContainer" parent="LeftNode/GridNode"]
 z_index = -1
@@ -170,6 +170,14 @@ label_settings = SubResource("LabelSettings_sktip")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Button" type="Button" parent="LeftNode/GridNode"]
+layout_mode = 0
+offset_left = 114.0
+offset_top = 117.0
+offset_right = 229.0
+offset_bottom = 148.0
+text = "Create Card"
+
 [node name="Menu" type="TabContainer" parent="LeftNode"]
 layout_mode = 2
 offset_top = 435.0
@@ -186,8 +194,11 @@ theme_override_styles/tab_selected = SubResource("StyleBoxFlat_57o7h")
 theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_gcun3")
 theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_iyq20")
 current_tab = 1
+drag_to_rearrange_enabled = true
 tab_focus_mode = 0
 script = ExtResource("4_c2n2o")
+Card = ExtResource("2_ehw0x")
+Draggable = ExtResource("4_fxc5v")
 
 [node name="SHOP" type="Control" parent="LeftNode/Menu"]
 visible = false
@@ -243,69 +254,15 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 17
 
-[node name="CardNode" type="Control" parent="LeftNode/Menu/ALCHEMY/Cards"]
-custom_minimum_size = Vector2(175.5, 175.5)
+[node name="Control" type="Control" parent="LeftNode/Menu/ALCHEMY/Cards"]
+custom_minimum_size = Vector2(176, 176)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 
-[node name="Draggable" parent="LeftNode/Menu/ALCHEMY/Cards/CardNode" instance=ExtResource("4_fxc5v")]
-
-[node name="Card" parent="LeftNode/Menu/ALCHEMY/Cards/CardNode" instance=ExtResource("2_ehw0x")]
+[node name="Card" parent="LeftNode/Menu/ALCHEMY/Cards/Control" instance=ExtResource("2_ehw0x")]
 layout_mode = 1
-offset_left = -87.75
-offset_top = -87.75
-offset_right = 302.25
-offset_bottom = 302.25
 scale = Vector2(0.45, 0.45)
 
-[node name="CardNode2" type="Control" parent="LeftNode/Menu/ALCHEMY/Cards"]
-custom_minimum_size = Vector2(175.5, 175.5)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="Draggable" parent="LeftNode/Menu/ALCHEMY/Cards/CardNode2" instance=ExtResource("4_fxc5v")]
-
-[node name="Card" parent="LeftNode/Menu/ALCHEMY/Cards/CardNode2" instance=ExtResource("2_ehw0x")]
-layout_mode = 1
-offset_left = -87.75
-offset_top = -87.75
-offset_right = 302.25
-offset_bottom = 302.25
-scale = Vector2(0.45, 0.45)
-
-[node name="CardNode3" type="Control" parent="LeftNode/Menu/ALCHEMY/Cards"]
-custom_minimum_size = Vector2(175.5, 175.5)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="Draggable" parent="LeftNode/Menu/ALCHEMY/Cards/CardNode3" instance=ExtResource("4_fxc5v")]
-
-[node name="Card" parent="LeftNode/Menu/ALCHEMY/Cards/CardNode3" instance=ExtResource("2_ehw0x")]
-layout_mode = 1
-offset_left = -87.75
-offset_top = -87.75
-offset_right = 302.25
-offset_bottom = 302.25
-scale = Vector2(0.45, 0.45)
-
-[node name="CardNode4" type="Control" parent="LeftNode/Menu/ALCHEMY/Cards"]
-custom_minimum_size = Vector2(175.5, 175.5)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="Draggable" parent="LeftNode/Menu/ALCHEMY/Cards/CardNode4" instance=ExtResource("4_fxc5v")]
-
-[node name="Card" parent="LeftNode/Menu/ALCHEMY/Cards/CardNode4" instance=ExtResource("2_ehw0x")]
-layout_mode = 1
-offset_left = -87.75
-offset_top = -87.75
-offset_right = 302.25
-offset_bottom = 302.25
-scale = Vector2(0.45, 0.45)
+[node name="Draggable" parent="LeftNode/Menu/ALCHEMY/Cards/Control" instance=ExtResource("4_fxc5v")]
 
 [node name="BLESSINGS" type="Control" parent="LeftNode/Menu"]
 visible = false
@@ -336,6 +293,7 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_88470")
 
 [node name="Label" type="Label" parent="RightNode"]
+layout_mode = 0
 offset_left = 102.0
 offset_top = 572.0
 offset_right = 348.0
@@ -346,4 +304,5 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [connection signal="item_selected" from="LeftNode/GridNode/OptionButton" to="LeftNode/GridNode/Grid" method="_on_option_button_item_selected"]
+[connection signal="button_down" from="LeftNode/GridNode/Button" to="LeftNode/Menu" method="_on_button_button_down"]
 [connection signal="tab_changed" from="LeftNode/Menu" to="LeftNode/Menu" method="_on_tab_changed"]
