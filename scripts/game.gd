@@ -11,6 +11,11 @@ var cubies : float = 0
 # TODO: yellow cubie supercharges the grid.
 var last_supercharge : Time
 
+func _make_custom_tooltip(for_text):
+  var tooltip = preload("res://scenes/tooltip.tscn").instantiate()
+  tooltip.get_node("MarginContainer/VBoxContainer/BodyText").text = for_text
+  return tooltip  
+
 func cubies_per_second() -> float:
   var width = grid.grid_size
   var cubies = len(grid.grid_cubies)

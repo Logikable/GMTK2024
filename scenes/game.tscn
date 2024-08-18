@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://7uw3b0qskg7f" path="res://scenes/draggable.tscn" id="4_fxc5v"]
 [ext_resource type="Script" path="res://scripts/cps_label.gd" id="5_x3i7v"]
 [ext_resource type="PackedScene" uid="uid://cjxbp3q6w7n1k" path="res://scenes/upgrade.tscn" id="6_dbh5q"]
+[ext_resource type="Theme" uid="uid://754m2gs5mwax" path="res://assets/default.tres" id="6_k0u1n"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gv1x0"]
 bg_color = Color(0.203922, 0.219608, 0.25098, 1)
@@ -58,10 +59,6 @@ corner_radius_top_left = 25
 corner_radius_top_right = 25
 corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
-
-[sub_resource type="Theme" id="Theme_d5wy5"]
-default_font = ExtResource("2_xktb0")
-default_font_size = 18
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p7m1s"]
 
@@ -125,6 +122,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 1280.0
 offset_bottom = 720.0
+theme = ExtResource("6_k0u1n")
 script = ExtResource("1_qbhd8")
 grid = NodePath("LeftNode/GridNode/Grid")
 cps_label = NodePath("LeftNode/GridNode/CubiesPerSecond")
@@ -287,7 +285,7 @@ layout_mode = 2
 offset_top = 435.0
 offset_right = 830.0
 offset_bottom = 720.0
-theme = SubResource("Theme_d5wy5")
+theme = ExtResource("6_k0u1n")
 theme_override_colors/font_unselected_color = Color(0.726794, 0.746741, 0.786369, 1)
 theme_override_colors/font_hovered_color = Color(0.203922, 0.219608, 0.25098, 1)
 theme_override_colors/font_selected_color = Color(0.203922, 0.219608, 0.25098, 1)
@@ -361,6 +359,9 @@ theme_override_constants/separation = 17
 [node name="Control" type="Control" parent="LeftNode/Menu/ALCHEMY/Cards"]
 custom_minimum_size = Vector2(176, 176)
 layout_mode = 2
+tooltip_text = "test"
+mouse_filter = 1
+mouse_default_cursor_shape = 6
 
 [node name="Card" parent="LeftNode/Menu/ALCHEMY/Cards/Control" instance=ExtResource("2_ehw0x")]
 layout_mode = 1
@@ -406,26 +407,6 @@ text = "5,000,000 cubies"
 label_settings = SubResource("LabelSettings_no5f4")
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="UpgradeContainer" parent="." instance=ExtResource("6_dbh5q")]
-layout_mode = 1
-offset_left = 124.0
-offset_top = 52.0
-offset_right = 330.0
-offset_bottom = 257.0
-scale = Vector2(0.25, 0.25)
-upgrade_name = "Bingus"
-upgrade_icon = "🐈"
-
-[node name="UpgradeContainer2" parent="." instance=ExtResource("6_dbh5q")]
-layout_mode = 1
-offset_left = 57.0
-offset_top = 52.0
-offset_right = 263.0
-offset_bottom = 257.0
-scale = Vector2(0.25, 0.25)
-upgrade_name = "Bingus"
-upgrade_icon = "🐈"
 
 [connection signal="item_selected" from="LeftNode/GridNode/OptionButton" to="LeftNode/GridNode/Grid" method="_on_option_button_item_selected"]
 [connection signal="button_down" from="LeftNode/GridNode/Button" to="LeftNode/Menu" method="_on_button_button_down"]

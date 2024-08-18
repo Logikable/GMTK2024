@@ -1,0 +1,10 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://754m2gs5mwax"]
+
+[ext_resource type="FontFile" uid="uid://c48agdebe6v1w" path="res://fonts/ComicCodeLigaturesNFFixed-Regular.ttf" id="1_7fcla"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x4pu6"]
+
+[resource]
+default_font = ExtResource("1_7fcla")
+default_font_size = 18
+PopupPanel/styles/panel = SubResource("StyleBoxEmpty_x4pu6")

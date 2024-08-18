@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=3 uid="uid://dtrh8gejdsuae"]
+
+[ext_resource type="FontFile" uid="uid://c48agdebe6v1w" path="res://fonts/ComicCodeLigaturesNFFixed-Regular.ttf" id="1_cgio0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bvlwt"]
+bg_color = Color(0.2025, 0.218333, 0.25, 0.960784)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.792157, 0.792157, 0.792157, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="LabelSettings" id="LabelSettings_5v8ek"]
+font = ExtResource("1_cgio0")
+font_size = 14
+font_color = Color(1, 0.996078, 0.984314, 1)
+
+[node name="PanelContainer" type="PanelContainer"]
+custom_minimum_size = Vector2(225, 0)
+anchors_preset = -1
+anchor_right = 0.210156
+anchor_bottom = 0.0819444
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bvlwt")
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="BodyText" type="Label" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(225, 0)
+layout_mode = 2
+text = "This is explainer text!"
+label_settings = SubResource("LabelSettings_5v8ek")
+autowrap_mode = 2
