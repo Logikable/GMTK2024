@@ -39,6 +39,13 @@ func global_rect(node: Node) -> Rect2:
   return global_rect
 
 
+# Get the position of my centre, using global coords.
+func global_centre(node: Node) -> Vector2:
+  var global_rect = global_rect(node)
+  var global_centre = global_rect.position + global_rect.size / 2
+  return global_centre
+
+
 func get_child_with_name(node: Node, name: String) -> Node:
   for child: Node in node.get_children():
     if child.name == name:

@@ -155,20 +155,19 @@ func _on_drag_release(node: Node, initial_pos: Vector2) -> void:
     return
 
   # 2DCubie -> TileShape -> Tile
-  var current_tile = node.get_parent().get_parent()
-  var current_idx = current_tile.tile_idx
+  var current_tile: Node = node.get_parent().get_parent()
+  var current_idx: int = current_tile.tile_idx
+
   # All computations are done with global positions.
-  var global_scale = Util.global_scale(node)
-  var global_rect = Util.global_rect(node)
-  var global_centre = global_rect.position + global_rect.size / 2
+  var global_centre: Vector2 = Util.global_centre(node)
 
   # Look through all the tiles and see if I've landed in one.
   for tile_parent in grid_container.get_children():
     var new_tile = tile_parent.get_child(0)
-    # We only care if it's a new Tile...
+    # We only care if it's a different Tile.
     if current_idx == new_tile.tile_idx:
       continue
-    # We only care if we land in a new Tile.
+    # We only care if we land in this new Tile.
     if not Util.global_rect(new_tile).has_point(global_centre):
       continue
     # If there's already a Tile here, swap the two Tiles.
