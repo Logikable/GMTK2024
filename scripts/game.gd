@@ -89,8 +89,8 @@ func _ready() -> void:
   cubies = 0
   grid.set_grid_size(3)
   # Test data only. Use the commented out code for the actual game.
-  #grid.set_grid_cubies([0, 1, 2, 0, -1, 4, 3, 0, 1])
   grid.set_grid_cubies([0, 2, 0, 2, -1, 3, 0, 0, 0])
+  #grid.set_grid_cubies([0, 0, 0, 0, -1, 0, 0, 0, 0])
   supercharge_cooldown_remaining = 0.0
   supercharge_duration_remaining = 0.0
 
