@@ -1,30 +1,24 @@
 extends Control
 
-@export var upgrade_name: String = "Upgrade Name"
-@export var upgrade_count: int = 0
-@export var upgrade_icon: String
-@export var tooltip: String
+@export var count_label: Label
+@export var number_container: Node
+@export var upgrade_icon: TextureRect
+@export var button: Button
 
-@onready var count_label: Label = $UpgradeContainer/NumberContainer/NumberBG/Number
-@onready var number_container: MarginContainer = $UpgradeContainer/NumberContainer
-@onready var button: Button = $UpgradeContainer/CenterContainer/UpgradeButton
+var upgrade_name: String = 'Upgrade Name'
+var upgrade_count: int = 0
+var tooltip: String
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-  set_values(upgrade_name, upgrade_count, upgrade_icon)
-  button.tooltip_text = tooltip
-
-func set_values(_name: String, _number: int, _icon: String) -> void:
-  upgrade_name = _name
-  upgrade_count = _number
-  upgrade_icon = _icon
-  
   if upgrade_count == 0:
     number_container.visible = false
-    
-  count_label.set_text(str(_number))
-  button.text = _icon
+  else:
+    number_container.visible = true
+    count_label.set_text(str(upgrade_count))
+  button.tooltip_text = tooltip
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

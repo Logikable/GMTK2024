@@ -1,6 +1,7 @@
 extends Control
 
 @export var grid: Node
+@export var menu: Node
 @export var cps_label: Label
 @export var cubies_label: Label
 
@@ -11,13 +12,20 @@ const SUPERCHARGE_COOLDOWN: float = 5 * 60.0
 const SUPERCHARGE_DURATION: float = 10.0
 
 var cubies: float
+var cubies_all_time: float
 var supercharge_cooldown_remaining: float
 var supercharge_duration_remaining: float
+
 
 func _make_custom_tooltip(for_text):
   var tooltip = preload("res://scenes/tooltip.tscn").instantiate()
   tooltip.get_node("MarginContainer/VBoxContainer/BodyText").text = for_text
   return tooltip
+  
+
+func add_cubies(cubies_: float) -> void:
+  cubies += cubies_
+  cubies_all_time += cubies_
 
 
 # The handling of supercharge is everywhere. It's not pretty.
@@ -39,7 +47,7 @@ func initial_cubie_click() -> void:
       var affected_idx = Util.coords_to_index(coords + delta, width)
       if affected_idx == grid.initial_cubie_idx:
         cubies_generated *= maybe_supercharge(BASE_MULT[rarity])
-  cubies += floori(cubies_generated)
+  add_cubies(floori(cubies_generated))
 
 
 func cubies_per_second() -> float:
@@ -69,6 +77,7 @@ func cubies_per_second() -> float:
 func save_data() -> Dictionary:
   return {
     'cubies': cubies,
+    'cubies_all_time': cubies_all_time,
     'grid_size': grid.grid_size,
     'grid_cubies': grid.grid_cubies,
     'supercharge_cooldown_remaining': supercharge_cooldown_remaining,
@@ -78,32 +87,23 @@ func save_data() -> Dictionary:
 
 func load_data(data: Dictionary) -> void:
   cubies = data.cubies
+  cubies_all_time = data.cubies_all_time
   grid.set_grid_size(data.grid_size)
   grid.set_grid_cubies(data.grid_cubies)
   supercharge_cooldown_remaining = data.supercharge_cooldown_remaining
   supercharge_duration_remaining = data.supercharge_duration_remaining
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-  cubies = 0
-  grid.set_grid_size(3)
-  # Test data only. Use the commented out code for the actual game.
-  grid.set_grid_cubies([0, 2, 4, 2, -1, 3, 0, 0, 0])
-  #grid.set_grid_cubies([0, 0, 0, 0, -1, 0, 0, 0, 0])
-  supercharge_cooldown_remaining = 0.0
-  supercharge_duration_remaining = 0.0
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func update_labels(delta: float) -> void:
   # Update CPS and Cubies counter.
   var cps = cubies_per_second()
-  cubies += cps * delta
+  add_cubies(cps * delta)
   # Display CPS with 1 decimal.
   cps_label.text = str(floori(cps * 10.0) / 10.0) + ' cubies/s'
   cubies_label.text = str(floori(cubies)) + ' cubies'
   
+
+func update_supercharge_timers(delta: float) -> void:
   # Handle rarity=4 cubies doing supercharge.
   supercharge_cooldown_remaining = max(0.0, supercharge_cooldown_remaining - delta)
   supercharge_duration_remaining = max(0.0, supercharge_duration_remaining - delta)
@@ -111,6 +111,33 @@ func _process(delta: float) -> void:
   if supercharge_cooldown_remaining == 0.0 and grid.grid_cubies.has(4):
     supercharge_cooldown_remaining = SUPERCHARGE_COOLDOWN
     supercharge_duration_remaining = SUPERCHARGE_DURATION
+
+
+func update_shop() -> void:
+  for upgrade in Upgrades.UPGRADES:
+    if upgrade.id in menu.available_upgrades:
+      continue
+    if upgrade.unlock_at <= cubies:
+      menu.add_shop_upgrade(upgrade.id)
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+  cubies = 0
+  cubies_all_time = 0
+  grid.set_grid_size(3)
+  # Test data only. Use the commented out code for the actual game.
+  #grid.set_grid_cubies([0, 2, 4, 2, -1, 3, 0, 0, 0])
+  grid.set_grid_cubies([0, 0, 0, 0, -1, 0, 0, 0, 0])
+  supercharge_cooldown_remaining = 0.0
+  supercharge_duration_remaining = 0.0
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+  update_labels(delta)
+  update_supercharge_timers(delta)
+  update_shop()
 
 
 func _on_save_button_pressed() -> void:

@@ -48,17 +48,19 @@ func _input(event) -> void:
       # Things are computed using global rather than local position.
       if Util.global_rect(parent).has_point(event.position):
         held = true
-        # See declaration location at top of file for explanations.
+        # See declaration location at top of file for explanations of these variables.
         initial_click_position = event.position
         initial_local_pos = parent.position
         initial_global_pos = parent.global_position
         initial_scale = Util.global_scale(parent)
-        # Animate the nodes we're dragging.        
-        # TODO: Add more tweening to fade out the card when dragging
-        #       Everything but the cube should disappear
-        #       Cube should also be scaled to match grid
+        # Render above everything else.
+        parent.z_index += 1
+        # Animate the nodes we're dragging.
+        # TODO: Add more tweening to fade out the card when dragging.
+        #       Everything but the cube should disappear.
+        #       Cube should also be scaled to match grid.
         var tween: Tween = create_tween()
-        # Tween the scale value so stuff shrinks a little when you grab it
+        # Tween the scale value so stuff shrinks a little when you grab it.
         tween.tween_property(parent, "scale", Vector2(0.95, 0.95), 0.1).set_trans(Tween.TRANS_ELASTIC)
         # Have the node scale from its center.
         parent.pivot_offset = parent.size / 2
@@ -68,6 +70,8 @@ func _input(event) -> void:
       # I only care if I was the object being held.
       if held:
         held = false
+        # Reset Z-index.
+        parent.z_index -= 1
         # Untween.
         var tween: Tween = create_tween()
         tween.tween_property(parent, "scale", Vector2(1, 1), 0.1).set_trans(Tween.TRANS_ELASTIC)

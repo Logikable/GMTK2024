@@ -19,6 +19,7 @@ config/icon="res://assets/icon.svg"
 
 Util="*res://scripts/util.gd"
 SaveFile="*res://scripts/save_file.gd"
+Upgrades="*res://scripts/upgrades.gd"
 
 [debug]
 

@@ -122,7 +122,7 @@ bg_color = Color(0, 0, 0, 1)
 font = ExtResource("2_xktb0")
 font_size = 24
 
-[node name="GameNode" type="Control" node_paths=PackedStringArray("grid", "cps_label", "cubies_label") groups=["game"]]
+[node name="GameNode" type="Control" node_paths=PackedStringArray("grid", "menu", "cps_label", "cubies_label") groups=["game"]]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1280.0
@@ -130,6 +130,7 @@ offset_bottom = 720.0
 theme = ExtResource("6_k0u1n")
 script = ExtResource("1_qbhd8")
 grid = NodePath("LeftNode/GridNode/Grid")
+menu = NodePath("LeftNode/Menu")
 cps_label = NodePath("LeftNode/GridNode/CubiesPerSecond")
 cubies_label = NodePath("RightNode/NumCubies")
 
@@ -298,7 +299,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_afv12")
 theme_override_styles/normal = SubResource("StyleBoxFlat_x6owc")
 text = "📁"
 
-[node name="Menu" type="TabContainer" parent="LeftNode" node_paths=PackedStringArray("alchemy_cards", "grid")]
+[node name="Menu" type="TabContainer" parent="LeftNode" node_paths=PackedStringArray("alchemy_cards", "grid", "shop_rows")]
 layout_mode = 2
 offset_top = 435.0
 offset_right = 830.0
@@ -313,16 +314,17 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_hkfyx")
 theme_override_styles/tab_selected = SubResource("StyleBoxFlat_57o7h")
 theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_gcun3")
 theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_iyq20")
-current_tab = 1
+current_tab = 0
 drag_to_rearrange_enabled = true
 tab_focus_mode = 0
 script = ExtResource("4_c2n2o")
 alchemy_cards = NodePath("ALCHEMY/AlchemyCards")
 grid = NodePath("../GridNode/Grid")
+shop_rows = NodePath("SHOP/ShopMargins/Rows")
 CardParent = ExtResource("10_545re")
+Upgrade = ExtResource("6_dbh5q")
 
 [node name="SHOP" type="Control" parent="LeftNode/Menu"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -334,21 +336,144 @@ offset_right = 155.0
 offset_bottom = 3.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_76n2m")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="LeftNode/Menu/SHOP"]
+[node name="ShopMargins" type="MarginContainer" parent="LeftNode/Menu/SHOP"]
+custom_minimum_size = Vector2(830, 240)
 layout_mode = 0
-offset_right = 262.0
-offset_bottom = 251.0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 10
 
-[node name="UpgradeContainer" parent="LeftNode/Menu/SHOP" instance=ExtResource("6_dbh5q")]
-layout_mode = 1
-offset_left = -394.0
-offset_top = -104.5
-offset_right = -188.0
-offset_bottom = 100.5
-scale = Vector2(0.45, 0.45)
-script = null
+[node name="Rows" type="VBoxContainer" parent="LeftNode/Menu/SHOP/ShopMargins"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Columns" type="HBoxContainer" parent="LeftNode/Menu/SHOP/ShopMargins/Rows"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="UpgradeParent" type="Control" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Upgrade" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns/UpgradeParent" instance=ExtResource("6_dbh5q")]
+layout_mode = 2
+scale = Vector2(0.416, 0.416)
+
+[node name="UpgradeParent2" type="Control" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Upgrade" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns/UpgradeParent2" instance=ExtResource("6_dbh5q")]
+layout_mode = 2
+scale = Vector2(0.416, 0.416)
+
+[node name="UpgradeParent3" type="Control" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Upgrade" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns/UpgradeParent3" instance=ExtResource("6_dbh5q")]
+layout_mode = 2
+scale = Vector2(0.416, 0.416)
+
+[node name="UpgradeParent4" type="Control" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Upgrade" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns/UpgradeParent4" instance=ExtResource("6_dbh5q")]
+layout_mode = 2
+scale = Vector2(0.416, 0.416)
+
+[node name="UpgradeParent5" type="Control" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Upgrade" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns/UpgradeParent5" instance=ExtResource("6_dbh5q")]
+layout_mode = 2
+scale = Vector2(0.416, 0.416)
+
+[node name="UpgradeParent6" type="Control" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Upgrade" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns/UpgradeParent6" instance=ExtResource("6_dbh5q")]
+layout_mode = 2
+scale = Vector2(0.416, 0.416)
+
+[node name="UpgradeParent7" type="Control" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Upgrade" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns/UpgradeParent7" instance=ExtResource("6_dbh5q")]
+layout_mode = 2
+scale = Vector2(0.416, 0.416)
+
+[node name="Columns2" type="HBoxContainer" parent="LeftNode/Menu/SHOP/ShopMargins/Rows"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="UpgradeParent" type="Control" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns2"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Upgrade" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns2/UpgradeParent" instance=ExtResource("6_dbh5q")]
+layout_mode = 2
+scale = Vector2(0.416, 0.416)
+
+[node name="UpgradeParent2" type="Control" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns2"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Upgrade" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns2/UpgradeParent2" instance=ExtResource("6_dbh5q")]
+layout_mode = 2
+scale = Vector2(0.416, 0.416)
+
+[node name="UpgradeParent3" type="Control" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns2"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Upgrade" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns2/UpgradeParent3" instance=ExtResource("6_dbh5q")]
+layout_mode = 2
+scale = Vector2(0.416, 0.416)
+
+[node name="UpgradeParent4" type="Control" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns2"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Upgrade" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns2/UpgradeParent4" instance=ExtResource("6_dbh5q")]
+layout_mode = 2
+scale = Vector2(0.416, 0.416)
+
+[node name="UpgradeParent5" type="Control" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns2"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Upgrade" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns2/UpgradeParent5" instance=ExtResource("6_dbh5q")]
+layout_mode = 2
+scale = Vector2(0.416, 0.416)
+
+[node name="UpgradeParent6" type="Control" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns2"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Upgrade" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns2/UpgradeParent6" instance=ExtResource("6_dbh5q")]
+layout_mode = 2
+scale = Vector2(0.416, 0.416)
+
+[node name="UpgradeParent7" type="Control" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns2"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Upgrade" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns2/UpgradeParent7" instance=ExtResource("6_dbh5q")]
+layout_mode = 2
+scale = Vector2(0.416, 0.416)
 
 [node name="ALCHEMY" type="Control" parent="LeftNode/Menu"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 

@@ -58,11 +58,13 @@ func set_cubie(position: int, rarity: int) -> void:
     initial2DCubie.size = new_cubie.size
     initial2DCubie.pressed.connect(_on_initial_cubie_press)
     new_cubie.add_child(initial2DCubie)
+
     # Add the image to the button.
     var texture: TextureRect = TextureRect.new()
     texture.texture = load(Util.TEXTURE[rarity])
     texture.size = new_cubie.size
     initial2DCubie.add_child(texture)
+
     # Remember the position of the centre.
     initial_cubie_idx = position
 
@@ -191,8 +193,8 @@ func _on_drag_release(node: Node, initial_pos: Vector2) -> void:
   # Look through all the tiles and see if I've landed in one.
   for tile_parent in grid_container.get_children():
     var new_tile = tile_parent.get_child(0)
-    # We only care if it's a different Tile.
-    if current_idx == new_tile.tile_idx:
+    # Don't swap with the current tile or the initial tile.
+    if current_idx == new_tile.tile_idx or new_tile.tile_idx == initial_cubie_idx:
       continue
     # We only care if we land in this new Tile.
     if not Util.global_rect(new_tile).has_point(global_centre):

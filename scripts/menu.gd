@@ -2,24 +2,71 @@ extends TabContainer
 
 @export var alchemy_cards: Node
 @export var grid: Node
+@export var shop_rows: Node
 @export var CardParent: PackedScene
+@export var Upgrade: PackedScene
 
-const COLOURS = {
+const MENU_COLOURS = {
   'SHOP': { 'bg': 'FFFAE0', 'border': 'FFEE93' },
   'ALCHEMY': { 'bg': 'F4E9FF', 'border': 'CB93FF' },
   'BLESSINGS': { 'bg': 'E0FDFF', 'border': '92F8FF' }
 }
-const STYLEBOXES = ['panel', 'tab_selected']
+const MENU_STYLEBOXES = ['panel', 'tab_selected']
+
+const SHOP_ROWS: int = 2
+const SHOP_COLUMNS: int = 7
+const SHOP_UPGRADE_SIZE: Vector2 = Vector2(100, 100)
+
+var available_upgrades = []
 
 
 func set_menu_colours(name: String) -> void:
-  var colours = COLOURS[name]
+  var colours = MENU_COLOURS[name]
 
-  for stylebox in STYLEBOXES:
+  for stylebox in MENU_STYLEBOXES:
     var stylebox_clone = self.get_theme_stylebox(stylebox).duplicate()
     stylebox_clone.bg_color = Color.html(colours.bg)
     stylebox_clone.border_color = Color.html(colours.border)
     add_theme_stylebox_override(stylebox, stylebox_clone)
+    
+    
+func add_shop_upgrade(id: float) -> void:
+  assert(id not in available_upgrades)
+  
+  # Sort the list of available upgrades and remake the shop.
+  available_upgrades.append(id)
+  available_upgrades.sort()
+  recreate_shop()
+  
+  
+func recreate_shop() -> void:
+  # Remove all UpgradeParents.
+  for columns in shop_rows.get_children():
+    for child in columns.get_children():
+      Util.delete_node(child)
+  
+  # Generate all the UpgradeParents.
+  var upgrade_parents: Array = []
+  for id in available_upgrades:
+    var upgrade: Dictionary = Upgrades.UPGRADES_DICT[id]
+    # Create UpgradeNode.
+    var upgrade_node: Node = Upgrade.instantiate()
+    upgrade_node.upgrade_name = upgrade.display_name
+    upgrade_node.tooltip = upgrade.tooltip
+    upgrade_node.upgrade_icon.texture = load(upgrade.icon)
+    upgrade_node.scale = SHOP_UPGRADE_SIZE / upgrade_node.size
+    
+    # Create UpgradeParent.
+    var upgrade_parent: Node = Control.new()
+    upgrade_parent.add_child(upgrade_node)
+    upgrade_parent.custom_minimum_size = SHOP_UPGRADE_SIZE
+    
+    upgrade_parents.append(upgrade_parent)
+  assert(len(upgrade_parents) == len(available_upgrades))
+    
+  # Add them into the shop.
+  for i in len(upgrade_parents):
+    shop_rows.get_child(i / SHOP_COLUMNS).add_child(upgrade_parents[i])
 
 
 func add_alchemy_card() -> void:
@@ -58,6 +105,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
   pass
 
+
 func _on_tab_changed(tab: int) -> void:
   var tab_name = self.get_tab_title(tab)
   set_menu_colours(tab_name)
@@ -86,6 +134,10 @@ func _on_card_moved(node: Node, global_pos: Vector2) -> void:
 func _on_drag_release(node: Node, initial_pos: Vector2) -> void:
   # We only care about signals for the cards in the menu.
   if not self.is_ancestor_of(node):
+    return
+  # If we're not in 2DCubie mode, then we only need to reset our position.
+  if not node.is_2dcubie:
+    node.position = initial_pos
     return
   
   # CardParent -> Draggable, (Tile -> TileShape -> 2DCubie)

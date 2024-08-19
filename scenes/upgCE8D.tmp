@@ -4,7 +4,8 @@
 [ext_resource type="Theme" uid="uid://754m2gs5mwax" path="res://assets/default.tres" id="1_hcg5f"]
 [ext_resource type="Script" path="res://scripts/upgrade.gd" id="1_y7n3h"]
 [ext_resource type="Script" path="res://scripts/upgrade_button.gd" id="3_dmdtv"]
-[ext_resource type="Texture2D" uid="uid://dloymoq5t2g" path="res://assets/icon.svg" id="4_5p0ws"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bq3s4"]
 
 [sub_resource type="SystemFont" id="SystemFont_yaejb"]
 subpixel_positioning = 0
@@ -55,41 +56,24 @@ font = ExtResource("1_1xpq5")
 font_size = 34
 font_color = Color(0.203922, 0.219608, 0.25098, 1)
 
-[node name="Upgrade" type="Control" node_paths=PackedStringArray("count_label", "number_container", "upgrade_icon", "button")]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 240.0
+[node name="PanelContainer" type="PanelContainer"]
+offset_right = 241.0
 offset_bottom = 240.0
+theme = ExtResource("1_hcg5f")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_bq3s4")
 script = ExtResource("1_y7n3h")
-count_label = NodePath("NumberParent/NumberBG/Number")
-number_container = NodePath("NumberParent")
-upgrade_icon = NodePath("IconParent/UpgradeButton/TextureRect")
-button = NodePath("IconParent/UpgradeButton")
+upgrade_icon = "🛠️"
 
-[node name="IconParent" type="Control" parent="."]
-custom_minimum_size = Vector2(195, 195)
+[node name="UpgradeContainer" type="MarginContainer" parent="."]
 layout_mode = 2
-anchors_preset = 0
-offset_left = 22.0
-offset_top = 22.0
-offset_right = 217.0
-offset_bottom = 217.0
+
+[node name="CenterContainer" type="MarginContainer" parent="UpgradeContainer"]
+layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="UpgradeButton" type="Button" parent="IconParent"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -97.5
-offset_top = -97.5
-offset_right = 97.5
-offset_bottom = 97.5
-grow_horizontal = 2
-grow_vertical = 2
+[node name="UpgradeButton" type="Button" parent="UpgradeContainer/CenterContainer"]
+layout_mode = 2
 theme = ExtResource("1_hcg5f")
 theme_override_colors/font_color = Color(0.203922, 0.219608, 0.25098, 1)
 theme_override_fonts/font = SubResource("SystemFont_yaejb")
@@ -98,37 +82,23 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_6es0d")
 theme_override_styles/hover = SubResource("StyleBoxFlat_3hakr")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_tepky")
 theme_override_styles/normal = SubResource("StyleBoxFlat_bwje4")
+text = "🐐"
 script = ExtResource("3_dmdtv")
 
-[node name="TextureRect" type="TextureRect" parent="IconParent/UpgradeButton"]
+[node name="NumberContainer" type="MarginContainer" parent="UpgradeContainer"]
 layout_mode = 2
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 185.0
-offset_bottom = 185.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("4_5p0ws")
-expand_mode = 2
-
-[node name="NumberParent" type="Control" parent="."]
-custom_minimum_size = Vector2(68, 68)
-layout_mode = 2
-anchors_preset = 0
-offset_left = 172.0
-offset_right = 240.0
-offset_bottom = 68.0
 size_flags_horizontal = 8
 size_flags_vertical = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 20
 
-[node name="NumberBG" type="Panel" parent="NumberParent"]
+[node name="NumberBG" type="Panel" parent="UpgradeContainer/NumberContainer"]
+custom_minimum_size = Vector2(68, 68)
 layout_mode = 2
-offset_right = 68.0
-offset_bottom = 68.0
 size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_3d2xy")
 
-[node name="Number" type="Label" parent="NumberParent/NumberBG"]
+[node name="Number" type="Label" parent="UpgradeContainer/NumberContainer/NumberBG"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
