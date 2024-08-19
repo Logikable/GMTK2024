@@ -145,7 +145,7 @@ func update_params(new_grid_size: int) -> void:
 
 
 func set_grid_size(new_grid_size: int) -> void:
-  assert(3 <= new_grid_size and new_grid_size <= 11)
+  assert(1 <= new_grid_size and new_grid_size <= 11)
   grid_size = new_grid_size
   grid_container.columns = grid_size
 

@@ -27,6 +27,8 @@ const TEXTURE: Dictionary = {
 }
 
 const GRID_PIXELS = {
+  1: 120,   # 120 pixel ea
+  2: 180,   # 90 pixel ea
   3: 210,   # 70 pixel ea
   4: 232,   # 58 pixel ea (unused)
   5: 250,   # 50 pixel ea

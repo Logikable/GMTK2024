@@ -5,7 +5,7 @@ extends Control
 @export var cps_label: Label
 @export var cubies_label: Label
 
-signal upgrades_updated
+signal upgrade_purchased
 
 # Bump this whenever the save file changes.
 const VERSION = 0.1
@@ -97,12 +97,15 @@ func try_upgrade(node: Node) -> void:
   # Buy it if we can afford it.
   cubies -= cost
   times_purchased += 1
-  upgrades_owned[upgrade.id] = times_purchased
+  upgrades_owned[node.id] = times_purchased
   
   # Update the UpgradeNode.
+  # If we've reached the purchase limit, remove it from available upgrades.
+  if times_purchased >= upgrade.purchase_limit:
+    menu.remove_shop_upgrade(node.id)
   node.set_upgrade_count(times_purchased)
   node.set_tooltip(upgrade.tooltip, Upgrades.cost(node.id, times_purchased))
-  upgrades_updated.emit(upgrade.id)
+  upgrade_purchased.emit(node.id)
 
 
 func save_data() -> Dictionary:
@@ -154,6 +157,9 @@ func update_shop() -> void:
   for upgrade in Upgrades.UPGRADES:
     if upgrade.id in menu.available_upgrades:
       continue
+    # Don't add the upgrade if we're at the purchase limit.
+    if upgrade.id in upgrades_owned and upgrades_owned[upgrade.id] >= upgrade.purchase_limit:
+      continue
     if upgrade.unlock_at <= cubies:
       menu.add_shop_upgrade(upgrade.id)
 
@@ -162,10 +168,12 @@ func update_shop() -> void:
 func _ready() -> void:
   cubies = 0
   cubies_all_time = 0
-  grid.set_grid_size(3)
+  grid.set_grid_size(1)
   # Test data only. Use the commented out code for the actual game.
   #grid.set_grid_cubies([0, 2, 4, 2, -1, 3, 0, 0, 0])
-  grid.set_grid_cubies([0, 0, 0, 0, -1, 0, 0, 0, 0])
+  #grid.set_grid_cubies([0, 0, 0, 0, -1, 0, 0, 0, 0])
+  grid.set_grid_cubies([-1])
+  menu.recreate_shop()
   supercharge_cooldown_remaining = 0.0
   supercharge_duration_remaining = 0.0
 

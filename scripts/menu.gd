@@ -18,6 +18,8 @@ const SHOP_COLUMNS: int = 7
 const SHOP_UPGRADE_SIZE: Vector2 = Vector2(100, 100)
 
 var game: Node
+# A local list of available upgrades. Do not use from another file.
+# Instead, use (add|remove)_shop_upgrade
 var available_upgrades = []
 
 
@@ -29,14 +31,21 @@ func set_menu_colours(name: String) -> void:
     stylebox_clone.bg_color = Color.html(colours.bg)
     stylebox_clone.border_color = Color.html(colours.border)
     add_theme_stylebox_override(stylebox, stylebox_clone)
-    
-    
+
+
 func add_shop_upgrade(id: float) -> void:
   assert(id not in available_upgrades)
   
   # Sort the list of available upgrades and remake the shop.
   available_upgrades.append(id)
   available_upgrades.sort()
+  recreate_shop()
+  
+
+func remove_shop_upgrade(id: float) -> void:
+  assert(id in available_upgrades)
+  
+  available_upgrades.remove_at(available_upgrades.find(id))
   recreate_shop()
   
   
@@ -177,7 +186,12 @@ func _on_drag_release(node: Node, initial_pos: Vector2) -> void:
   node.become_card()
 
 
-func _on_upgrades_updated(id: float) -> void:
+func _on_upgrade_purchased(id: float) -> void:
   var upgrade: Dictionary = Upgrades.UPGRADES_DICT[id]
-  if upgrade.type == Upgrades.UpgradeType.CUBIE:
-    add_alchemy_card(upgrade.rarity)
+  match upgrade.type:
+    Upgrades.UpgradeType.EXPANSION:
+      grid.set_grid_size(upgrade.new_grid_size)
+    Upgrades.UpgradeType.CUBIE:
+      add_alchemy_card(upgrade.rarity)
+    _:
+      pass

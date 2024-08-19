@@ -4,6 +4,8 @@ extends Label
 
 # Grid size -> Font size.
 const FONT_SIZES = {
+  1: 40,
+  2: 33,    # (unused)
   3: 30,
   4: 28,    # (unused)
   5: 26,

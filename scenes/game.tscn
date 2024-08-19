@@ -549,7 +549,7 @@ label_settings = SubResource("LabelSettings_no5f4")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="upgrades_updated" from="." to="LeftNode/Menu" method="_on_upgrades_updated"]
+[connection signal="upgrade_purchased" from="." to="LeftNode/Menu" method="_on_upgrade_purchased"]
 [connection signal="item_selected" from="LeftNode/GridNode/[TEMP]PickGridSize" to="LeftNode/GridNode/Grid" method="_on_option_button_item_selected"]
 [connection signal="pressed" from="LeftNode/GridNode/[TEMP]CreateCardButton" to="LeftNode/Menu" method="_on_card_add_button_press"]
 [connection signal="pressed" from="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]SaveButton/ButtonParent/Button" to="." method="_on_save_button_pressed"]
