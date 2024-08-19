@@ -54,8 +54,10 @@ func recreate_shop() -> void:
     var upgrade_node: Node = Upgrade.instantiate()
     upgrade_node.id = id
     # Set visuals.
-    upgrade_node.button.tooltip_text = upgrade.tooltip
-    upgrade_node.set_upgrade_count(0)
+    var times_purchased: int = game.times_purchased(id)
+    var cost: float = Upgrades.cost(id, times_purchased)
+    upgrade_node.set_tooltip(upgrade.tooltip, int(cost))
+    upgrade_node.set_upgrade_count(times_purchased)
     upgrade_node.upgrade_icon.texture = load(upgrade.icon)
     upgrade_node.scale = SHOP_UPGRADE_SIZE / upgrade_node.size
     

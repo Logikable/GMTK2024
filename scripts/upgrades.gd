@@ -57,6 +57,12 @@ const UPGRADES: Array = [
 
 var UPGRADES_DICT: Dictionary = {}
 
+func cost(id: float, times_purchased: int) -> float:
+  var upgrade: Dictionary = Upgrades.UPGRADES_DICT[id]
+  var cost: float = upgrade.initial_cost
+  cost *= upgrade.cost_scaling ** times_purchased
+  return cost
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

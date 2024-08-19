@@ -80,14 +80,17 @@ func cubies_per_second() -> float:
   return Util.sum(cps_per_tile)
 
 
+func times_purchased(id: float) -> int:
+  if id in upgrades_owned:
+    return upgrades_owned[id]
+  return 0  
+
+
 func try_upgrade(node: Node) -> void:
   var upgrade: Dictionary = Upgrades.UPGRADES_DICT[node.id]
   # Compute cost and whether we can afford it.
-  var cost: float = upgrade.initial_cost
-  var times_purchased: int = 0
-  if upgrade.id in upgrades_owned:
-    times_purchased = upgrades_owned[upgrade.id]
-    cost *= upgrade.cost_scaling ** times_purchased
+  var times_purchased: int = times_purchased(node.id)
+  var cost: float = Upgrades.cost(node.id, times_purchased)
   if cost > cubies:
     return
   
@@ -98,6 +101,7 @@ func try_upgrade(node: Node) -> void:
   
   # Update the UpgradeNode.
   node.set_upgrade_count(times_purchased)
+  node.set_tooltip(upgrade.tooltip, Upgrades.cost(node.id, times_purchased))
   upgrades_updated.emit(upgrade.id)
 
 

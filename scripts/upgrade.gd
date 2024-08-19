@@ -7,6 +7,10 @@ extends Control
 
 var id: float
 
+func set_tooltip(tooltip: String, cost: int) -> void:
+  button.tooltip_text = tooltip + '\nCost: ' + str(cost)
+
+
 func set_upgrade_count(upgrade_count: int) -> void:
   if upgrade_count == 0:
     number_container.visible = false
