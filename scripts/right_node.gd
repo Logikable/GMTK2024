@@ -11,6 +11,6 @@ func _process(delta: float) -> void:
 
 # Creates background cubes
 func _on_bg_cubie_spawn_timer_timeout() -> void:
-  var bg_cubie = bg_cubie_scene.instantiate()
-  add_child(bg_cubie)
+  #var bg_cubie = bg_cubie_scene.instantiate()
+  #add_child(bg_cubie)
   pass # Replace with function body.

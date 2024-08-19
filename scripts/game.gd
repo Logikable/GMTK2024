@@ -187,7 +187,11 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+  var old_cubies = cubies
   update_labels(delta)
+  if floor(cubies) > floor(old_cubies):
+    var bg_cubie = bg_cubie_scene.instantiate()
+    $RightNode.add_child(bg_cubie)
   update_supercharge_timers(delta)
   update_shop()
 

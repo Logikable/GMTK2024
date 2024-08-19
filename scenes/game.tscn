@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://dpoq76pjfiw80"]
+[gd_scene load_steps=37 format=3 uid="uid://dpoq76pjfiw80"]
 
 [ext_resource type="PackedScene" uid="uid://c35n6g5dqft6e" path="res://scenes/grid.tscn" id="1_oinuk"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_qbhd8"]
@@ -11,7 +11,6 @@
 [ext_resource type="Theme" uid="uid://754m2gs5mwax" path="res://assets/default.tres" id="6_k0u1n"]
 [ext_resource type="PackedScene" uid="uid://frg1q7xtchp1" path="res://scenes/card_parent.tscn" id="10_545re"]
 [ext_resource type="Script" path="res://scripts/right_node.gd" id="11_5a8y2"]
-[ext_resource type="Script" path="res://scripts/bg_cubie_spawn_timer.gd" id="12_6uv8i"]
 [ext_resource type="Texture2D" uid="uid://q17rapal3t1p" path="res://assets/fancycube.png" id="13_uej2p"]
 [ext_resource type="Theme" uid="uid://d1qbqwclp3m02" path="res://assets/initial_cube_theme.tres" id="13_yme6y"]
 
@@ -596,7 +595,6 @@ vertical_alignment = 1
 [node name="BGCubieSpawnTimer" type="Timer" parent="RightNode"]
 wait_time = 0.5
 autostart = true
-script = ExtResource("12_6uv8i")
 
 [node name="NumberCubie" type="TextureRect" parent="RightNode"]
 layout_mode = 2
