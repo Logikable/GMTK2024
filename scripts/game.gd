@@ -5,6 +5,10 @@ extends Control
 @export var cps_label: Label
 @export var cubies_label: Label
 
+signal upgrades_updated
+
+# Bump this whenever the save file changes.
+const VERSION = 0.1
 const BASE_INITIAL_CUBIE_CLICK = 1.0
 const BASE_CPS: Dictionary = { -1: 0.0, 0: 0.0, 1: 1.0, 2: 0.0, 3: 0.0, 4: 0.0 }
 const BASE_MULT: Dictionary = { -1: 0.0, 0: 0.0, 1: 1.0, 2: 2.0, 3: 1.1, 4: 0.0 }
@@ -15,6 +19,8 @@ var cubies: float
 var cubies_all_time: float
 var supercharge_cooldown_remaining: float
 var supercharge_duration_remaining: float
+# Upgrade ID -> Integer.
+var upgrades_owned: Dictionary = {}
 
 
 func _make_custom_tooltip(for_text):
@@ -74,10 +80,33 @@ func cubies_per_second() -> float:
   return Util.sum(cps_per_tile)
 
 
+func try_upgrade(node: Node) -> void:
+  var upgrade: Dictionary = Upgrades.UPGRADES_DICT[node.id]
+  # Compute cost and whether we can afford it.
+  var cost: float = upgrade.initial_cost
+  var times_purchased: int = 0
+  if upgrade.id in upgrades_owned:
+    times_purchased = upgrades_owned[upgrade.id]
+    cost *= upgrade.cost_scaling ** times_purchased
+  if cost > cubies:
+    return
+  
+  # Buy it if we can afford it.
+  cubies -= cost
+  times_purchased += 1
+  upgrades_owned[upgrade.id] = times_purchased
+  
+  # Update the UpgradeNode.
+  node.set_upgrade_count(times_purchased)
+  upgrades_updated.emit(upgrade.id)
+
+
 func save_data() -> Dictionary:
   return {
+    'version': VERSION,
     'cubies': cubies,
     'cubies_all_time': cubies_all_time,
+    'upgrades_owned': upgrades_owned,
     'grid_size': grid.grid_size,
     'grid_cubies': grid.grid_cubies,
     'supercharge_cooldown_remaining': supercharge_cooldown_remaining,
@@ -86,8 +115,12 @@ func save_data() -> Dictionary:
 
 
 func load_data(data: Dictionary) -> void:
+  # For now, we don't support cross-version saves.
+  if data.version != VERSION:
+    return
   cubies = data.cubies
   cubies_all_time = data.cubies_all_time
+  upgrades_owned = data.upgrades_owned
   grid.set_grid_size(data.grid_size)
   grid.set_grid_cubies(data.grid_cubies)
   supercharge_cooldown_remaining = data.supercharge_cooldown_remaining

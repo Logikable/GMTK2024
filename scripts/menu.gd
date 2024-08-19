@@ -17,6 +17,7 @@ const SHOP_ROWS: int = 2
 const SHOP_COLUMNS: int = 7
 const SHOP_UPGRADE_SIZE: Vector2 = Vector2(100, 100)
 
+var game: Node
 var available_upgrades = []
 
 
@@ -51,10 +52,15 @@ func recreate_shop() -> void:
     var upgrade: Dictionary = Upgrades.UPGRADES_DICT[id]
     # Create UpgradeNode.
     var upgrade_node: Node = Upgrade.instantiate()
-    upgrade_node.upgrade_name = upgrade.display_name
-    upgrade_node.tooltip = upgrade.tooltip
+    upgrade_node.id = id
+    # Set visuals.
+    upgrade_node.button.tooltip_text = upgrade.tooltip
+    upgrade_node.set_upgrade_count(0)
     upgrade_node.upgrade_icon.texture = load(upgrade.icon)
     upgrade_node.scale = SHOP_UPGRADE_SIZE / upgrade_node.size
+    
+    # Link its button with menu's handler.
+    upgrade_node.button.pressed.connect(_on_shop_upgrade_button_press.bind(upgrade_node))
     
     # Create UpgradeParent.
     var upgrade_parent: Node = Control.new()
@@ -69,7 +75,7 @@ func recreate_shop() -> void:
     shop_rows.get_child(i / SHOP_COLUMNS).add_child(upgrade_parents[i])
 
 
-func add_alchemy_card() -> void:
+func add_alchemy_card(rarity: int) -> void:
   # Add a card (parent & grandparent) to the list of alchemy cards.
   var card_parent: Node = CardParent.instantiate()
   card_parent.is_2dcubie = false
@@ -81,7 +87,7 @@ func add_alchemy_card() -> void:
   
   # Set the card's rarity.
   var card: Node = Util.get_child_with_name(card_parent, 'Card')   # Gross...
-  card.set_rarity(1)
+  card.set_rarity(rarity)
 
   # Create a grandparent node that can maintain its size and act as a placeholder
   # after we've moved.
@@ -94,11 +100,10 @@ func add_alchemy_card() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-  # Programmatically generate all the alchemy cards.
-  # Remove existing cards.
+  game = get_tree().get_first_node_in_group('game')
+  # We programmatically generate all the alchemy cards, so remove existing cards.
   for child in alchemy_cards.get_children():
     Util.delete_node(child)
-  add_alchemy_card()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -111,9 +116,13 @@ func _on_tab_changed(tab: int) -> void:
   set_menu_colours(tab_name)
 
 
+func _on_shop_upgrade_button_press(node: Node) -> void:
+  game.try_upgrade(node)
+
+
 # TODO: delete; button is not necessary.
 func _on_card_add_button_press() -> void:
-  add_alchemy_card()
+  add_alchemy_card(1)
 
 
 # If we exit the menu, turn the Card in the CardParent into a 2DCubie.
@@ -164,3 +173,9 @@ func _on_drag_release(node: Node, initial_pos: Vector2) -> void:
   node.position = initial_pos
   # Reset us back to a card.
   node.become_card()
+
+
+func _on_upgrades_updated(id: float) -> void:
+  var upgrade: Dictionary = Upgrades.UPGRADES_DICT[id]
+  if upgrade.type == Upgrades.UpgradeType.CUBIE:
+    add_alchemy_card(upgrade.rarity)
