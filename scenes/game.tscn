@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dpoq76pjfiw80"]
+[gd_scene load_steps=36 format=3 uid="uid://dpoq76pjfiw80"]
 
 [ext_resource type="PackedScene" uid="uid://c35n6g5dqft6e" path="res://scenes/grid.tscn" id="1_oinuk"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_qbhd8"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://cjxbp3q6w7n1k" path="res://scenes/upgrade.tscn" id="6_dbh5q"]
 [ext_resource type="Theme" uid="uid://754m2gs5mwax" path="res://assets/default.tres" id="6_k0u1n"]
 [ext_resource type="PackedScene" uid="uid://frg1q7xtchp1" path="res://scenes/card_parent.tscn" id="10_545re"]
+[ext_resource type="Script" path="res://scripts/right_node.gd" id="11_5a8y2"]
+[ext_resource type="Texture2D" uid="uid://q17rapal3t1p" path="res://assets/fancycube.png" id="13_uej2p"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gv1x0"]
 bg_color = Color(0.203922, 0.219608, 0.25098, 1)
@@ -116,11 +118,51 @@ bg_color = Color(0.956863, 0.913725, 1, 1)
 bg_color = Color(0.878431, 0.992157, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_88470"]
-bg_color = Color(0, 0, 0, 1)
+bg_color = Color(0.113725, 0.121569, 0.137255, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_no5f4"]
 font = ExtResource("2_xktb0")
 font_size = 24
+
+[sub_resource type="Animation" id="Animation_d8d0p"]
+resource_name = "idle"
+length = 20.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 20),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_ojfmn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2hhwq"]
+_data = {
+"RESET": SubResource("Animation_ojfmn"),
+"idle": SubResource("Animation_d8d0p")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mhetr"]
 
 [node name="GameNode" type="Control" node_paths=PackedStringArray("grid", "menu", "cps_label", "cubies_label") groups=["game"]]
 layout_mode = 3
@@ -182,6 +224,7 @@ label_settings = SubResource("LabelSettings_q1cob")
 script = ExtResource("4_xopfk")
 
 [node name="CubiesPerSecond" type="Label" parent="LeftNode/GridNode" node_paths=PackedStringArray("grid")]
+visible = false
 layout_mode = 0
 offset_left = 284.0
 offset_top = 50.0
@@ -528,26 +571,60 @@ anchors_preset = 0
 offset_left = 830.0
 offset_right = 1280.0
 offset_bottom = 720.0
+script = ExtResource("11_5a8y2")
 
-[node name="PanelContainer" type="PanelContainer" parent="RightNode"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="BGContainer" type="PanelContainer" parent="RightNode"]
+z_index = -11
+layout_mode = 0
+offset_right = 450.0
+offset_bottom = 720.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_88470")
 
 [node name="NumCubies" type="Label" parent="RightNode"]
 layout_mode = 0
 offset_left = 102.0
-offset_top = 572.0
+offset_top = 108.0
 offset_right = 348.0
-offset_bottom = 613.0
+offset_bottom = 149.0
 text = "5,000,000 cubies"
 label_settings = SubResource("LabelSettings_no5f4")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="BGCubieSpawnTimer" type="Timer" parent="RightNode"]
+wait_time = 0.5
+autostart = true
+
+[node name="NumberCubie" type="TextureRect" parent="RightNode"]
+layout_mode = 2
+offset_left = -171.0
+offset_top = -32.0
+offset_right = 610.0
+offset_bottom = 718.0
+scale = Vector2(0.55, 0.55)
+pivot_offset = Vector2(402, 390)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("13_uej2p")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="RightNode/NumberCubie"]
+libraries = {
+"": SubResource("AnimationLibrary_2hhwq")
+}
+autoplay = "idle"
+
+[node name="Panel" type="Panel" parent="RightNode"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.346667
+anchor_top = 0.393056
+anchor_right = 0.671111
+anchor_bottom = 0.595833
+offset_bottom = -3.05176e-05
+pivot_offset = Vector2(73, 73)
+theme_override_styles/panel = SubResource("StyleBoxFlat_mhetr")
+metadata/_edit_use_anchors_ = true
 
 [connection signal="upgrade_purchased" from="." to="LeftNode/Menu" method="_on_upgrade_purchased"]
 [connection signal="item_selected" from="LeftNode/GridNode/[TEMP]PickGridSize" to="LeftNode/GridNode/Grid" method="_on_option_button_item_selected"]
@@ -555,3 +632,4 @@ vertical_alignment = 1
 [connection signal="pressed" from="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]SaveButton/ButtonParent/Button" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]LoadButton/ButtonParent/Button" to="." method="_on_load_button_pressed"]
 [connection signal="tab_changed" from="LeftNode/Menu" to="LeftNode/Menu" method="_on_tab_changed"]
+[connection signal="timeout" from="RightNode/BGCubieSpawnTimer" to="RightNode" method="_on_bg_cubie_spawn_timer_timeout"]

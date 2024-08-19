@@ -1,0 +1,34 @@
+[gd_scene load_steps=9 format=3 uid="uid://bl6y7mubc4vxv"]
+
+[ext_resource type="Script" path="res://scripts/bg_cubies.gd" id="1_b7lf3"]
+[ext_resource type="Texture2D" uid="uid://bjq2w5tw1bdo0" path="res://assets/f6c94ae7-53db-4d6c-a036-f233ca1ede51.png" id="1_kc26k"]
+[ext_resource type="Texture2D" uid="uid://btk4rywc3ymm2" path="res://assets/5Ijg6wc.png" id="3_n1yqr"]
+[ext_resource type="Texture2D" uid="uid://ugtgm2vxb5cl" path="res://assets/AGiIs44.png" id="4_67age"]
+[ext_resource type="Texture2D" uid="uid://bqolbx4xcgxhv" path="res://assets/A4hYt9F.png" id="5_kqxl4"]
+[ext_resource type="Texture2D" uid="uid://cwvgeh1glh0bp" path="res://assets/2jAEXOC.png" id="6_w3i1n"]
+[ext_resource type="Texture2D" uid="uid://b7ydoc4tc32nb" path="res://assets/wsRqG7L.png" id="7_3p2m8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ys34p"]
+
+[node name="BGCubies" type="PanelContainer"]
+z_index = -10
+anchors_preset = -1
+anchor_right = 0.519531
+anchor_bottom = 0.923611
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(333, 333)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ys34p")
+script = ExtResource("1_b7lf3")
+white_cubie = ExtResource("1_kc26k")
+green_cubie = ExtResource("3_n1yqr")
+blue_cubie = ExtResource("4_67age")
+purple_cubie = ExtResource("5_kqxl4")
+orange_cubie = ExtResource("6_w3i1n")
+red_cubie = ExtResource("7_3p2m8")
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_kc26k")
+stretch_mode = 3
