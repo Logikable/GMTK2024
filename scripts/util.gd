@@ -10,12 +10,20 @@ var COLOURS: Dictionary = {
   3: Color.html('D766FF'),  # Purple.
   4: Color.html('FFB966'),  # Yellow.
 }
+const CUBIE_TOOLTIPS: Dictionary = {
+  -1: "",
+  0: "",
+  1: "Generates 1 cubie/s\n\nDrag to move",
+  2: "Doubles output of adjacent cubies\n\nDrag to move",
+  3: "Increases cube output in a 3x3 area by 10%\n\nDrag to move",
+  4: "Every 10 minutes, supercharges ALL cubes, doubling output\n\nDrag to move"
+}
 const NAME: Dictionary = {
   0: 'Unknown',
-  1: 'Uncommon Cube',
-  2: 'Rare Cube',
-  3: 'Epic Cube',
-  4: 'Legendary Cube',
+  1: 'Cubie',
+  2: 'Wowie',
+  3: 'Aurie',
+  4: 'Chargie',
 }
 const TEXTURE: Dictionary = {
   -1: 'res://assets/O5ILzWu.png',

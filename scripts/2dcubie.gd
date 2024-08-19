@@ -1,7 +1,10 @@
 extends Panel
 
 var rarity: int
-
+var tooltips: Array = ["Generates 1 cubie/s",
+                       "Doubles output of adjacent cubies",
+                       "Increases cube output in a 3x3 area by 10%",
+                       "Every 10 minutes, supercharges ALL cubes, doubling output"]
 
 func set_colour(new_rarity: int) -> void:
   rarity = new_rarity
@@ -17,7 +20,7 @@ func _make_custom_tooltip(for_text):
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-  self.tooltip_text = "bingus"
+  self.tooltip_text = Util.CUBIE_TOOLTIPS[rarity]
   pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -1,6 +1,7 @@
 extends Label
 
 @export var grid: Node
+@export var cps_label: Label
 
 # Grid size -> Font size.
 const FONT_SIZES = {
@@ -32,7 +33,7 @@ func _process(delta: float) -> void:
 func _on_grid_size_update(new_grid_size: int) -> void:
   # Reveal cubies/s when we can start generating them.
   if new_grid_size > 1:
-    visible = true
+    cps_label.visible = true
   var parent_center: Vector2 = Util.parent_center(self)
   # How much space we have above the grid.
   var y_space: int = parent_center.y - grid.size.y / 2

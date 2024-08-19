@@ -6,8 +6,10 @@ extends TabContainer
 @export var CardParent: PackedScene
 @export var Upgrade: PackedScene
 
+signal disabled_button
+
 const MENU_COLOURS = {
-  'SHOP': { 'bg': 'FFFAE0', 'border': 'FFEE93' },
+  'SHOUP': { 'bg': 'FFFAE0', 'border': 'FFEE93' },
   'ALCHEMY': { 'bg': 'F4E9FF', 'border': 'CB93FF' },
   'BLESSINGS': { 'bg': 'E0FDFF', 'border': '92F8FF' }
 }
@@ -21,7 +23,6 @@ var game: Node
 # A local list of available upgrades. Do not use from another file.
 # Instead, use (add|remove)_shop_upgrade
 var available_upgrades = []
-
 
 func set_menu_colours(name: String) -> void:
   var colours = MENU_COLOURS[name]
@@ -120,7 +121,12 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-  pass
+  for columns in shop_rows.get_children():
+    for child in columns.get_children():
+      if int(child.get_child(0).cost_label.text) > game.cubies:
+        child.get_child(0).button.disabled = true
+      else:
+        child.get_child(0).button.disabled = false
 
 
 func _on_tab_changed(tab: int) -> void:
