@@ -360,23 +360,23 @@ tab_focus_mode = 0
 script = ExtResource("4_c2n2o")
 alchemy_cards = NodePath("ALCHEMY/AlchemyCards")
 grid = NodePath("../GridNode/Grid")
-shop_rows = NodePath("SHOP/ShopMargins/Rows")
+shop_rows = NodePath("SHOUP/ShopMargins/Rows")
 CardParent = ExtResource("10_545re")
 Upgrade = ExtResource("6_dbh5q")
 
-[node name="SHOP" type="Control" parent="LeftNode/Menu"]
+[node name="SHOUP" type="Control" parent="LeftNode/Menu"]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="HideBorderPanelShop" type="Panel" parent="LeftNode/Menu/SHOP"]
+[node name="HideBorderPanelShop" type="Panel" parent="LeftNode/Menu/SHOUP"]
 layout_mode = 0
 offset_left = 20.0
 offset_top = -10.0
-offset_right = 155.0
+offset_right = 166.0
 offset_bottom = 3.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_76n2m")
 
-[node name="ShopMargins" type="MarginContainer" parent="LeftNode/Menu/SHOP"]
+[node name="ShopMargins" type="MarginContainer" parent="LeftNode/Menu/SHOUP"]
 custom_minimum_size = Vector2(830, 240)
 layout_mode = 0
 offset_right = 830.0
@@ -386,29 +386,29 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="Rows" type="VBoxContainer" parent="LeftNode/Menu/SHOP/ShopMargins"]
+[node name="Rows" type="VBoxContainer" parent="LeftNode/Menu/SHOUP/ShopMargins"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Columns" type="HBoxContainer" parent="LeftNode/Menu/SHOP/ShopMargins/Rows"]
+[node name="Columns" type="HBoxContainer" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows"]
 custom_minimum_size = Vector2(380, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 3
 
-[node name="UpgradeParent" type="Control" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns"]
+[node name="UpgradeParent" type="Control" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns"]
 custom_minimum_size = Vector2(380, 20)
 layout_mode = 2
 
-[node name="Upgrade" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns/UpgradeParent" instance=ExtResource("6_dbh5q")]
+[node name="Upgrade" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns/UpgradeParent" instance=ExtResource("6_dbh5q")]
 layout_mode = 0
 scale = Vector2(0.5, 0.5)
 
-[node name="UpgradeParent2" type="Control" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns"]
+[node name="UpgradeParent2" type="Control" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns"]
 custom_minimum_size = Vector2(380, 20)
 layout_mode = 2
 
-[node name="Upgrade" parent="LeftNode/Menu/SHOP/ShopMargins/Rows/Columns/UpgradeParent2" instance=ExtResource("6_dbh5q")]
+[node name="Upgrade" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns/UpgradeParent2" instance=ExtResource("6_dbh5q")]
 layout_mode = 0
 scale = Vector2(0.5, 0.5)
 
@@ -419,9 +419,9 @@ metadata/_tab_index = 1
 
 [node name="HideBorderPanelAlchemy" type="Panel" parent="LeftNode/Menu/ALCHEMY"]
 layout_mode = 0
-offset_left = 165.0
+offset_left = 176.0
 offset_top = -10.0
-offset_right = 333.0
+offset_right = 344.0
 offset_bottom = 2.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_0isn0")
 
@@ -457,9 +457,9 @@ metadata/_tab_index = 2
 
 [node name="HideBorderPanelShop" type="Panel" parent="LeftNode/Menu/BLESSINGS"]
 layout_mode = 0
-offset_left = 343.0
+offset_left = 354.0
 offset_top = -8.0
-offset_right = 532.0
+offset_right = 544.0
 offset_bottom = 7.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_d7m7w")
 
