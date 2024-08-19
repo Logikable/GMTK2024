@@ -14,6 +14,7 @@ var rng_rotation
 func _ready() -> void:
   var cubie_textures = [white_cubie, green_cubie, blue_cubie, purple_cubie, red_cubie]
   var rng: RandomNumberGenerator = RandomNumberGenerator.new()
+  
   var width: int = get_viewport().get_visible_rect().size[0]
   var height: int = get_viewport().get_visible_rect().size[1]
   var start_position = Vector2(185, rng.randi_range(-350, 400))
@@ -32,4 +33,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
   position += Vector2(-1.0, 0) * rng_speed * delta
   rotation_degrees += rng_rotation * delta
+  
+  # Delete nodes once they're no longer visible
+  if position[0] < -410:
+    queue_free()
+    
   #rotation_degrees += 

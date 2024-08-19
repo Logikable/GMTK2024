@@ -1,0 +1,48 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://d1qbqwclp3m02"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_08pac"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vbi2d"]
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(1, 0.996078, 0.984314, 1)
+corner_radius_top_left = 65
+corner_radius_top_right = 65
+corner_radius_bottom_right = 65
+corner_radius_bottom_left = 65
+expand_margin_left = 20.0
+expand_margin_top = 20.0
+expand_margin_right = 20.0
+expand_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vyfwk"]
+draw_center = false
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xfy86"]
+bg_color = Color(1, 1, 1, 0.784314)
+draw_center = false
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(1, 0.979265, 0.653096, 1)
+corner_radius_top_left = 65
+corner_radius_top_right = 65
+corner_radius_bottom_right = 65
+corner_radius_bottom_left = 65
+expand_margin_left = 20.0
+expand_margin_top = 20.0
+expand_margin_right = 20.0
+expand_margin_bottom = 20.0
+
+[resource]
+Button/styles/focus = SubResource("StyleBoxEmpty_08pac")
+Button/styles/hover = SubResource("StyleBoxFlat_vbi2d")
+Button/styles/normal = SubResource("StyleBoxFlat_vyfwk")
+Button/styles/pressed = SubResource("StyleBoxFlat_xfy86")

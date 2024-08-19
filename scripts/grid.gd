@@ -56,6 +56,7 @@ func set_cubie(position: int, rarity: int) -> void:
   elif rarity == -1:
     var initial2DCubie: Button = Initial2DCubie.instantiate()
     initial2DCubie.size = new_cubie.size
+    theme = load("res://assets/initial_cube_theme.tres")
     initial2DCubie.pressed.connect(_on_initial_cubie_press)
     new_cubie.add_child(initial2DCubie)
 

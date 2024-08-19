@@ -7,6 +7,9 @@ extends Control
 
 signal upgrade_purchased
 
+# Cursed testing, don't mind me
+var bg_cubie_scene: PackedScene = load("res://scenes/bg_cubies.tscn")
+
 # Bump this whenever the save file changes.
 const VERSION = 0.1
 const BASE_INITIAL_CUBIE_CLICK = 1.0
@@ -43,7 +46,6 @@ func maybe_supercharge(v: float) -> float:
 func initial_cubie_click() -> void:
   var width = grid.grid_size
   var area = len(grid.grid_cubies)
-
   var cubies_generated = BASE_INITIAL_CUBIE_CLICK
   for idx in area:
     var rarity: int = grid.grid_cubies[idx]
@@ -54,6 +56,10 @@ func initial_cubie_click() -> void:
       if affected_idx == grid.initial_cubie_idx:
         cubies_generated *= maybe_supercharge(BASE_MULT[rarity])
   add_cubies(floori(cubies_generated))
+  
+  #Add cubie to background when clicking
+  var bg_cubie = bg_cubie_scene.instantiate()
+  $RightNode.add_child(bg_cubie)
 
 
 func cubies_per_second() -> float:
@@ -77,6 +83,7 @@ func cubies_per_second() -> float:
       var affected_idx = Util.coords_to_index(coords + delta, width)
       if 0 <= affected_idx and affected_idx < area:
         cps_per_tile[affected_idx] *= maybe_supercharge(BASE_MULT[rarity])
+        
   return Util.sum(cps_per_tile)
 
 
@@ -141,7 +148,7 @@ func update_labels(delta: float) -> void:
   # Display CPS with 1 decimal.
   cps_label.text = str(floori(cps * 10.0) / 10.0) + ' cubies/s'
   cubies_label.text = str(floori(cubies)) + ' cubies'
-  
+
 
 func update_supercharge_timers(delta: float) -> void:
   # Handle rarity=4 cubies doing supercharge.
