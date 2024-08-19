@@ -24,6 +24,10 @@ const TEXTURE: Dictionary = {
   2: "res://assets/AGiIs44.png",
   3: "res://assets/A4hYt9F.png",
   4: "res://assets/2jAEXOC.png",
+  5: "res://assets/AJ98hLR.png",
+  6: "res://assets/g05M7EO.png",
+  7: "res://assets/5KPdnyj.png",
+  8: "res://assets/OxVEsDw.png"
 }
 
 const GRID_PIXELS = {

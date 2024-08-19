@@ -15,7 +15,7 @@ const MENU_STYLEBOXES = ['panel', 'tab_selected']
 
 const SHOP_ROWS: int = 2
 const SHOP_COLUMNS: int = 7
-const SHOP_UPGRADE_SIZE: Vector2 = Vector2(100, 100)
+const SHOP_UPGRADE_SIZE: Vector2 = Vector2(405.35, 31.9)
 
 var game: Node
 # A local list of available upgrades. Do not use from another file.
@@ -65,7 +65,8 @@ func recreate_shop() -> void:
     # Set visuals.
     var times_purchased: int = game.times_purchased(id)
     var cost: float = Upgrades.cost(id, times_purchased)
-    upgrade_node.set_tooltip(upgrade.tooltip, int(cost))
+    upgrade_node.set_tooltip(upgrade.tooltip, times_purchased)
+    upgrade_node.set_values(upgrade.display_name, int(cost))
     upgrade_node.set_upgrade_count(times_purchased)
     upgrade_node.upgrade_icon.texture = load(upgrade.icon)
     upgrade_node.scale = SHOP_UPGRADE_SIZE / upgrade_node.size

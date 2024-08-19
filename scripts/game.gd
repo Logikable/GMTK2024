@@ -28,7 +28,7 @@ var upgrades_owned: Dictionary = {}
 
 func _make_custom_tooltip(for_text):
   var tooltip = preload("res://scenes/tooltip.tscn").instantiate()
-  tooltip.get_node("MarginContainer/VBoxContainer/BodyText").text = for_text
+  tooltip.get_node("MarginContainer/BodyText").text = for_text
   return tooltip
   
 
@@ -42,6 +42,10 @@ func maybe_supercharge(v: float) -> float:
   var supercharge_multiplier = 2.0 if (supercharge_duration_remaining > 0.0) else 1.0
   return v * supercharge_multiplier
 
+# TODO
+# We should add some kind of quick scale tween to the initial cubie
+# when you click it, that way we get more visual feedback. I couldn't
+# find the actual node for it so I couldn't manage to tween it :(
 
 func initial_cubie_click() -> void:
   var width = grid.grid_size
@@ -57,10 +61,10 @@ func initial_cubie_click() -> void:
         cubies_generated *= maybe_supercharge(BASE_MULT[rarity])
   add_cubies(floori(cubies_generated))
   
-  #Add cubie to background when clicking
+  # Add cubie to background when clicking
   var bg_cubie = bg_cubie_scene.instantiate()
   $RightNode.add_child(bg_cubie)
-
+  
 
 func cubies_per_second() -> float:
   var width = grid.grid_size
@@ -111,7 +115,7 @@ func try_upgrade(node: Node) -> void:
   if times_purchased >= upgrade.purchase_limit:
     menu.remove_shop_upgrade(node.id)
   node.set_upgrade_count(times_purchased)
-  node.set_tooltip(upgrade.tooltip, Upgrades.cost(node.id, times_purchased))
+  node.set_tooltip(upgrade.tooltip, times_purchased)
   upgrade_purchased.emit(node.id)
 
 

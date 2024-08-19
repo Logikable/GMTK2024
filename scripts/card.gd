@@ -13,7 +13,8 @@ func set_rarity(new_rarity: int) -> void:
   
   texture_rect.texture = load(Util.TEXTURE[new_rarity])
   name_label.set_text(Util.NAME[new_rarity])
-  number_label.set_text(str(2))
+  #  Commenting this out because we removed alchemy stacks
+  #number_label.set_text(str(2))
   divider.get_theme_stylebox("panel").bg_color = Util.COLOURS[new_rarity]
 
 

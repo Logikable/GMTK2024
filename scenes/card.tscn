@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b0rv4c1oc7yrc"]
+[gd_scene load_steps=10 format=3 uid="uid://b0rv4c1oc7yrc"]
 
 [ext_resource type="PackedScene" uid="uid://cpklnuogag7tt" path="res://scenes/2dcubie.tscn" id="1_akfou"]
 [ext_resource type="Script" path="res://scripts/card.gd" id="1_c2cb0"]
@@ -19,18 +19,6 @@ bg_color = Color(1, 0.996078, 0.984314, 1)
 corner_radius_top_left = 25
 corner_radius_top_right = 25
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ka872"]
-bg_color = Color(0.796078, 0.576471, 1, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="LabelSettings" id="LabelSettings_m6twy"]
-font = ExtResource("1_jxgn6")
-font_size = 34
-font_color = Color(1, 0.996078, 0.984314, 1)
-
 [sub_resource type="LabelSettings" id="LabelSettings_c7b5f"]
 font_size = 34
 font_color = Color(0.203922, 0.219608, 0.25098, 1)
@@ -43,7 +31,7 @@ bg_color = Color(0.203922, 0.219608, 0.25098, 1)
 corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
 
-[node name="Card" type="PanelContainer" node_paths=PackedStringArray("name_label", "number_label", "texture_rect", "divider")]
+[node name="Card" type="PanelContainer" node_paths=PackedStringArray("name_label", "texture_rect", "divider")]
 offset_right = 390.0
 offset_bottom = 390.0
 size_flags_horizontal = 4
@@ -52,7 +40,6 @@ mouse_default_cursor_shape = 6
 theme_override_styles/panel = SubResource("StyleBoxFlat_08uny")
 script = ExtResource("1_c2cb0")
 name_label = NodePath("CardContents/Header/Name")
-number_label = NodePath("CardContents/Header/HeaderPanel/NumberContainer/NumberBG/Number")
 texture_rect = NodePath("CardContents/Body/2DCubie/TextureRect")
 divider = NodePath("CardContents/Divider")
 
@@ -68,33 +55,6 @@ layout_mode = 2
 [node name="HeaderPanel" type="Panel" parent="CardContents/Header"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_3wctg")
-
-[node name="NumberContainer" type="MarginContainer" parent="CardContents/Header/HeaderPanel"]
-layout_mode = 2
-anchor_left = 0.5
-anchor_top = 0.954
-anchor_right = 0.5
-anchor_bottom = 0.954
-offset_left = 135.0
-offset_top = -126.078
-offset_right = 203.0
-offset_bottom = -38.078
-scale = Vector2(1.25818, 1.25818)
-theme_override_constants/margin_right = 0
-theme_override_constants/margin_bottom = 20
-
-[node name="NumberBG" type="Panel" parent="CardContents/Header/HeaderPanel/NumberContainer"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ka872")
-
-[node name="Number" type="Label" parent="CardContents/Header/HeaderPanel/NumberContainer/NumberBG"]
-layout_mode = 2
-offset_right = 68.0
-offset_bottom = 68.0
-size_flags_horizontal = 4
-text = "2"
-label_settings = SubResource("LabelSettings_m6twy")
-horizontal_alignment = 1
 
 [node name="Name" type="Label" parent="CardContents/Header"]
 layout_mode = 2

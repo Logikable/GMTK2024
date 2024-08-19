@@ -13,5 +13,5 @@ func _process(delta: float) -> void:
 
 func _make_custom_tooltip(for_text):
   var tooltip = preload("res://scenes/tooltip.tscn").instantiate()
-  tooltip.get_node("MarginContainer/VBoxContainer/BodyText").text = for_text
+  tooltip.get_node("MarginContainer/BodyText").text = for_text
   return tooltip  

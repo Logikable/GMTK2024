@@ -15,9 +15,7 @@ func _ready() -> void:
   var cubie_textures = [white_cubie, green_cubie, blue_cubie, purple_cubie, red_cubie]
   var rng: RandomNumberGenerator = RandomNumberGenerator.new()
   
-  var width: int = get_viewport().get_visible_rect().size[0]
-  var height: int = get_viewport().get_visible_rect().size[1]
-  var start_position = Vector2(185, rng.randi_range(-350, 400))
+  var start_position = Vector2(185, rng.randf_range(-350, 400))
   var rng_texture_idx = rng.randi_range(0, len(cubie_textures)-1)
   $TextureRect.texture = cubie_textures[rng_texture_idx]
   

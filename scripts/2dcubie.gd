@@ -12,7 +12,7 @@ func set_colour(new_rarity: int) -> void:
 
 func _make_custom_tooltip(for_text):
   var tooltip = preload("res://scenes/tooltip.tscn").instantiate()
-  tooltip.get_node("MarginContainer/VBoxContainer/BodyText").text = for_text
+  tooltip.get_node("MarginContainer/BodyText").text = for_text
   return tooltip  
 
 # Called when the node enters the scene tree for the first time.

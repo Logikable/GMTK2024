@@ -1,0 +1,129 @@
+[gd_scene load_steps=12 format=3 uid="uid://cjxbp3q6w7n1k"]
+
+[ext_resource type="FontFile" uid="uid://c48agdebe6v1w" path="res://fonts/ComicCodeLigaturesNFFixed-Regular.ttf" id="1_1xpq5"]
+[ext_resource type="Theme" uid="uid://754m2gs5mwax" path="res://assets/default.tres" id="1_hcg5f"]
+[ext_resource type="Script" path="res://scripts/upgrade.gd" id="1_y7n3h"]
+[ext_resource type="Script" path="res://scripts/upgrade_button.gd" id="3_dmdtv"]
+[ext_resource type="Texture2D" uid="uid://ds3uv77f7v5bo" path="res://assets/5KPdnyj.png" id="5_m18e3"]
+
+[sub_resource type="SystemFont" id="SystemFont_yaejb"]
+subpixel_positioning = 0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6es0d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3hakr"]
+bg_color = Color(1, 0.933333, 0.576471, 1)
+draw_center = false
+border_width_bottom = 5
+border_color = Color(1, 0.933333, 0.576471, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tepky"]
+bg_color = Color(1, 0.905882, 0.380392, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(1, 0.907, 0.38, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bwje4"]
+bg_color = Color(1, 0.996078, 0.984314, 1)
+draw_center = false
+border_color = Color(1, 0.933333, 0.576471, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_y8uhf"]
+font = ExtResource("1_1xpq5")
+font_size = 34
+
+[node name="Upgrade" type="Control" node_paths=PackedStringArray("count_label", "number_container", "upgrade_icon", "button")]
+layout_mode = 3
+anchor_right = 0.6
+anchor_bottom = 0.0888889
+script = ExtResource("1_y7n3h")
+count_label = NodePath("")
+number_container = NodePath("")
+upgrade_icon = NodePath("UpgradeButton/MarginContainer/HBoxContainer/IconParent/TextureRect")
+button = NodePath("UpgradeButton")
+metadata/_edit_use_anchors_ = true
+
+[node name="UpgradeButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.22396
+anchor_bottom = 1.01563
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_hcg5f")
+theme_override_colors/font_color = Color(0.203922, 0.219608, 0.25098, 1)
+theme_override_fonts/font = SubResource("SystemFont_yaejb")
+theme_override_font_sizes/font_size = 120
+theme_override_styles/focus = SubResource("StyleBoxEmpty_6es0d")
+theme_override_styles/hover = SubResource("StyleBoxFlat_3hakr")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tepky")
+theme_override_styles/normal = SubResource("StyleBoxFlat_bwje4")
+script = ExtResource("3_dmdtv")
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="UpgradeButton"]
+layout_mode = 0
+anchor_right = 0.980818
+anchor_bottom = 0.878788
+offset_right = -727.0
+offset_bottom = -18.0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UpgradeButton/MarginContainer"]
+layout_mode = 2
+
+[node name="CountParent" type="MarginContainer" parent="UpgradeButton/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 8
+
+[node name="Label2" type="Label" parent="UpgradeButton/MarginContainer/HBoxContainer/CountParent"]
+layout_mode = 2
+text = "x32"
+label_settings = SubResource("LabelSettings_y8uhf")
+vertical_alignment = 1
+
+[node name="IconParent" type="MarginContainer" parent="UpgradeButton/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="TextureRect" type="TextureRect" parent="UpgradeButton/MarginContainer/HBoxContainer/IconParent"]
+layout_mode = 2
+texture = ExtResource("5_m18e3")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="NameParent" type="MarginContainer" parent="UpgradeButton/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 32
+
+[node name="Label" type="Label" parent="UpgradeButton/MarginContainer/HBoxContainer/NameParent"]
+layout_mode = 2
+text = "Cubie Alchemy Ticket"
+label_settings = SubResource("LabelSettings_y8uhf")
+vertical_alignment = 1
+
+[node name="CostParent" type="MarginContainer" parent="UpgradeButton/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+
+[node name="Label2" type="Label" parent="UpgradeButton/MarginContainer/HBoxContainer/CostParent"]
+layout_mode = 2
+text = "1234567"
+label_settings = SubResource("LabelSettings_y8uhf")
+vertical_alignment = 1
