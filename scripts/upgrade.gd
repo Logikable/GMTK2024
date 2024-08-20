@@ -11,6 +11,7 @@ signal button_disabled
 var DISABLED_COLOUR = Color.html('#6b717e')
 var ENABLED_COLOUR = Color.html('#343840')
 
+var game: Node
 var id: float
 
 
@@ -41,9 +42,14 @@ func set_button_disabled(disabled: bool) -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-  pass
+  game = get_tree().get_first_node_in_group('game')
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-  pass
+  # TODO: Add a signal for this.
+  var upgrade: Dictionary = Upgrades.UPGRADES_DICT[id]
+  var times_purchased: int = game.times_purchased(id)
+  set_upgrade_count(times_purchased)
+  set_cost(Upgrades.cost(id, times_purchased))
+  set_tooltip(upgrade.tooltip, times_purchased)

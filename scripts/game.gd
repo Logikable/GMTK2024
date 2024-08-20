@@ -103,24 +103,16 @@ func try_upgrade(node: Node) -> void:
   if cost > cubies:
     return
   
-  # Buy it if we can afford it.
+  # Buy it since we can afford it.
   cubies -= cost
   times_purchased += 1
   upgrades_owned[node.id] = times_purchased
-  
-  # Update the UpgradeNode.
+
   # If we've reached the purchase limit, remove it from available upgrades.
   if times_purchased >= upgrade.purchase_limit and upgrade.purchase_limit >= 0:
     menu.remove_shop_upgrade(node.id)
-  node.set_upgrade_count(times_purchased)
-  node.set_cost(Upgrades.cost(node.id, times_purchased))
-  node.set_tooltip(upgrade.tooltip, times_purchased)
 
-  handle_upgrade(node.id)
-  
-  
-func handle_upgrade(id: float) -> void:
-  var upgrade: Dictionary = Upgrades.UPGRADES_DICT[id]
+  # Handle the upgrade's effects.
   match upgrade.type:
     Upgrades.UpgradeType.EXPANSION:
       grid.set_grid_size(upgrade.new_grid_size)

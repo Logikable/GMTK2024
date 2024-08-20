@@ -22,7 +22,7 @@ const SHOP_UPGRADE_SIZE: Vector2 = Vector2(400, 50)
 
 var game: Node
 # A local list of available upgrades/cards. Do not modify from another file.
-# Instead, use (add|remove|set)_shop_upgrade or (add|set)_alchemy_card.
+# Instead, use (add|remove|set)_shop_upgrade or (add|remove|set)_alchemy_card.
 # Keep this Array sorted.
 var available_upgrades: Array = []
 var available_cards: Array = []
@@ -105,13 +105,22 @@ func recreate_shop() -> void:
 
 func add_alchemy_card(rarity: int) -> void:
   available_cards.append(rarity)
+  available_cards.sort()
+  recreate_alchemy_tab()
+
+
+func remove_alchemy_card(rarity: int) -> void:
+  assert(rarity in available_cards)
+  available_cards.remove_at(available_cards.find(rarity))
   recreate_alchemy_tab()
 
 
 func set_alchemy_cards(available_cards_: Array) -> void:
-  available_cards = available_cards_
+  available_cards = []
+  for rarity in available_cards_:
+    available_cards.append(int(rarity))
   available_cards.sort()
-  recreate_shop()
+  recreate_alchemy_tab()
 
   
 func reset_alchemy_cards() -> void:
@@ -223,8 +232,8 @@ func _on_drag_release(node: Node, initial_pos: Vector2) -> void:
       break
     # Put the cubie in the Tile.
     grid.set_cubie(tile.tile_idx, rarity)
-    # Delete the CardParent and CardGrandparent.
-    Util.delete_node(node.get_parent())
+    # Remove the card from the list and redraw.
+    remove_alchemy_card(rarity)
     return
 
   # Put us back in our position in the parent.

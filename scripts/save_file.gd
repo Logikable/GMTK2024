@@ -7,12 +7,14 @@ var game: Node
 
 func fix_numerical_json_keys(json_obj: Variant) -> Variant:
   if json_obj is Dictionary:
+    var new_dict: Dictionary = {}
     for key in json_obj:
-      json_obj[key] = fix_numerical_json_keys(json_obj[key])
+      new_dict[key] = fix_numerical_json_keys(json_obj[key])
       if key is String:
         if key.is_valid_float():
-          json_obj[float(key)] = json_obj[key]
-          json_obj.erase(key)
+          new_dict[float(key)] = new_dict[key]
+          new_dict.erase(key)
+    json_obj = new_dict
   elif json_obj is Array:
     var new_array: Array = []
     for entry in json_obj:
