@@ -393,7 +393,7 @@ tab_focus_mode = 0
 script = ExtResource("4_c2n2o")
 alchemy_cards = NodePath("ALCHEMY/AlchemyCards")
 grid = NodePath("../GridNode/Grid")
-shop_rows = NodePath("SHOUP/ShopMargins/Rows")
+shop_rows = NodePath("SHOUP/ShopMargins/ScrollContainer/Rows")
 CardParent = ExtResource("10_545re")
 Upgrade = ExtResource("6_dbh5q")
 
@@ -419,62 +419,128 @@ theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 
-[node name="Rows" type="VBoxContainer" parent="LeftNode/Menu/SHOUP/ShopMargins"]
+[node name="ScrollContainer" type="ScrollContainer" parent="LeftNode/Menu/SHOUP/ShopMargins"]
+layout_mode = 2
+
+[node name="Rows" type="VBoxContainer" parent="LeftNode/Menu/SHOUP/ShopMargins/ScrollContainer"]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="Columns" type="HBoxContainer" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows"]
+[node name="Columns" type="HBoxContainer" parent="LeftNode/Menu/SHOUP/ShopMargins/ScrollContainer/Rows"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="UpgradeParent" type="Control" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns"]
+[node name="UpgradeParent" type="Control" parent="LeftNode/Menu/SHOUP/ShopMargins/ScrollContainer/Rows/Columns"]
 custom_minimum_size = Vector2(400, 50)
 layout_mode = 2
 
-[node name="Upgrade" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns/UpgradeParent" instance=ExtResource("6_dbh5q")]
+[node name="Upgrade" parent="LeftNode/Menu/SHOUP/ShopMargins/ScrollContainer/Rows/Columns/UpgradeParent" instance=ExtResource("6_dbh5q")]
 layout_mode = 0
 scale = Vector2(0.5, 0.5)
 
-[node name="UpgradeParent2" type="Control" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns"]
+[node name="UpgradeParent2" type="Control" parent="LeftNode/Menu/SHOUP/ShopMargins/ScrollContainer/Rows/Columns"]
 custom_minimum_size = Vector2(400, 50)
 layout_mode = 2
 
-[node name="Upgrade" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns/UpgradeParent2" instance=ExtResource("6_dbh5q")]
+[node name="Upgrade" parent="LeftNode/Menu/SHOUP/ShopMargins/ScrollContainer/Rows/Columns/UpgradeParent2" instance=ExtResource("6_dbh5q")]
 layout_mode = 0
 scale = Vector2(0.5, 0.5)
 
-[node name="Columns2" type="HBoxContainer" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows"]
+[node name="Columns2" type="HBoxContainer" parent="LeftNode/Menu/SHOUP/ShopMargins/ScrollContainer/Rows"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="UpgradeParent" type="Control" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns2"]
+[node name="UpgradeParent" type="Control" parent="LeftNode/Menu/SHOUP/ShopMargins/ScrollContainer/Rows/Columns2"]
 custom_minimum_size = Vector2(400, 50)
 layout_mode = 2
 
-[node name="Upgrade" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns2/UpgradeParent" instance=ExtResource("6_dbh5q")]
+[node name="Upgrade" parent="LeftNode/Menu/SHOUP/ShopMargins/ScrollContainer/Rows/Columns2/UpgradeParent" instance=ExtResource("6_dbh5q")]
 layout_mode = 0
 scale = Vector2(0.5, 0.5)
 
-[node name="UpgradeParent2" type="Control" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns2"]
+[node name="UpgradeParent2" type="Control" parent="LeftNode/Menu/SHOUP/ShopMargins/ScrollContainer/Rows/Columns2"]
 custom_minimum_size = Vector2(400, 50)
 layout_mode = 2
 
-[node name="Upgrade" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns2/UpgradeParent2" instance=ExtResource("6_dbh5q")]
+[node name="Upgrade" parent="LeftNode/Menu/SHOUP/ShopMargins/ScrollContainer/Rows/Columns2/UpgradeParent2" instance=ExtResource("6_dbh5q")]
 layout_mode = 0
 scale = Vector2(0.5, 0.5)
 
-[node name="Columns3" type="HBoxContainer" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows"]
+[node name="Columns3" type="HBoxContainer" parent="LeftNode/Menu/SHOUP/ShopMargins/ScrollContainer/Rows"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="UpgradeParent" type="Control" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns3"]
+[node name="UpgradeParent" type="Control" parent="LeftNode/Menu/SHOUP/ShopMargins/ScrollContainer/Rows/Columns3"]
 custom_minimum_size = Vector2(400, 50)
 layout_mode = 2
 
-[node name="Upgrade" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns3/UpgradeParent" instance=ExtResource("6_dbh5q")]
+[node name="Upgrade" parent="LeftNode/Menu/SHOUP/ShopMargins/ScrollContainer/Rows/Columns3/UpgradeParent" instance=ExtResource("6_dbh5q")]
+layout_mode = 0
+scale = Vector2(0.5, 0.5)
+
+[node name="Columns4" type="HBoxContainer" parent="LeftNode/Menu/SHOUP/ShopMargins/ScrollContainer/Rows"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="UpgradeParent" type="Control" parent="LeftNode/Menu/SHOUP/ShopMargins/ScrollContainer/Rows/Columns4"]
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+
+[node name="Upgrade" parent="LeftNode/Menu/SHOUP/ShopMargins/ScrollContainer/Rows/Columns4/UpgradeParent" instance=ExtResource("6_dbh5q")]
+layout_mode = 0
+scale = Vector2(0.5, 0.5)
+
+[node name="UpgradeParent2" type="Control" parent="LeftNode/Menu/SHOUP/ShopMargins/ScrollContainer/Rows/Columns4"]
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+
+[node name="Upgrade" parent="LeftNode/Menu/SHOUP/ShopMargins/ScrollContainer/Rows/Columns4/UpgradeParent2" instance=ExtResource("6_dbh5q")]
+layout_mode = 0
+scale = Vector2(0.5, 0.5)
+
+[node name="Columns5" type="HBoxContainer" parent="LeftNode/Menu/SHOUP/ShopMargins/ScrollContainer/Rows"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="UpgradeParent" type="Control" parent="LeftNode/Menu/SHOUP/ShopMargins/ScrollContainer/Rows/Columns5"]
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+
+[node name="Upgrade" parent="LeftNode/Menu/SHOUP/ShopMargins/ScrollContainer/Rows/Columns5/UpgradeParent" instance=ExtResource("6_dbh5q")]
+layout_mode = 0
+scale = Vector2(0.5, 0.5)
+
+[node name="UpgradeParent2" type="Control" parent="LeftNode/Menu/SHOUP/ShopMargins/ScrollContainer/Rows/Columns5"]
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+
+[node name="Upgrade" parent="LeftNode/Menu/SHOUP/ShopMargins/ScrollContainer/Rows/Columns5/UpgradeParent2" instance=ExtResource("6_dbh5q")]
+layout_mode = 0
+scale = Vector2(0.5, 0.5)
+
+[node name="Columns6" type="HBoxContainer" parent="LeftNode/Menu/SHOUP/ShopMargins/ScrollContainer/Rows"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="UpgradeParent" type="Control" parent="LeftNode/Menu/SHOUP/ShopMargins/ScrollContainer/Rows/Columns6"]
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+
+[node name="Upgrade" parent="LeftNode/Menu/SHOUP/ShopMargins/ScrollContainer/Rows/Columns6/UpgradeParent" instance=ExtResource("6_dbh5q")]
+layout_mode = 0
+scale = Vector2(0.5, 0.5)
+
+[node name="UpgradeParent2" type="Control" parent="LeftNode/Menu/SHOUP/ShopMargins/ScrollContainer/Rows/Columns6"]
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+
+[node name="Upgrade" parent="LeftNode/Menu/SHOUP/ShopMargins/ScrollContainer/Rows/Columns6/UpgradeParent2" instance=ExtResource("6_dbh5q")]
 layout_mode = 0
 scale = Vector2(0.5, 0.5)
 
