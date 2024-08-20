@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://cjxbp3q6w7n1k"]
+[gd_scene load_steps=12 format=3 uid="uid://cjxbp3q6w7n1k"]
 
 [ext_resource type="Theme" uid="uid://754m2gs5mwax" path="res://assets/default.tres" id="1_hcg5f"]
 [ext_resource type="Script" path="res://scripts/upgrade.gd" id="1_y7n3h"]
 [ext_resource type="Script" path="res://scripts/upgrade_button.gd" id="3_dmdtv"]
+[ext_resource type="PackedScene" uid="uid://dtrh8gejdsuae" path="res://scenes/tooltip.tscn" id="4_pi83e"]
 [ext_resource type="Texture2D" uid="uid://ds3uv77f7v5bo" path="res://assets/5KPdnyj.png" id="5_m18e3"]
 
 [sub_resource type="SystemFont" id="SystemFont_yaejb"]
@@ -16,23 +17,14 @@ corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
-expand_margin_left = 10.0
-expand_margin_top = 10.0
-expand_margin_right = 10.0
-expand_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3hakr"]
 bg_color = Color(1, 0.955, 0.7, 1)
-border_width_bottom = 5
 border_color = Color(0.83, 0.781445, 0.5063, 1)
 corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
-expand_margin_left = 10.0
-expand_margin_top = 10.0
-expand_margin_right = 10.0
-expand_margin_bottom = 15.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tepky"]
 content_margin_top = 5.0
@@ -41,39 +33,43 @@ corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
-expand_margin_left = 10.0
-expand_margin_top = 10.0
-expand_margin_right = 10.0
-expand_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bwje4"]
 bg_color = Color(1, 0.933333, 0.576471, 1)
-border_width_bottom = 5
 border_color = Color(0.83, 0.76775, 0.415, 1)
 corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
-expand_margin_left = 10.0
-expand_margin_top = 10.0
-expand_margin_right = 10.0
-expand_margin_bottom = 15.0
 shadow_color = Color(0, 0, 0, 0.117647)
 
-[node name="Upgrade" type="MarginContainer" node_paths=PackedStringArray("name_label", "count_label", "upgrade_icon", "button", "cost_label")]
-offset_right = 767.0
-offset_bottom = 58.0
+[node name="Upgrade" type="Control" node_paths=PackedStringArray("button", "cost_label", "count_label", "name_label", "upgrade_icon")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 760.0
+offset_bottom = 100.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
-theme_override_constants/margin_right = 30
 script = ExtResource("1_y7n3h")
-name_label = NodePath("UpgradeButton/HBoxContainer/NameParent/Label")
-count_label = NodePath("UpgradeButton/HBoxContainer/CountParent/Label2")
-upgrade_icon = NodePath("UpgradeButton/HBoxContainer/IconParent/TextureRect")
-button = NodePath("UpgradeButton")
-cost_label = NodePath("UpgradeButton/HBoxContainer/CostParent/Label2")
+button = NodePath("MarginContainer/UpgradeButton")
+cost_label = NodePath("MarginContainer/UpgradeButton/Margins/HBoxContainer/CostParent/Label2")
+count_label = NodePath("MarginContainer/UpgradeButton/Margins/HBoxContainer/CountParent/Label2")
+name_label = NodePath("MarginContainer/UpgradeButton/Margins/HBoxContainer/NameParent/Label")
+upgrade_icon = NodePath("MarginContainer/UpgradeButton/Margins/HBoxContainer/IconParent/TextureRect")
 
-[node name="UpgradeButton" type="Button" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="UpgradeButton" type="Button" parent="MarginContainer"]
 layout_mode = 2
 theme = ExtResource("1_hcg5f")
 theme_override_colors/font_disabled_color = Color(0.418884, 0.444071, 0.494367, 1)
@@ -85,36 +81,42 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_3hakr")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_tepky")
 theme_override_styles/normal = SubResource("StyleBoxFlat_bwje4")
 script = ExtResource("3_dmdtv")
+Tooltip = ExtResource("4_pi83e")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UpgradeButton"]
+[node name="Margins" type="MarginContainer" parent="MarginContainer/UpgradeButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="IconParent" type="MarginContainer" parent="UpgradeButton/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/UpgradeButton/Margins"]
+layout_mode = 2
+
+[node name="IconParent" type="MarginContainer" parent="MarginContainer/UpgradeButton/Margins/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="TextureRect" type="TextureRect" parent="UpgradeButton/HBoxContainer/IconParent"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/UpgradeButton/Margins/HBoxContainer/IconParent"]
 layout_mode = 2
 texture = ExtResource("5_m18e3")
 expand_mode = 2
 
-[node name="NameParent" type="MarginContainer" parent="UpgradeButton/HBoxContainer"]
+[node name="NameParent" type="MarginContainer" parent="MarginContainer/UpgradeButton/Margins/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_right = 8
 
-[node name="Label" type="Label" parent="UpgradeButton/HBoxContainer/NameParent"]
+[node name="Label" type="Label" parent="MarginContainer/UpgradeButton/Margins/HBoxContainer/NameParent"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_colors/font_color = Color(0.203922, 0.219608, 0.25098, 1)
@@ -122,14 +124,14 @@ theme_override_font_sizes/font_size = 34
 text = "asdasdasdasd"
 vertical_alignment = 1
 
-[node name="CostParent" type="MarginContainer" parent="UpgradeButton/HBoxContainer"]
+[node name="CostParent" type="MarginContainer" parent="MarginContainer/UpgradeButton/Margins/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_right = 8
 
-[node name="Label2" type="Label" parent="UpgradeButton/HBoxContainer/CostParent"]
+[node name="Label2" type="Label" parent="MarginContainer/UpgradeButton/Margins/HBoxContainer/CostParent"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.203922, 0.219608, 0.25098, 1)
 theme_override_font_sizes/font_size = 34
@@ -137,11 +139,11 @@ text = "1234567"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="CountParent" type="MarginContainer" parent="UpgradeButton/HBoxContainer"]
+[node name="CountParent" type="MarginContainer" parent="MarginContainer/UpgradeButton/Margins/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 
-[node name="Label2" type="Label" parent="UpgradeButton/HBoxContainer/CountParent"]
+[node name="Label2" type="Label" parent="MarginContainer/UpgradeButton/Margins/HBoxContainer/CountParent"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.203922, 0.219608, 0.25098, 1)
 theme_override_font_sizes/font_size = 34

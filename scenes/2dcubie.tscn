@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cpklnuogag7tt"]
+[gd_scene load_steps=4 format=3 uid="uid://cpklnuogag7tt"]
 
 [ext_resource type="Script" path="res://scripts/2dcubie.gd" id="1_t058s"]
+[ext_resource type="PackedScene" uid="uid://dtrh8gejdsuae" path="res://scenes/tooltip.tscn" id="2_7o704"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_atcyl"]
 corner_radius_top_left = 50
@@ -16,3 +17,4 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_atcyl")
 script = ExtResource("1_t058s")
+Tooltip = ExtResource("2_7o704")

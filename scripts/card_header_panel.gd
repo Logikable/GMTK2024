@@ -1,5 +1,7 @@
 extends Panel
 
+@export var Tooltip: PackedScene
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -11,7 +13,7 @@ func _process(delta: float) -> void:
   pass
 
 
-func _make_custom_tooltip(for_text):
-  var tooltip = preload("res://scenes/tooltip.tscn").instantiate()
-  tooltip.get_node("MarginContainer/BodyText").text = for_text
-  return tooltip  
+func _make_custom_tooltip(for_text: String) -> Node:
+  var tooltip = Tooltip.instantiate()
+  tooltip.set_text(for_text)
+  return tooltip

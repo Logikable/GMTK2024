@@ -1,9 +1,10 @@
-[gd_scene load_steps=36 format=3 uid="uid://dpoq76pjfiw80"]
+[gd_scene load_steps=37 format=3 uid="uid://dpoq76pjfiw80"]
 
 [ext_resource type="PackedScene" uid="uid://c35n6g5dqft6e" path="res://scenes/grid.tscn" id="1_oinuk"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_qbhd8"]
 [ext_resource type="PackedScene" uid="uid://b4hbrx3a00yd5" path="res://scenes/fps_label.tscn" id="2_57hkx"]
 [ext_resource type="FontFile" uid="uid://c48agdebe6v1w" path="res://fonts/ComicCodeLigaturesNFFixed-Regular.ttf" id="2_xktb0"]
+[ext_resource type="PackedScene" uid="uid://bl6y7mubc4vxv" path="res://scenes/bg_cubies.tscn" id="3_h6d0e"]
 [ext_resource type="Script" path="res://scripts/menu.gd" id="4_c2n2o"]
 [ext_resource type="Script" path="res://scripts/cursor_pos.gd" id="4_xopfk"]
 [ext_resource type="Script" path="res://scripts/cubies_label.gd" id="5_x3i7v"]
@@ -11,6 +12,7 @@
 [ext_resource type="Theme" uid="uid://754m2gs5mwax" path="res://assets/default.tres" id="6_k0u1n"]
 [ext_resource type="PackedScene" uid="uid://frg1q7xtchp1" path="res://scenes/card_parent.tscn" id="10_545re"]
 [ext_resource type="Script" path="res://scripts/right_node.gd" id="11_5a8y2"]
+[ext_resource type="Script" path="res://scripts/cps_label.gd" id="12_elefm"]
 [ext_resource type="Texture2D" uid="uid://q17rapal3t1p" path="res://assets/fancycube.png" id="13_uej2p"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gv1x0"]
@@ -162,19 +164,19 @@ _data = {
 "idle": SubResource("Animation_d8d0p")
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mhetr"]
-
-[node name="GameNode" type="Control" node_paths=PackedStringArray("grid", "menu", "cps_label", "cubies_label") groups=["game"]]
+[node name="GameNode" type="Control" node_paths=PackedStringArray("cps_label", "cubies_label", "grid", "menu", "right_node") groups=["game"]]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1280.0
 offset_bottom = 720.0
 theme = ExtResource("6_k0u1n")
 script = ExtResource("1_qbhd8")
-grid = NodePath("LeftNode/GridNode/Grid")
-menu = NodePath("LeftNode/Menu")
 cps_label = NodePath("RightNode/CubiesPerSecond")
 cubies_label = NodePath("LeftNode/GridNode/TotalCubies")
+grid = NodePath("LeftNode/GridNode/Grid")
+menu = NodePath("LeftNode/Menu")
+right_node = NodePath("RightNode")
+BGCubie = ExtResource("3_h6d0e")
 
 [node name="LeftNode" type="Control" parent="."]
 anchors_preset = 0
@@ -199,43 +201,44 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gv1x0")
 metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="LeftNode/GridNode"]
+[node name="DebugInfo" type="VBoxContainer" parent="LeftNode/GridNode"]
+visible = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="FPS" type="MarginContainer" parent="LeftNode/GridNode/VBoxContainer"]
+[node name="FPS" type="MarginContainer" parent="LeftNode/GridNode/DebugInfo"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 
-[node name="FPSLabel" parent="LeftNode/GridNode/VBoxContainer/FPS" instance=ExtResource("2_57hkx")]
+[node name="FPSLabel" parent="LeftNode/GridNode/DebugInfo/FPS" instance=ExtResource("2_57hkx")]
 layout_mode = 2
 text = "FPS: "
 label_settings = SubResource("LabelSettings_55k84")
 
-[node name="CursorPosition" type="MarginContainer" parent="LeftNode/GridNode/VBoxContainer"]
+[node name="CursorPosition" type="MarginContainer" parent="LeftNode/GridNode/DebugInfo"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 
-[node name="CursorPositionLabel" parent="LeftNode/GridNode/VBoxContainer/CursorPosition" instance=ExtResource("2_57hkx")]
+[node name="CursorPositionLabel" parent="LeftNode/GridNode/DebugInfo/CursorPosition" instance=ExtResource("2_57hkx")]
 layout_mode = 2
 text = "(0, 0)"
 label_settings = SubResource("LabelSettings_q1cob")
 script = ExtResource("4_xopfk")
 
-[node name="TotalCubies" type="Label" parent="LeftNode/GridNode" node_paths=PackedStringArray("grid", "cps_label")]
+[node name="TotalCubies" type="Label" parent="LeftNode/GridNode" node_paths=PackedStringArray("grid")]
 layout_mode = 0
-offset_left = 284.0
+offset_left = 285.0
 offset_top = 50.0
-offset_right = 563.0
+offset_right = 564.0
 offset_bottom = 101.0
-text = "50,000 cubies/s"
+text = "500,000 cubies
+"
 label_settings = SubResource("LabelSettings_sktip")
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("5_x3i7v")
 grid = NodePath("../Grid")
-cps_label = NodePath("../../../RightNode/CubiesPerSecond")
 
 [node name="Grid" parent="LeftNode/GridNode" groups=["grid"] instance=ExtResource("1_oinuk")]
 z_index = 1
@@ -385,22 +388,21 @@ layout_mode = 0
 offset_right = 830.0
 offset_bottom = 240.0
 theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
 
 [node name="Rows" type="VBoxContainer" parent="LeftNode/Menu/SHOUP/ShopMargins"]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 5
 
 [node name="Columns" type="HBoxContainer" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows"]
-custom_minimum_size = Vector2(380, 0)
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 3
+theme_override_constants/separation = 0
 
 [node name="UpgradeParent" type="Control" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns"]
-custom_minimum_size = Vector2(380, 20)
+custom_minimum_size = Vector2(400, 50)
 layout_mode = 2
 
 [node name="Upgrade" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns/UpgradeParent" instance=ExtResource("6_dbh5q")]
@@ -408,10 +410,44 @@ layout_mode = 0
 scale = Vector2(0.5, 0.5)
 
 [node name="UpgradeParent2" type="Control" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns"]
-custom_minimum_size = Vector2(380, 20)
+custom_minimum_size = Vector2(400, 50)
 layout_mode = 2
 
 [node name="Upgrade" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns/UpgradeParent2" instance=ExtResource("6_dbh5q")]
+layout_mode = 0
+scale = Vector2(0.5, 0.5)
+
+[node name="Columns2" type="HBoxContainer" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="UpgradeParent" type="Control" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns2"]
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+
+[node name="Upgrade" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns2/UpgradeParent" instance=ExtResource("6_dbh5q")]
+layout_mode = 0
+scale = Vector2(0.5, 0.5)
+
+[node name="UpgradeParent2" type="Control" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns2"]
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+
+[node name="Upgrade" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns2/UpgradeParent2" instance=ExtResource("6_dbh5q")]
+layout_mode = 0
+scale = Vector2(0.5, 0.5)
+
+[node name="Columns3" type="HBoxContainer" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="UpgradeParent" type="Control" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns3"]
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+
+[node name="Upgrade" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns3/UpgradeParent" instance=ExtResource("6_dbh5q")]
 layout_mode = 0
 scale = Vector2(0.5, 0.5)
 
@@ -480,17 +516,19 @@ offset_right = 450.0
 offset_bottom = 720.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_88470")
 
-[node name="CubiesPerSecond" type="Label" parent="RightNode"]
+[node name="CubiesPerSecond" type="Label" parent="RightNode" node_paths=PackedStringArray("grid")]
 visible = false
 layout_mode = 0
 offset_left = 102.0
 offset_top = 108.0
 offset_right = 348.0
 offset_bottom = 149.0
-text = "5,000,000 cubies"
+text = "5,000 cubies/s"
 label_settings = SubResource("LabelSettings_no5f4")
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("12_elefm")
+grid = NodePath("../../LeftNode/GridNode/Grid")
 
 [node name="BGCubieSpawnTimer" type="Timer" parent="RightNode"]
 wait_time = 0.5
@@ -513,19 +551,6 @@ libraries = {
 "": SubResource("AnimationLibrary_2hhwq")
 }
 autoplay = "idle"
-
-[node name="Panel" type="Panel" parent="RightNode"]
-visible = false
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.346667
-anchor_top = 0.393056
-anchor_right = 0.671111
-anchor_bottom = 0.595833
-offset_bottom = -3.05176e-05
-pivot_offset = Vector2(73, 73)
-theme_override_styles/panel = SubResource("StyleBoxFlat_mhetr")
-metadata/_edit_use_anchors_ = true
 
 [connection signal="upgrade_purchased" from="." to="LeftNode/Menu" method="_on_upgrade_purchased"]
 [connection signal="item_selected" from="LeftNode/GridNode/[TEMP]PickGridSize" to="LeftNode/GridNode/Grid" method="_on_option_button_item_selected"]

@@ -3,6 +3,7 @@ extends Control
 @export var grid_container: Node
 @export var Draggable: PackedScene
 @export var Initial2DCubie: PackedScene
+@export var Initial2DCubieTheme: Theme
 @export var Tile: PackedScene
 @export var TwoDCubie: PackedScene
 
@@ -56,15 +57,15 @@ func set_cubie(position: int, rarity: int) -> void:
   elif rarity == -1:
     var initial2DCubie: Button = Initial2DCubie.instantiate()
     initial2DCubie.size = new_cubie.size
-    theme = load("res://assets/initial_cube_theme.tres")
     initial2DCubie.pressed.connect(_on_initial_cubie_press)
     new_cubie.add_child(initial2DCubie)
 
-    # Add the image to the button.
+    # Make the button look nice :) Add a texture and a theme.
     var texture: TextureRect = TextureRect.new()
-    texture.texture = load(Util.TEXTURE[rarity])
+    texture.texture = load(Util.CUBIE_TEXTURE[rarity])
     texture.size = new_cubie.size
     initial2DCubie.add_child(texture)
+    self.theme = Initial2DCubieTheme
 
     # Remember the position of the centre.
     initial_cubie_idx = position

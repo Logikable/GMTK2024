@@ -16,7 +16,7 @@ const CUBIE_TOOLTIPS: Dictionary = {
   1: "Generates 1 cubie/s\n\nDrag to move",
   2: "Doubles output of adjacent cubies\n\nDrag to move",
   3: "Increases cube output in a 3x3 area by 10%\n\nDrag to move",
-  4: "Every 10 minutes, supercharges ALL cubes, doubling output\n\nDrag to move"
+  4: "Every 10 minutes, supercharges ALL cubes, doubling output\n\nDrag to move",
 }
 const NAME: Dictionary = {
   0: 'Unknown',
@@ -25,17 +25,19 @@ const NAME: Dictionary = {
   3: 'Aurie',
   4: 'Chargie',
 }
-const TEXTURE: Dictionary = {
+const CUBIE_TEXTURE: Dictionary = {
   -1: 'res://assets/O5ILzWu.png',
   0: 'Unknown',
   1: "res://assets/5Ijg6wc.png",
   2: "res://assets/AGiIs44.png",
   3: "res://assets/A4hYt9F.png",
   4: "res://assets/2jAEXOC.png",
-  5: "res://assets/AJ98hLR.png",
-  6: "res://assets/g05M7EO.png",
-  7: "res://assets/5KPdnyj.png",
-  8: "res://assets/OxVEsDw.png"
+}
+const CUBIE_SHOP_ICON: Dictionary = {
+  1: "res://assets/AJ98hLR.png",
+  2: "res://assets/g05M7EO.png",
+  3: "res://assets/5KPdnyj.png",
+  4: "res://assets/OxVEsDw.png",
 }
 
 const GRID_PIXELS = {

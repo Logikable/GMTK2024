@@ -1,14 +1,13 @@
 extends Control
 
-@export var grid: Node
-@export var menu: Node
 @export var cps_label: Label
 @export var cubies_label: Label
+@export var grid: Node
+@export var menu: Node
+@export var right_node: Node
+@export var BGCubie: PackedScene
 
 signal upgrade_purchased
-
-# Cursed testing, don't mind me
-var bg_cubie_scene: PackedScene = load("res://scenes/bg_cubies.tscn")
 
 # Bump this whenever the save file changes.
 const VERSION = 0.1
@@ -24,12 +23,6 @@ var supercharge_cooldown_remaining: float
 var supercharge_duration_remaining: float
 # Upgrade ID -> Integer.
 var upgrades_owned: Dictionary = {}
-
-
-func _make_custom_tooltip(for_text):
-  var tooltip = preload("res://scenes/tooltip.tscn").instantiate()
-  tooltip.get_node("MarginContainer/BodyText").text = for_text
-  return tooltip
   
 
 func add_cubies(cubies_: float) -> void:
@@ -48,6 +41,7 @@ func maybe_supercharge(v: float) -> float:
 # find the actual node for it so I couldn't manage to tween it :(
 
 func initial_cubie_click() -> void:
+  # Determine how many cubies to accumulate.
   var width = grid.grid_size
   var area = len(grid.grid_cubies)
   var cubies_generated = BASE_INITIAL_CUBIE_CLICK
@@ -61,9 +55,9 @@ func initial_cubie_click() -> void:
         cubies_generated *= maybe_supercharge(BASE_MULT[rarity])
   add_cubies(floori(cubies_generated))
   
-  # Add cubie to background when clicking
-  var bg_cubie = bg_cubie_scene.instantiate()
-  $RightNode.add_child(bg_cubie)
+  # Add cubie to background when clicking.
+  var bg_cubie = BGCubie.instantiate()
+  right_node.add_child(bg_cubie)
   
 
 func cubies_per_second() -> float:
@@ -87,7 +81,7 @@ func cubies_per_second() -> float:
       var affected_idx = Util.coords_to_index(coords + delta, width)
       if 0 <= affected_idx and affected_idx < area:
         cps_per_tile[affected_idx] *= maybe_supercharge(BASE_MULT[rarity])
-        
+
   return Util.sum(cps_per_tile)
 
 
@@ -145,7 +139,7 @@ func load_data(data: Dictionary) -> void:
   supercharge_duration_remaining = data.supercharge_duration_remaining
 
 
-func update_labels(delta: float) -> void:
+func compute_new_cubies(delta: float) -> void:
   # Update CPS and Cubies counter.
   var cps = cubies_per_second()
   add_cubies(cps * delta)
@@ -177,27 +171,33 @@ func update_shop() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+  # If we don't have a save to load from, set their default values.
   cubies = 0
   cubies_all_time = 0
-  grid.set_grid_size(1)
-  # Test data only. Use the commented out code for the actual game.
-  #grid.set_grid_cubies([0, 2, 4, 2, -1, 3, 0, 0, 0])
-  #grid.set_grid_cubies([0, 0, 0, 0, -1, 0, 0, 0, 0])
-  grid.set_grid_cubies([-1])
-  menu.recreate_shop()
   supercharge_cooldown_remaining = 0.0
   supercharge_duration_remaining = 0.0
+  grid.set_grid_size(1)
+  grid.set_grid_cubies([-1])
+  menu.recreate_shop()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-  var old_cubies = cubies
-  update_labels(delta)
-  if floor(cubies) > floor(old_cubies):
-    var bg_cubie = bg_cubie_scene.instantiate()
-    $RightNode.add_child(bg_cubie)
+  var old_cubies: float = cubies
+  compute_new_cubies(delta)
   update_supercharge_timers(delta)
   update_shop()
+
+  # If the number of cubies crossed an integer barrier, spawn a BGCubie.
+  if floor(cubies) > floor(old_cubies):
+    var bg_cubie: Node = BGCubie.instantiate()
+    right_node.add_child(bg_cubie)
+
+
+func _make_custom_tooltip(for_text):
+  var tooltip = preload("res://scenes/tooltip.tscn").instantiate()
+  tooltip.get_node("MarginContainer/BodyText").text = for_text
+  return tooltip
 
 
 func _on_save_button_pressed() -> void:

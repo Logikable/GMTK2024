@@ -8,6 +8,7 @@ extends TabContainer
 
 signal disabled_button
 
+# TODO: Make this not depend on the node name...
 const MENU_COLOURS = {
   'SHOUP': { 'bg': 'FFFAE0', 'border': 'FFEE93' },
   'ALCHEMY': { 'bg': 'F4E9FF', 'border': 'CB93FF' },
@@ -15,14 +16,15 @@ const MENU_COLOURS = {
 }
 const MENU_STYLEBOXES = ['panel', 'tab_selected']
 
-const SHOP_ROWS: int = 2
-const SHOP_COLUMNS: int = 7
-const SHOP_UPGRADE_SIZE: Vector2 = Vector2(405.35, 31.9)
+const SHOP_ROWS: int = 4
+const SHOP_COLUMNS: int = 2
+const SHOP_UPGRADE_SIZE: Vector2 = Vector2(400, 50)
 
 var game: Node
 # A local list of available upgrades. Do not use from another file.
 # Instead, use (add|remove)_shop_upgrade
-var available_upgrades = []
+# Keep this Array sorted.
+var available_upgrades: Array = []
 
 func set_menu_colours(name: String) -> void:
   var colours = MENU_COLOURS[name]
@@ -36,7 +38,6 @@ func set_menu_colours(name: String) -> void:
 
 func add_shop_upgrade(id: float) -> void:
   assert(id not in available_upgrades)
-  
   # Sort the list of available upgrades and remake the shop.
   available_upgrades.append(id)
   available_upgrades.sort()
@@ -45,7 +46,6 @@ func add_shop_upgrade(id: float) -> void:
 
 func remove_shop_upgrade(id: float) -> void:
   assert(id in available_upgrades)
-  
   available_upgrades.remove_at(available_upgrades.find(id))
   recreate_shop()
   
@@ -53,8 +53,8 @@ func remove_shop_upgrade(id: float) -> void:
 func recreate_shop() -> void:
   # Remove all UpgradeParents.
   for columns in shop_rows.get_children():
-    for child in columns.get_children():
-      Util.delete_node(child)
+    for upgrade_parent in columns.get_children():
+      Util.delete_node(upgrade_parent)
   
   # Generate all the UpgradeParents.
   var upgrade_parents: Array = []
@@ -63,11 +63,13 @@ func recreate_shop() -> void:
     # Create UpgradeNode.
     var upgrade_node: Node = Upgrade.instantiate()
     upgrade_node.id = id
+
     # Set visuals.
     var times_purchased: int = game.times_purchased(id)
     var cost: float = Upgrades.cost(id, times_purchased)
     upgrade_node.set_tooltip(upgrade.tooltip, times_purchased)
-    upgrade_node.set_values(upgrade.display_name, int(cost))
+    upgrade_node.set_label_name(upgrade.display_name)
+    upgrade_node.set_cost(floor(cost))
     upgrade_node.set_upgrade_count(times_purchased)
     upgrade_node.upgrade_icon.texture = load(upgrade.icon)
     upgrade_node.scale = SHOP_UPGRADE_SIZE / upgrade_node.size
@@ -121,12 +123,15 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-  for columns in shop_rows.get_children():
-    for child in columns.get_children():
-      if int(child.get_child(0).cost_label.text) > game.cubies:
-        child.get_child(0).button.disabled = true
-      else:
-        child.get_child(0).button.disabled = false
+  # For each upgrade, update whether the shop button should be disabled.
+  for idx: int in len(available_upgrades):
+    var upgrade_id: float = available_upgrades[idx]
+    var upgrade: Dictionary = Upgrades.UPGRADES_DICT[upgrade_id]
+    var upgrade_parent: Node = shop_rows.get_child(idx / SHOP_COLUMNS).get_child(idx % SHOP_COLUMNS)
+    var upgrade_node: Node = upgrade_parent.get_child(0)
+    
+    var cost: float = Upgrades.cost(upgrade_id, game.times_purchased(upgrade_id))
+    upgrade_node.set_button_disabled(cost > game.cubies)
 
 
 func _on_tab_changed(tab: int) -> void:

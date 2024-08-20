@@ -10,7 +10,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ys34p"]
 
-[node name="BGCubies" type="PanelContainer"]
+[node name="BGCubies" type="PanelContainer" node_paths=PackedStringArray("texture_rect")]
 z_index = -10
 anchors_preset = -1
 anchor_right = 0.519531
@@ -20,6 +20,7 @@ grow_vertical = 2
 pivot_offset = Vector2(333, 333)
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ys34p")
 script = ExtResource("1_b7lf3")
+texture_rect = NodePath("TextureRect")
 white_cubie = ExtResource("1_kc26k")
 green_cubie = ExtResource("3_n1yqr")
 blue_cubie = ExtResource("4_67age")
