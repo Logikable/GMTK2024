@@ -7,8 +7,6 @@ extends Control
 @export var right_node: Node
 @export var BGCubie: PackedScene
 
-signal upgrade_purchased
-
 # Bump this whenever the save file changes.
 const VERSION = 0.2
 const BASE_INITIAL_CUBIE_CLICK = 1.0
@@ -46,7 +44,11 @@ func initial_cubie_click() -> void:
   # Determine how many cubies to accumulate.
   var width = grid.grid_size
   var area = len(grid.grid_cubies)
+  # Compute additive effects.
   var cubies_generated = BASE_INITIAL_CUBIE_CLICK
+  for upgrade in Upgrades.UPGRADES_BY_TYPE[Upgrades.UpgradeType.CLICK]:
+    cubies_generated += upgrade.additive_click_power * times_purchased(upgrade.id)
+  # Compute multiplicative effects of grid cubies.
   for idx in area:
     var rarity: int = grid.grid_cubies[idx]
     var affected_region: Array[Vector2] = Util.affected_region(rarity)
@@ -55,7 +57,7 @@ func initial_cubie_click() -> void:
       var affected_idx = Util.coords_to_index(coords + delta, width)
       if affected_idx == grid.initial_cubie_idx:
         cubies_generated *= maybe_supercharge(BASE_MULT[rarity])
-  add_cubies(floori(cubies_generated))
+  add_cubies(cubies_generated)
   
   # Add cubie to background when clicking.
   var bg_cubie = BGCubie.instantiate()
@@ -113,7 +115,19 @@ func try_upgrade(node: Node) -> void:
   node.set_upgrade_count(times_purchased)
   node.set_cost(Upgrades.cost(node.id, times_purchased))
   node.set_tooltip(upgrade.tooltip, times_purchased)
-  upgrade_purchased.emit(node.id)
+
+  handle_upgrade(node.id)
+  
+  
+func handle_upgrade(id: float) -> void:
+  var upgrade: Dictionary = Upgrades.UPGRADES_DICT[id]
+  match upgrade.type:
+    Upgrades.UpgradeType.EXPANSION:
+      grid.set_grid_size(upgrade.new_grid_size)
+    Upgrades.UpgradeType.CUBIE:
+      menu.add_alchemy_card(upgrade.rarity)
+    _:
+      pass
 
 
 func save_data() -> Dictionary:
@@ -189,15 +203,19 @@ func update_supercharge_timers(delta: float) -> void:
 
 func update_shop() -> void:
   for upgrade in Upgrades.UPGRADES:
+    # Don't add upgrades already in the menu.
     if upgrade.id in menu.available_upgrades:
       continue
     # Don't add the upgrade if we're at the purchase limit.
     if upgrade.id in upgrades_owned and upgrades_owned[upgrade.id] >= upgrade.purchase_limit:
       continue
-    if upgrade.id in upgrades_owned:
-      print(upgrades_owned[upgrade.id], ' ', upgrade.purchase_limit)
-    if upgrade.unlock_at <= cubies:
-      menu.add_shop_upgrade(upgrade.id)
+    # Don't add the upgrade if we can't afford it.
+    if upgrade.unlock_at > cubies:
+      continue
+    # Don't add the upgrade if we don't have the prerequisite upgrades.
+    if not Upgrades.has_prerequisites(upgrade.id, upgrades_owned):
+      continue
+    menu.add_shop_upgrade(upgrade.id)
 
 
 # Called when the node enters the scene tree for the first time.

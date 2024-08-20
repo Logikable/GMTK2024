@@ -162,7 +162,6 @@ func _process(delta: float) -> void:
   # For each upgrade, update whether the shop button should be disabled.
   for idx: int in len(available_upgrades):
     var upgrade_id: float = available_upgrades[idx]
-    var upgrade: Dictionary = Upgrades.UPGRADES_DICT[upgrade_id]
     var upgrade_parent: Node = shop_rows.get_child(idx / SHOP_COLUMNS).get_child(idx % SHOP_COLUMNS)
     var upgrade_node: Node = upgrade_parent.get_child(0)
     
@@ -232,14 +231,3 @@ func _on_drag_release(node: Node, initial_pos: Vector2) -> void:
   node.position = initial_pos
   # Reset us back to a card.
   node.become_card()
-
-
-func _on_upgrade_purchased(id: float) -> void:
-  var upgrade: Dictionary = Upgrades.UPGRADES_DICT[id]
-  match upgrade.type:
-    Upgrades.UpgradeType.EXPANSION:
-      grid.set_grid_size(upgrade.new_grid_size)
-    Upgrades.UpgradeType.CUBIE:
-      add_alchemy_card(upgrade.rarity)
-    _:
-      pass

@@ -287,31 +287,30 @@ offset_bottom = 148.0
 text = "Create Card"
 
 [node name="[TEMP]ButtonsContainer" type="HBoxContainer" parent="LeftNode/GridNode"]
-visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -158.0
+offset_left = -79.0
 offset_top = -79.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_constants/separation = 0
 
-[node name="[TEMP]SaveButton" type="MarginContainer" parent="LeftNode/GridNode/[TEMP]ButtonsContainer"]
+[node name="[TEMP]ResetSaveButton" type="MarginContainer" parent="LeftNode/GridNode/[TEMP]ButtonsContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ButtonParent" type="Control" parent="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]SaveButton"]
+[node name="ButtonParent" type="Control" parent="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]ResetSaveButton"]
 custom_minimum_size = Vector2(59, 59)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]SaveButton/ButtonParent"]
+[node name="Button" type="Button" parent="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]ResetSaveButton/ButtonParent"]
 layout_mode = 2
 offset_right = 195.0
 offset_bottom = 195.0
@@ -322,7 +321,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_5pw3p")
 theme_override_styles/hover = SubResource("StyleBoxFlat_3jagg")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_afv12")
 theme_override_styles/normal = SubResource("StyleBoxFlat_x6owc")
-text = "💾"
+text = "🗑️"
 
 [node name="[TEMP]LoadButton" type="MarginContainer" parent="LeftNode/GridNode/[TEMP]ButtonsContainer"]
 layout_mode = 2
@@ -348,18 +347,18 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_afv12")
 theme_override_styles/normal = SubResource("StyleBoxFlat_x6owc")
 text = "📁"
 
-[node name="[TEMP]ResetSaveButton" type="MarginContainer" parent="LeftNode/GridNode/[TEMP]ButtonsContainer"]
+[node name="[TEMP]SaveButton" type="MarginContainer" parent="LeftNode/GridNode/[TEMP]ButtonsContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ButtonParent" type="Control" parent="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]ResetSaveButton"]
+[node name="ButtonParent" type="Control" parent="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]SaveButton"]
 custom_minimum_size = Vector2(59, 59)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]ResetSaveButton/ButtonParent"]
+[node name="Button" type="Button" parent="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]SaveButton/ButtonParent"]
 layout_mode = 2
 offset_right = 195.0
 offset_bottom = 195.0
@@ -370,7 +369,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_5pw3p")
 theme_override_styles/hover = SubResource("StyleBoxFlat_3jagg")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_afv12")
 theme_override_styles/normal = SubResource("StyleBoxFlat_x6owc")
-text = "🗑️"
+text = "💾"
 
 [node name="Menu" type="TabContainer" parent="LeftNode" node_paths=PackedStringArray("alchemy_cards", "grid", "shop_rows")]
 layout_mode = 2
@@ -575,10 +574,9 @@ libraries = {
 }
 autoplay = "idle"
 
-[connection signal="upgrade_purchased" from="." to="LeftNode/Menu" method="_on_upgrade_purchased"]
 [connection signal="item_selected" from="LeftNode/GridNode/[TEMP]PickGridSize" to="LeftNode/GridNode/Grid" method="_on_option_button_item_selected"]
 [connection signal="pressed" from="LeftNode/GridNode/[TEMP]CreateCardButton" to="LeftNode/Menu" method="_on_card_add_button_press"]
-[connection signal="pressed" from="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]SaveButton/ButtonParent/Button" to="." method="_on_save_button_pressed"]
-[connection signal="pressed" from="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]LoadButton/ButtonParent/Button" to="." method="_on_load_button_pressed"]
 [connection signal="pressed" from="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]ResetSaveButton/ButtonParent/Button" to="." method="_on_reset_save_button_pressed"]
+[connection signal="pressed" from="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]LoadButton/ButtonParent/Button" to="." method="_on_load_button_pressed"]
+[connection signal="pressed" from="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]SaveButton/ButtonParent/Button" to="." method="_on_save_button_pressed"]
 [connection signal="tab_changed" from="LeftNode/Menu" to="LeftNode/Menu" method="_on_tab_changed"]
