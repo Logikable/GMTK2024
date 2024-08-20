@@ -284,6 +284,7 @@ offset_bottom = 148.0
 text = "Create Card"
 
 [node name="[TEMP]ButtonsContainer" type="HBoxContainer" parent="LeftNode/GridNode"]
+visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -347,6 +348,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_x6owc")
 text = "📁"
 
 [node name="[TEMP]SaveButton" type="MarginContainer" parent="LeftNode/GridNode/[TEMP]ButtonsContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
