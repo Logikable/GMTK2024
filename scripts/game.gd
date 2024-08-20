@@ -57,11 +57,12 @@ func initial_cubie_click() -> void:
       var affected_idx = Util.coords_to_index(coords + delta, width)
       if affected_idx == grid.initial_cubie_idx:
         cubies_generated *= maybe_supercharge(BASE_MULT[rarity])
-  add_cubies(cubies_generated)
+        
+    # Add cubie to background when clicking.
+    for cubie in cubies_generated:
+      var bg_cubie = BGCubie.instantiate()
+      right_node.add_child(bg_cubie)
   
-  # Add cubie to background when clicking.
-  var bg_cubie = BGCubie.instantiate()
-  right_node.add_child(bg_cubie)
   
 
 func cubies_per_second() -> float:
@@ -231,6 +232,8 @@ func _process(delta: float) -> void:
   if floor(cubies) > floor(old_cubies):
     var bg_cubie: Node = BGCubie.instantiate()
     right_node.add_child(bg_cubie)
+  
+  
 
 
 func _make_custom_tooltip(for_text):

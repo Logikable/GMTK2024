@@ -1,0 +1,570 @@
+[gd_scene load_steps=37 format=3 uid="uid://dpoq76pjfiw80"]
+
+[ext_resource type="PackedScene" uid="uid://c35n6g5dqft6e" path="res://scenes/grid.tscn" id="1_oinuk"]
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_qbhd8"]
+[ext_resource type="PackedScene" uid="uid://b4hbrx3a00yd5" path="res://scenes/fps_label.tscn" id="2_57hkx"]
+[ext_resource type="FontFile" uid="uid://c48agdebe6v1w" path="res://fonts/ComicCodeLigaturesNFFixed-Regular.ttf" id="2_xktb0"]
+[ext_resource type="PackedScene" uid="uid://bl6y7mubc4vxv" path="res://scenes/bg_cubies.tscn" id="3_h6d0e"]
+[ext_resource type="Script" path="res://scripts/menu.gd" id="4_c2n2o"]
+[ext_resource type="Script" path="res://scripts/cursor_pos.gd" id="4_xopfk"]
+[ext_resource type="Script" path="res://scripts/cubies_label.gd" id="5_x3i7v"]
+[ext_resource type="PackedScene" uid="uid://cjxbp3q6w7n1k" path="res://scenes/upgrade.tscn" id="6_dbh5q"]
+[ext_resource type="Theme" uid="uid://754m2gs5mwax" path="res://assets/default.tres" id="6_k0u1n"]
+[ext_resource type="PackedScene" uid="uid://dtrh8gejdsuae" path="res://scenes/tooltip.tscn" id="9_xg4mp"]
+[ext_resource type="PackedScene" uid="uid://frg1q7xtchp1" path="res://scenes/card_parent.tscn" id="10_545re"]
+[ext_resource type="Script" path="res://scripts/right_node.gd" id="11_5a8y2"]
+[ext_resource type="Script" path="res://scripts/cps_label.gd" id="12_elefm"]
+[ext_resource type="Texture2D" uid="uid://q17rapal3t1p" path="res://assets/fancycube.png" id="13_uej2p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gv1x0"]
+bg_color = Color(0.203922, 0.219608, 0.25098, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_55k84"]
+line_spacing = 0.0
+font = ExtResource("2_xktb0")
+font_color = Color(0, 0.498039, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_q1cob"]
+line_spacing = 0.0
+font = ExtResource("2_xktb0")
+font_size = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_sktip"]
+font = ExtResource("2_xktb0")
+font_size = 30
+
+[sub_resource type="SystemFont" id="SystemFont_ke74w"]
+subpixel_positioning = 0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5pw3p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3jagg"]
+bg_color = Color(1, 0.933333, 0.576471, 1)
+border_color = Color(1, 0.933333, 0.576471, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_afv12"]
+bg_color = Color(1, 0.905882, 0.380392, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(1, 0.907, 0.38, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x6owc"]
+bg_color = Color(1, 0.996078, 0.984314, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(1, 0.933333, 0.576471, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p7m1s"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hkfyx"]
+bg_color = Color(1, 0.980392, 0.878431, 1)
+border_width_top = 5
+border_color = Color(1, 0.933333, 0.576471, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_57o7h"]
+content_margin_left = 50.0
+content_margin_top = 0.0
+content_margin_right = 50.0
+content_margin_bottom = 0.0
+bg_color = Color(1, 0.980392, 0.878431, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 1
+border_color = Color(1, 0.933333, 0.576471, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+expand_margin_top = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gcun3"]
+content_margin_left = 50.0
+content_margin_top = 0.0
+content_margin_right = 50.0
+content_margin_bottom = 0.0
+bg_color = Color(0.474269, 0.49815, 0.550564, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iyq20"]
+content_margin_left = 50.0
+content_margin_top = 0.0
+content_margin_right = 50.0
+content_margin_bottom = 0.0
+bg_color = Color(0.316068, 0.337553, 0.380498, 1)
+border_color = Color(0.956863, 0.913725, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_76n2m"]
+bg_color = Color(1, 0.980392, 0.878431, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0isn0"]
+bg_color = Color(0.956863, 0.913725, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_88470"]
+bg_color = Color(0.113725, 0.121569, 0.137255, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_no5f4"]
+font = ExtResource("2_xktb0")
+font_size = 24
+
+[sub_resource type="Animation" id="Animation_ojfmn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_d8d0p"]
+resource_name = "idle"
+length = 20.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 20),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2hhwq"]
+_data = {
+"RESET": SubResource("Animation_ojfmn"),
+"idle": SubResource("Animation_d8d0p")
+}
+
+[node name="GameNode" type="Control" node_paths=PackedStringArray("cps_label", "cubies_label", "grid", "menu", "right_node") groups=["game"]]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+theme = ExtResource("6_k0u1n")
+script = ExtResource("1_qbhd8")
+cps_label = NodePath("RightNode/CubiesPerSecond")
+cubies_label = NodePath("LeftNode/GridNode/TotalCubiesLabel")
+grid = NodePath("LeftNode/GridNode/Grid")
+menu = NodePath("LeftNode/Menu")
+right_node = NodePath("RightNode")
+BGCubie = ExtResource("3_h6d0e")
+
+[node name="LeftNode" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 830.0
+offset_bottom = 720.0
+
+[node name="GridNode" type="Control" parent="LeftNode"]
+layout_mode = 2
+anchors_preset = 0
+offset_right = 830.0
+offset_bottom = 475.0
+
+[node name="Background" type="PanelContainer" parent="LeftNode/GridNode"]
+z_index = -1
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.10947
+offset_bottom = -6.10352e-05
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gv1x0")
+metadata/_edit_use_anchors_ = true
+
+[node name="DebugInfo" type="VBoxContainer" parent="LeftNode/GridNode"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="FPS" type="MarginContainer" parent="LeftNode/GridNode/DebugInfo"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+
+[node name="FPSLabel" parent="LeftNode/GridNode/DebugInfo/FPS" instance=ExtResource("2_57hkx")]
+layout_mode = 2
+text = "FPS: "
+label_settings = SubResource("LabelSettings_55k84")
+
+[node name="CursorPosition" type="MarginContainer" parent="LeftNode/GridNode/DebugInfo"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+
+[node name="CursorPositionLabel" parent="LeftNode/GridNode/DebugInfo/CursorPosition" instance=ExtResource("2_57hkx")]
+layout_mode = 2
+text = "(0, 0)"
+label_settings = SubResource("LabelSettings_q1cob")
+script = ExtResource("4_xopfk")
+
+[node name="TotalCubiesLabel" type="Label" parent="LeftNode/GridNode" node_paths=PackedStringArray("grid")]
+layout_mode = 0
+offset_left = 285.0
+offset_top = 50.0
+offset_right = 564.0
+offset_bottom = 118.0
+text = "500,000 cubies
+"
+label_settings = SubResource("LabelSettings_sktip")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("5_x3i7v")
+grid = NodePath("../Grid")
+
+[node name="Grid" parent="LeftNode/GridNode" groups=["grid"] instance=ExtResource("1_oinuk")]
+z_index = 1
+clip_contents = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -105.0
+offset_top = -105.0
+offset_right = 105.0
+offset_bottom = 105.0
+grow_horizontal = 2
+grow_vertical = 2
+Tooltip = ExtResource("9_xg4mp")
+metadata/_edit_use_anchors_ = true
+
+[node name="[TEMP]PickGridSize" type="OptionButton" parent="LeftNode/GridNode"]
+visible = false
+z_index = 1
+layout_mode = 0
+offset_left = 113.0
+offset_top = 78.0
+offset_right = 145.0
+offset_bottom = 98.0
+allow_reselect = true
+item_count = 5
+popup/item_0/text = "3"
+popup/item_1/text = "5"
+popup/item_1/id = 1
+popup/item_2/text = "7"
+popup/item_2/id = 2
+popup/item_3/text = "9"
+popup/item_3/id = 3
+popup/item_4/text = "11"
+popup/item_4/id = 4
+
+[node name="[TEMP]CreateCardButton" type="Button" parent="LeftNode/GridNode"]
+visible = false
+layout_mode = 0
+offset_left = 114.0
+offset_top = 117.0
+offset_right = 229.0
+offset_bottom = 148.0
+text = "Create Card"
+
+[node name="[TEMP]ButtonsContainer" type="HBoxContainer" parent="LeftNode/GridNode"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -79.0
+offset_top = -79.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="[TEMP]ResetSaveButton" type="MarginContainer" parent="LeftNode/GridNode/[TEMP]ButtonsContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ButtonParent" type="Control" parent="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]ResetSaveButton"]
+custom_minimum_size = Vector2(59, 59)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]ResetSaveButton/ButtonParent"]
+layout_mode = 2
+offset_right = 195.0
+offset_bottom = 195.0
+scale = Vector2(0.3, 0.3)
+theme_override_fonts/font = SubResource("SystemFont_ke74w")
+theme_override_font_sizes/font_size = 120
+theme_override_styles/focus = SubResource("StyleBoxEmpty_5pw3p")
+theme_override_styles/hover = SubResource("StyleBoxFlat_3jagg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_afv12")
+theme_override_styles/normal = SubResource("StyleBoxFlat_x6owc")
+text = "🗑️"
+
+[node name="[TEMP]LoadButton" type="MarginContainer" parent="LeftNode/GridNode/[TEMP]ButtonsContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ButtonParent" type="Control" parent="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]LoadButton"]
+custom_minimum_size = Vector2(59, 59)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]LoadButton/ButtonParent"]
+layout_mode = 2
+offset_right = 195.0
+offset_bottom = 195.0
+scale = Vector2(0.3, 0.3)
+theme_override_fonts/font = SubResource("SystemFont_ke74w")
+theme_override_font_sizes/font_size = 120
+theme_override_styles/focus = SubResource("StyleBoxEmpty_5pw3p")
+theme_override_styles/hover = SubResource("StyleBoxFlat_3jagg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_afv12")
+theme_override_styles/normal = SubResource("StyleBoxFlat_x6owc")
+text = "📁"
+
+[node name="[TEMP]SaveButton" type="MarginContainer" parent="LeftNode/GridNode/[TEMP]ButtonsContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ButtonParent" type="Control" parent="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]SaveButton"]
+custom_minimum_size = Vector2(59, 59)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]SaveButton/ButtonParent"]
+layout_mode = 2
+offset_right = 195.0
+offset_bottom = 195.0
+scale = Vector2(0.3, 0.3)
+theme_override_fonts/font = SubResource("SystemFont_ke74w")
+theme_override_font_sizes/font_size = 120
+theme_override_styles/focus = SubResource("StyleBoxEmpty_5pw3p")
+theme_override_styles/hover = SubResource("StyleBoxFlat_3jagg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_afv12")
+theme_override_styles/normal = SubResource("StyleBoxFlat_x6owc")
+text = "💾"
+
+[node name="Menu" type="TabContainer" parent="LeftNode" node_paths=PackedStringArray("alchemy_cards", "grid", "shop_rows")]
+layout_mode = 2
+offset_top = 435.0
+offset_right = 830.0
+offset_bottom = 720.0
+theme = ExtResource("6_k0u1n")
+theme_override_colors/font_unselected_color = Color(0.726794, 0.746741, 0.786369, 1)
+theme_override_colors/font_hovered_color = Color(0.203922, 0.219608, 0.25098, 1)
+theme_override_colors/font_selected_color = Color(0.203922, 0.219608, 0.25098, 1)
+theme_override_constants/side_margin = 15
+theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_p7m1s")
+theme_override_styles/panel = SubResource("StyleBoxFlat_hkfyx")
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_57o7h")
+theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_gcun3")
+theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_iyq20")
+current_tab = 0
+drag_to_rearrange_enabled = true
+tab_focus_mode = 0
+script = ExtResource("4_c2n2o")
+alchemy_cards = NodePath("ALCHEMY/AlchemyCards")
+grid = NodePath("../GridNode/Grid")
+shop_rows = NodePath("SHOUP/ShopMargins/Rows")
+CardParent = ExtResource("10_545re")
+Upgrade = ExtResource("6_dbh5q")
+
+[node name="SHOUP" type="Control" parent="LeftNode/Menu"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="HideBorderPanelShop" type="Panel" parent="LeftNode/Menu/SHOUP"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = -10.0
+offset_right = 166.0
+offset_bottom = 3.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_76n2m")
+
+[node name="ShopMargins" type="MarginContainer" parent="LeftNode/Menu/SHOUP"]
+custom_minimum_size = Vector2(830, 240)
+layout_mode = 0
+offset_right = 830.0
+offset_bottom = 240.0
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Rows" type="VBoxContainer" parent="LeftNode/Menu/SHOUP/ShopMargins"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Columns" type="HBoxContainer" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="UpgradeParent" type="Control" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns"]
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+
+[node name="Upgrade" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns/UpgradeParent" instance=ExtResource("6_dbh5q")]
+layout_mode = 0
+scale = Vector2(0.5, 0.5)
+
+[node name="UpgradeParent2" type="Control" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns"]
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+
+[node name="Upgrade" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns/UpgradeParent2" instance=ExtResource("6_dbh5q")]
+layout_mode = 0
+scale = Vector2(0.5, 0.5)
+
+[node name="Columns2" type="HBoxContainer" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="UpgradeParent" type="Control" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns2"]
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+
+[node name="Upgrade" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns2/UpgradeParent" instance=ExtResource("6_dbh5q")]
+layout_mode = 0
+scale = Vector2(0.5, 0.5)
+
+[node name="UpgradeParent2" type="Control" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns2"]
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+
+[node name="Upgrade" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns2/UpgradeParent2" instance=ExtResource("6_dbh5q")]
+layout_mode = 0
+scale = Vector2(0.5, 0.5)
+
+[node name="Columns3" type="HBoxContainer" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="UpgradeParent" type="Control" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns3"]
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+
+[node name="Upgrade" parent="LeftNode/Menu/SHOUP/ShopMargins/Rows/Columns3/UpgradeParent" instance=ExtResource("6_dbh5q")]
+layout_mode = 0
+scale = Vector2(0.5, 0.5)
+
+[node name="ALCHEMY" type="Control" parent="LeftNode/Menu"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="HideBorderPanelAlchemy" type="Panel" parent="LeftNode/Menu/ALCHEMY"]
+layout_mode = 0
+offset_left = 176.0
+offset_top = -10.0
+offset_right = 344.0
+offset_bottom = 2.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_0isn0")
+
+[node name="AlchemyCards" type="HBoxContainer" parent="LeftNode/Menu/ALCHEMY"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -375.5
+offset_top = -87.5
+offset_right = 375.5
+offset_bottom = 87.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 17
+
+[node name="CardGrandparent" type="Control" parent="LeftNode/Menu/ALCHEMY/AlchemyCards"]
+custom_minimum_size = Vector2(176, 176)
+layout_mode = 2
+
+[node name="CardParent" parent="LeftNode/Menu/ALCHEMY/AlchemyCards/CardGrandparent" instance=ExtResource("10_545re")]
+layout_mode = 2
+offset_right = 176.0
+offset_bottom = 176.0
+
+[node name="RightNode" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 830.0
+offset_right = 1280.0
+offset_bottom = 720.0
+script = ExtResource("11_5a8y2")
+
+[node name="BGContainer" type="PanelContainer" parent="RightNode"]
+z_index = -11
+layout_mode = 0
+offset_right = 450.0
+offset_bottom = 720.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_88470")
+
+[node name="CubiesPerSecond" type="Label" parent="RightNode" node_paths=PackedStringArray("grid")]
+visible = false
+layout_mode = 0
+offset_left = 102.0
+offset_top = 108.0
+offset_right = 348.0
+offset_bottom = 149.0
+text = "5,000 cubies/s"
+label_settings = SubResource("LabelSettings_no5f4")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("12_elefm")
+grid = NodePath("../../LeftNode/GridNode/Grid")
+
+[node name="NumberCubie" type="TextureRect" parent="RightNode"]
+layout_mode = 2
+offset_left = -171.0
+offset_top = -32.0
+offset_right = 610.0
+offset_bottom = 718.0
+scale = Vector2(0.55, 0.55)
+pivot_offset = Vector2(402, 390)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("13_uej2p")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="RightNode/NumberCubie"]
+libraries = {
+"": SubResource("AnimationLibrary_2hhwq")
+}
+autoplay = "idle"
+
+[connection signal="item_selected" from="LeftNode/GridNode/[TEMP]PickGridSize" to="LeftNode/GridNode/Grid" method="_on_option_button_item_selected"]
+[connection signal="pressed" from="LeftNode/GridNode/[TEMP]CreateCardButton" to="LeftNode/Menu" method="_on_card_add_button_press"]
+[connection signal="pressed" from="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]ResetSaveButton/ButtonParent/Button" to="." method="_on_reset_save_button_pressed"]
+[connection signal="pressed" from="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]LoadButton/ButtonParent/Button" to="." method="_on_load_button_pressed"]
+[connection signal="pressed" from="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]SaveButton/ButtonParent/Button" to="." method="_on_save_button_pressed"]
+[connection signal="tab_changed" from="LeftNode/Menu" to="LeftNode/Menu" method="_on_tab_changed"]

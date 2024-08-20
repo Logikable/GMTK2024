@@ -7,6 +7,7 @@ extends Control
 @export var Tile: PackedScene
 @export var TwoDCubie: PackedScene
 
+
 signal grid_size_updated
 
 # Assume zone.gd has:
@@ -57,6 +58,7 @@ func set_cubie(position: int, rarity: int) -> void:
   elif rarity == -1:
     var initial2DCubie: Button = Initial2DCubie.instantiate()
     initial2DCubie.size = new_cubie.size
+    initial2DCubie.set_script(load("res://scripts/upgrade_button.gd"))
     initial2DCubie.pressed.connect(_on_initial_cubie_press)
     new_cubie.add_child(initial2DCubie)
 
@@ -66,14 +68,15 @@ func set_cubie(position: int, rarity: int) -> void:
     texture.size = new_cubie.size
     initial2DCubie.add_child(texture)
     self.theme = Initial2DCubieTheme
+    initial2DCubie.tooltip_text = "Click to generate cubies"
 
     # Remember the position of the centre.
     initial_cubie_idx = position
 
   # Add the cubie.
   tile_shape.add_child(new_cubie)
-
-
+  
+  
 func generate_children(new_grid_size: int) -> void:
   # Programmatically create a TileParent.
   var new_tile_parent: Node = Control.new()

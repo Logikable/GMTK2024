@@ -1,9 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://cjxbp3q6w7n1k"]
+[gd_scene load_steps=11 format=3 uid="uid://cjxbp3q6w7n1k"]
 
 [ext_resource type="Theme" uid="uid://754m2gs5mwax" path="res://assets/default.tres" id="1_hcg5f"]
 [ext_resource type="Script" path="res://scripts/upgrade.gd" id="1_y7n3h"]
 [ext_resource type="Script" path="res://scripts/upgrade_button.gd" id="3_dmdtv"]
-[ext_resource type="PackedScene" uid="uid://dtrh8gejdsuae" path="res://scenes/tooltip.tscn" id="4_pi83e"]
 [ext_resource type="Texture2D" uid="uid://ds3uv77f7v5bo" path="res://assets/5KPdnyj.png" id="5_m18e3"]
 
 [sub_resource type="SystemFont" id="SystemFont_yaejb"]
@@ -81,7 +80,6 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_3hakr")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_tepky")
 theme_override_styles/normal = SubResource("StyleBoxFlat_bwje4")
 script = ExtResource("3_dmdtv")
-Tooltip = ExtResource("4_pi83e")
 
 [node name="Margins" type="MarginContainer" parent="MarginContainer/UpgradeButton"]
 layout_mode = 1

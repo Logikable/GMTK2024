@@ -78,7 +78,7 @@ const UPGRADES: Array = [
   },
   {
     'id': 201.0,
-    'display_name': 'Cubie Alchemy Ticket',
+    'display_name': 'Alchemy Ticket I',
     'type': UpgradeType.CUBIE,
     'rarity': 1,
     'icon': Util.CUBIE_SHOP_ICON[1],
@@ -91,7 +91,7 @@ const UPGRADES: Array = [
   },
   {
     'id': 202.0,
-    'display_name': 'Wowie Alchemy Ticket',
+    'display_name': 'Alchemy Ticket II',
     'type': UpgradeType.CUBIE,
     'rarity': 2,
     'icon': Util.CUBIE_SHOP_ICON[2],
@@ -104,33 +104,33 @@ const UPGRADES: Array = [
   },
   {
     'id': 203.0,
-    'display_name': 'Aurie Alchemy Ticket',
+    'display_name': 'Alchemy Ticket III',
     'type': UpgradeType.CUBIE,
     'rarity': 3,
     'icon': Util.CUBIE_SHOP_ICON[3],
     'unlock_at': 75e3,
     'unlock_requires': [[202.0, 1]],
-    'initial_cost': 250e3,
+    'initial_cost': 50e3,
     'cost_scaling': 5.46,
     'purchase_limit': -1,   # Infinite.
     'tooltip': 'Add an Aurie to the Alchemy Supply',
   },
   {
     'id': 204.0,
-    'display_name': 'Chargie Alchemy Ticket',
+    'display_name': 'Alchemy Ticket IV',
     'type': UpgradeType.CUBIE,
     'rarity': 4,
     'icon': Util.CUBIE_SHOP_ICON[4],
     'unlock_at': 500e6,
     'unlock_requires': [[203.0, 1]],
-    'initial_cost': 1500e6,
+    'initial_cost': 1000e6,
     'cost_scaling': 17.09,
     'purchase_limit': -1,   # Infinite.
     'tooltip': 'Add a Chargie to the Alchemy Supply',
   },
   {
     'id': 1101.0,
-    'display_name': 'Improve Click Power I',
+    'display_name': 'Click Power I',
     'type': UpgradeType.CLICK,
     'additive_click_power': 0.5,
     'icon': 'res://assets/cubies.png',   # TODO
