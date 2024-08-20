@@ -14,6 +14,7 @@ const BASE_CPS: Dictionary = { -1: 0.0, 0: 0.0, 1: 1.0, 2: 0.0, 3: 0.0, 4: 0.0 }
 const BASE_MULT: Dictionary = { -1: 0.0, 0: 0.0, 1: 1.0, 2: 2.0, 3: 1.1, 4: 0.0 }
 const SUPERCHARGE_COOLDOWN: float = 5 * 60.0
 const SUPERCHARGE_DURATION: float = 10.0
+const SUPERCHARGE_RARITY: int = 4
 const AUTOSAVE_COOLDOWN: float = 30.0
 
 var cubies: float
@@ -32,7 +33,8 @@ func add_cubies(cubies_: float) -> void:
 
 # The handling of supercharge is everywhere. It's not pretty.
 func maybe_supercharge(v: float) -> float:
-  var supercharge_multiplier = 2.0 if (supercharge_duration_remaining > 0.0) else 1.0
+  var num_superchargers: int = grid.grid_cubies(SUPERCHARGE_RARITY)
+  var supercharge_multiplier = 2.0 ** num_superchargers if (supercharge_duration_remaining > 0.0) else 1.0
   return v * supercharge_multiplier
 
 # TODO
@@ -76,7 +78,7 @@ func cubies_per_second() -> float:
   for upgrade in Upgrades.UPGRADES_BY_TYPE[Upgrades.UpgradeType.IMPROVE_CUBIE]:
     var rarity: int = upgrade.rarity
     if 'additive_cubie_power' in upgrade:
-      cps_by_rarity[rarity] += upgrade.additive_cubie_power
+      cps_by_rarity[rarity] += upgrade.additive_cubie_power * times_purchased(upgrade.id)
     
   # Compute additive scaling factor upgrades.
   var scaling_by_rarity: Dictionary = {}
@@ -85,7 +87,7 @@ func cubies_per_second() -> float:
   for upgrade in Upgrades.UPGRADES_BY_TYPE[Upgrades.UpgradeType.IMPROVE_CUBIE]:
     var rarity: int = upgrade.rarity
     if 'additive_scaling_factor' in upgrade:
-      scaling_by_rarity[rarity] += upgrade.additive_scaling_factor
+      scaling_by_rarity[rarity] += upgrade.additive_scaling_factor * times_purchased(upgrade.id)
     
   var cps_per_tile: Array[float] = []
   # Populate with cps values.
@@ -203,11 +205,11 @@ func compute_new_cubies(delta: float) -> void:
 
 
 func update_supercharge_timers(delta: float) -> void:
-  # Handle rarity=4 cubies doing supercharge.
+  # Handle rarity=SUPERCHARGE_RARITY cubies doing supercharge.
   supercharge_cooldown_remaining = max(0.0, supercharge_cooldown_remaining - delta)
   supercharge_duration_remaining = max(0.0, supercharge_duration_remaining - delta)
   
-  if supercharge_cooldown_remaining == 0.0 and grid.grid_cubies.has(4):
+  if supercharge_cooldown_remaining == 0.0 and grid.grid_cubies.has(SUPERCHARGE_RARITY):
     supercharge_cooldown_remaining = SUPERCHARGE_COOLDOWN
     supercharge_duration_remaining = SUPERCHARGE_DURATION
 
