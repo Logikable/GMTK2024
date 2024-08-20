@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://dpoq76pjfiw80"]
+[gd_scene load_steps=36 format=3 uid="uid://dpoq76pjfiw80"]
 
 [ext_resource type="PackedScene" uid="uid://c35n6g5dqft6e" path="res://scenes/grid.tscn" id="1_oinuk"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_qbhd8"]
@@ -115,9 +115,6 @@ bg_color = Color(1, 0.980392, 0.878431, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0isn0"]
 bg_color = Color(0.956863, 0.913725, 1, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d7m7w"]
-bg_color = Color(0.878431, 0.992157, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_88470"]
 bg_color = Color(0.113725, 0.121569, 0.137255, 1)
@@ -300,6 +297,7 @@ grow_vertical = 0
 theme_override_constants/separation = 0
 
 [node name="[TEMP]ResetSaveButton" type="MarginContainer" parent="LeftNode/GridNode/[TEMP]ButtonsContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -324,6 +322,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_x6owc")
 text = "🗑️"
 
 [node name="[TEMP]LoadButton" type="MarginContainer" parent="LeftNode/GridNode/[TEMP]ButtonsContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -386,7 +385,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_hkfyx")
 theme_override_styles/tab_selected = SubResource("StyleBoxFlat_57o7h")
 theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_gcun3")
 theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_iyq20")
-current_tab = 0
+current_tab = 1
 drag_to_rearrange_enabled = true
 tab_focus_mode = 0
 script = ExtResource("4_c2n2o")
@@ -397,6 +396,7 @@ CardParent = ExtResource("10_545re")
 Upgrade = ExtResource("6_dbh5q")
 
 [node name="SHOUP" type="Control" parent="LeftNode/Menu"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -478,7 +478,6 @@ layout_mode = 0
 scale = Vector2(0.5, 0.5)
 
 [node name="ALCHEMY" type="Control" parent="LeftNode/Menu"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
@@ -514,19 +513,6 @@ layout_mode = 2
 layout_mode = 2
 offset_right = 176.0
 offset_bottom = 176.0
-
-[node name="BLESSINGS" type="Control" parent="LeftNode/Menu"]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 2
-
-[node name="HideBorderPanelShop" type="Panel" parent="LeftNode/Menu/BLESSINGS"]
-layout_mode = 0
-offset_left = 354.0
-offset_top = -8.0
-offset_right = 544.0
-offset_bottom = 7.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_d7m7w")
 
 [node name="RightNode" type="Control" parent="."]
 anchors_preset = 0
