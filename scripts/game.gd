@@ -10,17 +10,19 @@ extends Control
 signal upgrade_purchased
 
 # Bump this whenever the save file changes.
-const VERSION = 0.1
+const VERSION = 0.2
 const BASE_INITIAL_CUBIE_CLICK = 1.0
 const BASE_CPS: Dictionary = { -1: 0.0, 0: 0.0, 1: 1.0, 2: 0.0, 3: 0.0, 4: 0.0 }
 const BASE_MULT: Dictionary = { -1: 0.0, 0: 0.0, 1: 1.0, 2: 2.0, 3: 1.1, 4: 0.0 }
 const SUPERCHARGE_COOLDOWN: float = 5 * 60.0
 const SUPERCHARGE_DURATION: float = 10.0
+const AUTOSAVE_COOLDOWN: float = 30.0
 
 var cubies: float
 var cubies_all_time: float
 var supercharge_cooldown_remaining: float
 var supercharge_duration_remaining: float
+var autosave_cooldown_remaining: float
 # Upgrade ID -> Integer.
 var upgrades_owned: Dictionary = {}
   
@@ -120,6 +122,8 @@ func save_data() -> Dictionary:
     'cubies': cubies,
     'cubies_all_time': cubies_all_time,
     'upgrades_owned': upgrades_owned,
+    'available_upgrades': menu.available_upgrades,
+    'available_cards': menu.available_cards,
     'grid_size': grid.grid_size,
     'grid_cubies': grid.grid_cubies,
     'supercharge_cooldown_remaining': supercharge_cooldown_remaining,
@@ -134,10 +138,34 @@ func load_data(data: Dictionary) -> void:
   cubies = data.cubies
   cubies_all_time = data.cubies_all_time
   upgrades_owned = data.upgrades_owned
+  menu.set_shop_upgrades(data.available_upgrades)
+  menu.set_alchemy_cards(data.available_cards)
   grid.set_grid_size(data.grid_size)
   grid.set_grid_cubies(data.grid_cubies)
   supercharge_cooldown_remaining = data.supercharge_cooldown_remaining
   supercharge_duration_remaining = data.supercharge_duration_remaining
+  print('game.load_data(): Game loaded.')
+
+
+func autosave(delta: float) -> void:
+  autosave_cooldown_remaining = max(0.0, autosave_cooldown_remaining - delta)
+  if autosave_cooldown_remaining == 0:
+    SaveFile.save_to_disk(save_data())
+    autosave_cooldown_remaining = AUTOSAVE_COOLDOWN
+    print('game.autosave(): Game autosaved.')
+
+
+func reset_game() -> void:
+  cubies = 0
+  cubies_all_time = 0
+  upgrades_owned = {}
+  menu.reset_shop_upgrades()
+  menu.reset_alchemy_cards()
+  grid.set_grid_size(1)
+  grid.set_grid_cubies([-1])
+  supercharge_cooldown_remaining = 0.0
+  supercharge_duration_remaining = 0.0
+  print('game.reset_game(): Game reset.')
 
 
 func compute_new_cubies(delta: float) -> void:
@@ -166,20 +194,20 @@ func update_shop() -> void:
     # Don't add the upgrade if we're at the purchase limit.
     if upgrade.id in upgrades_owned and upgrades_owned[upgrade.id] >= upgrade.purchase_limit:
       continue
+    if upgrade.id in upgrades_owned:
+      print(upgrades_owned[upgrade.id], ' ', upgrade.purchase_limit)
     if upgrade.unlock_at <= cubies:
       menu.add_shop_upgrade(upgrade.id)
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-  # If we don't have a save to load from, set their default values.
-  cubies = 0
-  cubies_all_time = 0
-  supercharge_cooldown_remaining = 0.0
-  supercharge_duration_remaining = 0.0
-  grid.set_grid_size(1)
-  grid.set_grid_cubies([-1])
-  menu.recreate_shop()
+  autosave_cooldown_remaining = AUTOSAVE_COOLDOWN
+  if SaveFile.can_load():
+    load_data(SaveFile.load_from_disk())
+  else:
+    # If we don't have a save to load from, set their default values.
+    reset_game()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -202,9 +230,14 @@ func _make_custom_tooltip(for_text):
 
 
 func _on_save_button_pressed() -> void:
-  SaveFile.save(save_data())
+  SaveFile.save_to_disk(save_data())
 
 
 func _on_load_button_pressed() -> void:
   if SaveFile.can_load():
-    load_data(SaveFile.load())
+    load_data(SaveFile.load_from_disk())
+
+
+func _on_reset_save_button_pressed() -> void:
+  reset_game()
+  SaveFile.save_to_disk(save_data())

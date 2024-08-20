@@ -20,6 +20,8 @@ const FONT_SIZES = {
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+  # If the label jumps the first time you update the grid size, it's because
+  # the y-size of the Label is set incorrectly. Change this in the scene editor.
   grid.grid_size_updated.connect(_on_grid_size_update)
 
 

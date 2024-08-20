@@ -172,7 +172,7 @@ offset_bottom = 720.0
 theme = ExtResource("6_k0u1n")
 script = ExtResource("1_qbhd8")
 cps_label = NodePath("RightNode/CubiesPerSecond")
-cubies_label = NodePath("LeftNode/GridNode/TotalCubies")
+cubies_label = NodePath("LeftNode/GridNode/TotalCubiesLabel")
 grid = NodePath("LeftNode/GridNode/Grid")
 menu = NodePath("LeftNode/Menu")
 right_node = NodePath("RightNode")
@@ -226,12 +226,12 @@ text = "(0, 0)"
 label_settings = SubResource("LabelSettings_q1cob")
 script = ExtResource("4_xopfk")
 
-[node name="TotalCubies" type="Label" parent="LeftNode/GridNode" node_paths=PackedStringArray("grid")]
+[node name="TotalCubiesLabel" type="Label" parent="LeftNode/GridNode" node_paths=PackedStringArray("grid")]
 layout_mode = 0
 offset_left = 285.0
 offset_top = 50.0
 offset_right = 564.0
-offset_bottom = 101.0
+offset_bottom = 118.0
 text = "500,000 cubies
 "
 label_settings = SubResource("LabelSettings_sktip")
@@ -258,6 +258,7 @@ grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="[TEMP]PickGridSize" type="OptionButton" parent="LeftNode/GridNode"]
+visible = false
 z_index = 1
 layout_mode = 0
 offset_left = 113.0
@@ -277,6 +278,7 @@ popup/item_4/text = "11"
 popup/item_4/id = 4
 
 [node name="[TEMP]CreateCardButton" type="Button" parent="LeftNode/GridNode"]
+visible = false
 layout_mode = 0
 offset_left = 114.0
 offset_top = 117.0
@@ -285,6 +287,7 @@ offset_bottom = 148.0
 text = "Create Card"
 
 [node name="[TEMP]ButtonsContainer" type="HBoxContainer" parent="LeftNode/GridNode"]
+visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -344,6 +347,30 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_3jagg")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_afv12")
 theme_override_styles/normal = SubResource("StyleBoxFlat_x6owc")
 text = "📁"
+
+[node name="[TEMP]ResetSaveButton" type="MarginContainer" parent="LeftNode/GridNode/[TEMP]ButtonsContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ButtonParent" type="Control" parent="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]ResetSaveButton"]
+custom_minimum_size = Vector2(59, 59)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]ResetSaveButton/ButtonParent"]
+layout_mode = 2
+offset_right = 195.0
+offset_bottom = 195.0
+scale = Vector2(0.3, 0.3)
+theme_override_fonts/font = SubResource("SystemFont_ke74w")
+theme_override_font_sizes/font_size = 120
+theme_override_styles/focus = SubResource("StyleBoxEmpty_5pw3p")
+theme_override_styles/hover = SubResource("StyleBoxFlat_3jagg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_afv12")
+theme_override_styles/normal = SubResource("StyleBoxFlat_x6owc")
+text = "🗑️"
 
 [node name="Menu" type="TabContainer" parent="LeftNode" node_paths=PackedStringArray("alchemy_cards", "grid", "shop_rows")]
 layout_mode = 2
@@ -530,10 +557,6 @@ vertical_alignment = 1
 script = ExtResource("12_elefm")
 grid = NodePath("../../LeftNode/GridNode/Grid")
 
-[node name="BGCubieSpawnTimer" type="Timer" parent="RightNode"]
-wait_time = 0.5
-autostart = true
-
 [node name="NumberCubie" type="TextureRect" parent="RightNode"]
 layout_mode = 2
 offset_left = -171.0
@@ -557,5 +580,5 @@ autoplay = "idle"
 [connection signal="pressed" from="LeftNode/GridNode/[TEMP]CreateCardButton" to="LeftNode/Menu" method="_on_card_add_button_press"]
 [connection signal="pressed" from="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]SaveButton/ButtonParent/Button" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]LoadButton/ButtonParent/Button" to="." method="_on_load_button_pressed"]
+[connection signal="pressed" from="LeftNode/GridNode/[TEMP]ButtonsContainer/[TEMP]ResetSaveButton/ButtonParent/Button" to="." method="_on_reset_save_button_pressed"]
 [connection signal="tab_changed" from="LeftNode/Menu" to="LeftNode/Menu" method="_on_tab_changed"]
-[connection signal="timeout" from="RightNode/BGCubieSpawnTimer" to="RightNode" method="_on_bg_cubie_spawn_timer_timeout"]

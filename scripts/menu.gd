@@ -21,10 +21,12 @@ const SHOP_COLUMNS: int = 2
 const SHOP_UPGRADE_SIZE: Vector2 = Vector2(400, 50)
 
 var game: Node
-# A local list of available upgrades. Do not use from another file.
-# Instead, use (add|remove)_shop_upgrade
+# A local list of available upgrades/cards. Do not modify from another file.
+# Instead, use (add|remove|set)_shop_upgrade or (add|set)_alchemy_card.
 # Keep this Array sorted.
 var available_upgrades: Array = []
+var available_cards: Array = []
+
 
 func set_menu_colours(name: String) -> void:
   var colours = MENU_COLOURS[name]
@@ -48,7 +50,18 @@ func remove_shop_upgrade(id: float) -> void:
   assert(id in available_upgrades)
   available_upgrades.remove_at(available_upgrades.find(id))
   recreate_shop()
-  
+
+
+func set_shop_upgrades(available_upgrades_: Array) -> void:
+  available_upgrades = available_upgrades_
+  available_upgrades.sort()
+  recreate_shop()
+
+
+func reset_shop_upgrades() -> void:
+  available_upgrades = []
+  recreate_shop()
+
   
 func recreate_shop() -> void:
   # Remove all UpgradeParents.
@@ -91,26 +104,49 @@ func recreate_shop() -> void:
 
 
 func add_alchemy_card(rarity: int) -> void:
-  # Add a card (parent & grandparent) to the list of alchemy cards.
-  var card_parent: Node = CardParent.instantiate()
-  card_parent.is_2dcubie = false
+  available_cards.append(rarity)
+  recreate_alchemy_tab()
 
-  # Register the Draggable's signals with the menu's handlers.
-  var draggable: Node = Util.get_child_with_name(card_parent, 'Draggable')    # Gross...
-  draggable.moved.connect(_on_card_moved)
-  draggable.released.connect(_on_drag_release)
+
+func set_alchemy_cards(available_cards_: Array) -> void:
+  available_cards = available_cards_
+  available_cards.sort()
+  recreate_shop()
+
   
-  # Set the card's rarity.
-  var card: Node = Util.get_child_with_name(card_parent, 'Card')   # Gross...
-  card.set_rarity(rarity)
+func reset_alchemy_cards() -> void:
+  available_cards = []
+  recreate_alchemy_tab()
+  
+  
+func recreate_alchemy_tab() -> void:
+  # Remove all CardGrandparents.
+  for card_grandparent in alchemy_cards.get_children():
+    Util.delete_node(card_grandparent)
+  
+  # Generate all the UpgradeParents.
+  for rarity in available_cards:
+    # Add a card (parent & grandparent) to the list of alchemy cards.
+    var card_parent: Node = CardParent.instantiate()
+    card_parent.is_2dcubie = false
 
-  # Create a grandparent node that can maintain its size and act as a placeholder
-  # after we've moved.
-  var card_grandparent: Node = Control.new()
-  card_grandparent.custom_minimum_size = card_parent.size
-  card_grandparent.add_child(card_parent)
+    # Register the Draggable's signals with the menu's handlers.
+    var draggable: Node = Util.get_child_with_name(card_parent, 'Draggable')    # Gross...
+    draggable.moved.connect(_on_card_moved)
+    draggable.released.connect(_on_drag_release)
+    
+    # Set the card's rarity.
+    var card: Node = Util.get_child_with_name(card_parent, 'Card')   # Gross...
+    card.set_rarity(rarity)
 
-  alchemy_cards.add_child(card_grandparent)
+    # Create a grandparent node that can maintain its size and act as a placeholder
+    # after we've moved.
+    var card_grandparent: Node = Control.new()
+    card_grandparent.custom_minimum_size = card_parent.size
+    card_grandparent.add_child(card_parent)
+
+    alchemy_cards.add_child(card_grandparent)
+  assert(alchemy_cards.get_child_count() == len(available_cards))
 
 
 # Called when the node enters the scene tree for the first time.
