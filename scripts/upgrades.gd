@@ -34,9 +34,9 @@ const UPGRADES: Array = [
     'type': UpgradeType.EXPANSION,
     'new_grid_size': 5,
     'icon': 'res://assets/cubies.png',   # TODO
-    'unlock_at': 3000,
+    'unlock_at': 500,
     'unlock_requires': [[101.0, 1]],
-    'initial_cost': 9000,
+    'initial_cost': 750,
     'purchase_limit': 1,
     'tooltip': 'Increase the size of the grid to 5x5',
   },
@@ -46,9 +46,9 @@ const UPGRADES: Array = [
     'type': UpgradeType.EXPANSION,
     'new_grid_size': 7,
     'icon': 'res://assets/cubies.png',   # TODO
-    'unlock_at': 6e6,
+    'unlock_at': 2000,
     'unlock_requires': [[102.0, 1]],
-    'initial_cost': 18e6,
+    'initial_cost': 3000,
     'purchase_limit': 1,
     'tooltip': 'Increase the size of the grid to 7x7',
   },
@@ -58,9 +58,9 @@ const UPGRADES: Array = [
     'type': UpgradeType.EXPANSION,
     'new_grid_size': 9,
     'icon': 'res://assets/cubies.png',   # TODO
-    'unlock_at': 30e9,
+    'unlock_at': 6000,
     'unlock_requires': [[103.0, 1]],
-    'initial_cost': 90e9,
+    'initial_cost': 1e6,
     'purchase_limit': 1,
     'tooltip': 'Increase the size of the grid to 9x9',
   },
@@ -97,7 +97,7 @@ const UPGRADES: Array = [
     'icon': Util.CUBIE_SHOP_ICON[2],
     'unlock_at': 250,
     'unlock_requires': [[201.0, 1]],
-    'initial_cost': 750,
+    'initial_cost': 400,
     'cost_scaling': 3.25,
     'purchase_limit': -1,   # Infinite.
     'tooltip': 'Add a Wowie to the Alchemy Supply',
@@ -108,9 +108,9 @@ const UPGRADES: Array = [
     'type': UpgradeType.CUBIE,
     'rarity': 3,
     'icon': Util.CUBIE_SHOP_ICON[3],
-    'unlock_at': 75e3,
+    'unlock_at': 1000,
     'unlock_requires': [[202.0, 1]],
-    'initial_cost': 50e3,
+    'initial_cost': 1500,
     'cost_scaling': 5.46,
     'purchase_limit': -1,   # Infinite.
     'tooltip': 'Add an Aurie to the Alchemy Supply',
@@ -121,9 +121,9 @@ const UPGRADES: Array = [
     'type': UpgradeType.CUBIE,
     'rarity': 4,
     'icon': Util.CUBIE_SHOP_ICON[4],
-    'unlock_at': 500e6,
+    'unlock_at': 4000,
     'unlock_requires': [[203.0, 1]],
-    'initial_cost': 1000e6,
+    'initial_cost': 500e3,
     'cost_scaling': 17.09,
     'purchase_limit': -1,   # Infinite.
     'tooltip': 'Add a Chargie to the Alchemy Supply',
@@ -139,6 +139,34 @@ const UPGRADES: Array = [
     'cost_scaling': 2.39,
     'purchase_limit': -1,   # Infinite.
     'tooltip': 'Increase cubies per click by 0.5',
+  },
+  {
+    'id': 1201.0,
+    'display_name': 'Cubie Power I',
+    'type': UpgradeType.IMPROVE_CUBIE,
+    'rarity': 1,
+    'additive_cubie_power': 0.5,
+    'icon': 'res://assets/cubies.png',   # TODO
+    'unlock_at': 75,
+    'unlock_requires': [[201.0, 1]],
+    'initial_cost': 100,
+    'cost_scaling': 2.62,
+    'purchase_limit': -1,   # Infinite.
+    'tooltip': 'Increase cubies/s of Cubies by 0.5',
+  },
+  {
+    'id': 1202.0,
+    'display_name': 'Wowie Power I',
+    'type': UpgradeType.IMPROVE_CUBIE,
+    'rarity': 2,
+    'additive_scaling_factor': 0.2,
+    'icon': 'res://assets/cubies.png',   # TODO
+    'unlock_at': 600,
+    'unlock_requires': [[202.0, 1]],
+    'initial_cost': 900,
+    'cost_scaling': 2.62,
+    'purchase_limit': -1,   # Infinite.
+    'tooltip': 'Increase scaling factor of Wowies by 0.2',
   },
 ]
 

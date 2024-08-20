@@ -57,23 +57,41 @@ func initial_cubie_click() -> void:
       var affected_idx = Util.coords_to_index(coords + delta, width)
       if affected_idx == grid.initial_cubie_idx:
         cubies_generated *= maybe_supercharge(BASE_MULT[rarity])
-        
-    # Add cubie to background when clicking.
-    for cubie in cubies_generated:
-      var bg_cubie = BGCubie.instantiate()
-      right_node.add_child(bg_cubie)
-  
+  add_cubies(cubies_generated)
+
+  # Add cubie to background when clicking.
+  for cubie in floori(cubies_generated):
+    var bg_cubie = BGCubie.instantiate()
+    right_node.add_child(bg_cubie)
   
 
 func cubies_per_second() -> float:
   var width = grid.grid_size
   var area = len(grid.grid_cubies)
   
+  # Compute additive cps upgrades.
+  var cps_by_rarity: Dictionary = {}
+  for rarity: int in BASE_CPS:
+    cps_by_rarity[rarity] = BASE_CPS[rarity]
+  for upgrade in Upgrades.UPGRADES_BY_TYPE[Upgrades.UpgradeType.IMPROVE_CUBIE]:
+    var rarity: int = upgrade.rarity
+    if 'additive_cubie_power' in upgrade:
+      cps_by_rarity[rarity] += upgrade.additive_cubie_power
+    
+  # Compute additive scaling factor upgrades.
+  var scaling_by_rarity: Dictionary = {}
+  for rarity: int in BASE_MULT:
+    scaling_by_rarity[rarity] = BASE_MULT[rarity]
+  for upgrade in Upgrades.UPGRADES_BY_TYPE[Upgrades.UpgradeType.IMPROVE_CUBIE]:
+    var rarity: int = upgrade.rarity
+    if 'additive_scaling_factor' in upgrade:
+      scaling_by_rarity[rarity] += upgrade.additive_scaling_factor
+    
   var cps_per_tile: Array[float] = []
-  # First, populate with base cps values.
+  # Populate with cps values.
   for idx in area:
     var rarity: int = grid.grid_cubies[idx]
-    var cps: int = maybe_supercharge(BASE_CPS[rarity])
+    var cps: int = maybe_supercharge(cps_by_rarity[rarity])
     cps_per_tile.append(cps)
   assert(len(cps_per_tile) == area)
 
@@ -85,7 +103,7 @@ func cubies_per_second() -> float:
     for delta: Vector2 in affected_region:
       var affected_idx = Util.coords_to_index(coords + delta, width)
       if 0 <= affected_idx and affected_idx < area:
-        cps_per_tile[affected_idx] *= maybe_supercharge(BASE_MULT[rarity])
+        cps_per_tile[affected_idx] *= maybe_supercharge(scaling_by_rarity[rarity])
 
   return Util.sum(cps_per_tile)
 
@@ -232,8 +250,6 @@ func _process(delta: float) -> void:
   if floor(cubies) > floor(old_cubies):
     var bg_cubie: Node = BGCubie.instantiate()
     right_node.add_child(bg_cubie)
-  
-  
 
 
 func _make_custom_tooltip(for_text):
