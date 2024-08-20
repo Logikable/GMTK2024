@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b0rv4c1oc7yrc"]
+[gd_scene load_steps=13 format=3 uid="uid://b0rv4c1oc7yrc"]
 
 [ext_resource type="PackedScene" uid="uid://cpklnuogag7tt" path="res://scenes/2dcubie.tscn" id="1_akfou"]
 [ext_resource type="Script" path="res://scripts/card.gd" id="1_c2cb0"]
@@ -8,15 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://btk4rywc3ymm2" path="res://assets/5Ijg6wc.png" id="3_ms6wg"]
 [ext_resource type="PackedScene" uid="uid://dtrh8gejdsuae" path="res://scenes/tooltip.tscn" id="4_bvdkf"]
 [ext_resource type="Script" path="res://scripts/card_texture_rect.gd" id="7_1ctqn"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_08uny"]
-draw_center = false
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-shadow_color = Color(0, 0, 0, 0.168627)
-shadow_size = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3wctg"]
 bg_color = Color(1, 0.996078, 0.984314, 1)
@@ -35,14 +26,15 @@ bg_color = Color(0.203922, 0.219608, 0.25098, 1)
 corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
 
-[node name="Card" type="PanelContainer" node_paths=PackedStringArray("cubie", "divider", "header_panel", "name_label", "texture_rect")]
+[node name="Card" type="Control" node_paths=PackedStringArray("cubie", "divider", "header_panel", "name_label", "texture_rect")]
+layout_mode = 3
+anchors_preset = 0
 offset_right = 390.0
 offset_bottom = 390.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_default_cursor_shape = 6
 theme = ExtResource("2_adymy")
-theme_override_styles/panel = SubResource("StyleBoxFlat_08uny")
 script = ExtResource("1_c2cb0")
 cubie = NodePath("CardContents/Body/2DCubie")
 divider = NodePath("CardContents/Divider")
@@ -53,6 +45,8 @@ Tooltip = ExtResource("4_bvdkf")
 
 [node name="CardContents" type="VBoxContainer" parent="."]
 layout_mode = 2
+offset_right = 390.0
+offset_bottom = 390.0
 theme_override_constants/separation = 0
 alignment = 1
 

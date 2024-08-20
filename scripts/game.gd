@@ -106,9 +106,10 @@ func try_upgrade(node: Node) -> void:
   
   # Update the UpgradeNode.
   # If we've reached the purchase limit, remove it from available upgrades.
-  if times_purchased >= upgrade.purchase_limit:
+  if times_purchased >= upgrade.purchase_limit and upgrade.purchase_limit >= 0:
     menu.remove_shop_upgrade(node.id)
   node.set_upgrade_count(times_purchased)
+  node.set_cost(Upgrades.cost(node.id, times_purchased))
   node.set_tooltip(upgrade.tooltip, times_purchased)
   upgrade_purchased.emit(node.id)
 
