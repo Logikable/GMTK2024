@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=3 uid="uid://cjxbp3q6w7n1k"]
 
 [ext_resource type="Theme" uid="uid://754m2gs5mwax" path="res://assets/default.tres" id="1_hcg5f"]
-[ext_resource type="Script" path="res://scripts/upgrade.gd" id="1_y7n3h"]
-[ext_resource type="Script" path="res://scripts/upgrade_button.gd" id="3_dmdtv"]
+[ext_resource type="Script" uid="uid://blt5420jovyhd" path="res://scripts/upgrade.gd" id="1_y7n3h"]
+[ext_resource type="Script" uid="uid://d1ghermvhb4tc" path="res://scripts/upgrade_button.gd" id="3_dmdtv"]
 [ext_resource type="Texture2D" uid="uid://ds3uv77f7v5bo" path="res://assets/5KPdnyj.png" id="5_m18e3"]
 
 [sub_resource type="SystemFont" id="SystemFont_yaejb"]

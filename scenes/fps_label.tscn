@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b4hbrx3a00yd5"]
 
-[ext_resource type="Script" path="res://scripts/fps_label.gd" id="1_kwm2l"]
+[ext_resource type="Script" uid="uid://rgf6br7nk8kk" path="res://scripts/fps_label.gd" id="1_kwm2l"]
 
 [node name="FPSLabel" type="Label"]
 offset_right = 40.0

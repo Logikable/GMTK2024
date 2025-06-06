@@ -15,7 +15,7 @@ func set_rarity(new_rarity: int) -> void:
   texture_rect.texture = load(Util.CUBIE_TEXTURE[new_rarity])
   name_label.set_text(Util.NAME[new_rarity])
   divider.get_theme_stylebox("panel").bg_color = Util.COLOURS[new_rarity]
-
+  name_label.set("theme_override_colors/font_color", Util.COLOURS[new_rarity])
 
 func _make_custom_tooltip(for_text: String) -> Node:
   var tooltip = Tooltip.instantiate()
